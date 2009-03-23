@@ -1,0 +1,55 @@
+CGI::Application::Plugin::Authentication
+
+adds the ability to authenticate users in your CGI::Application modules.
+
+
+INSTALLATION
+
+To install this module, run the following commands:
+
+    perl Build.PL
+    ./Build
+    ./Build test
+    ./Build install
+
+
+Alternatively, if you do not have Module::Build but you do have 'make',
+you can used the included Makefile.PL and run the following commands:
+
+    perl Makefile.PL
+    make
+    make test
+    make install
+
+
+DEPENDENCIES
+
+CGI::Application >= 4.0
+Scalar::Util
+Class::ISA
+Test::More
+Test::Exception
+Attribute::Handlers
+UNIVERSAL::require
+
+RECOMMENDED MODULES
+
+Some extra modules are required for some of the features of this plugin
+
+CGI::Application::Plugin::Authentication::Store::Session requires:
+    CGI::Application::Plugin::Session
+
+
+CGI::Application::Plugin::Authentication::Store::Cookie requires:
+    CGI::Cookie
+    MIME::Base64
+    Digest::SHA1
+
+
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2005, SiteSuite
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
