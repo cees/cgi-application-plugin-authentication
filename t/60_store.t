@@ -16,7 +16,6 @@ our %STORAGE;
     package TestAppStoreDummy;
 
     use base qw(TestAppStore);
-    use CGI::Application::Plugin::Session;
 
     __PACKAGE__->authen->config(
         DRIVER => [ 'Generic', { 'test' => '123' } ],
