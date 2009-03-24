@@ -6,6 +6,8 @@ use lib qw(t);
 use CGI::Util;
 
 use Test::More;
+eval "use CGI::Application::Plugin::Session";
+plan skip_all => "CGI::Application::Plugin::Session required for this test" if $@;
 plan tests => 14;
 
 {
@@ -13,7 +15,7 @@ plan tests => 14;
     package TestAppStoreSession;
 
     use base qw(TestAppStore);
-    use CGI::Application::Plugin::Session;
+    CGI::Application::Plugin::Session->import;  # was loaded conditionally above
 
     __PACKAGE__->authen->config(
         DRIVER => [ 'Generic', { 'test' => '123' } ],
