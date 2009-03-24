@@ -3,6 +3,11 @@ Revision history for Perl extension CGI::Application::Plugin::Authentication.
 ????
     - unit tests now skip tests where optional modules are not installed
       (gtermars@cpan.org)
+    - remove build dependency on Test::Exception, replacing it with hand-rolled
+      equivalent methods.  Newer Perls have been seen to fail our tests with
+      "Bizarre copy of HASH in sassign..." when using Test::Exception.  Cause
+      of the issue may be far lower/internal than Test::Exception, but
+      replacing these methods eliminates the issue for us.  (gtermars@cpan.org)
 
 0.12
 

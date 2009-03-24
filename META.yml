@@ -20,7 +20,6 @@ recommends:
   Color::Calc: 0.12
   Digest::MD5: 0
 build_requires:
-  Test::Exception: 0
   Test::More: 0
   Test::Warn: 0
 provides:
