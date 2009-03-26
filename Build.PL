@@ -24,6 +24,12 @@ Module::Build->new(
         'Test::More' => 0,
         'Test::Warn' => 0,
     },
+    meta_merge => {
+        resources=> {
+            repository => 'http://github.com/cees/cgi-application-plugin-authentication/tree',
+        },
+        keywords => ['cgiapp','Titanium','authentication'],
+    },
     create_makefile_pl => 'traditional',
     dist_author => 'Cees Hek <ceeshek@gmail.com>',
 )->create_build_script;
