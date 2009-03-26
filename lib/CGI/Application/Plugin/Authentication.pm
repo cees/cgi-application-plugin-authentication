@@ -1,8 +1,8 @@
 package CGI::Application::Plugin::Authentication;
 
+use 5.006;
 use strict;
-use vars qw($VERSION);
-$VERSION = '0.12';
+our $VERSION = '0.12';
 
 our %__CONFIG;
 
@@ -1739,7 +1739,7 @@ In a CGI::Application module:
   use CGI::Application::Plugin::AutoRunmode;
   use CGI::Application::Plugin::Session;
   use CGI::Application::Plugin::Authentication;
-  
+
   __PACKAGE__->authen->config(
         DRIVER         => [ 'Generic', { user1 => '123' } ],
         STORE          => 'Session',
@@ -1754,13 +1754,13 @@ In a CGI::Application module:
 
   sub one : RunMode {
     my $self = shift;
- 
+
     # The user will only get here if they are logged in
   }
 
   sub auth_two : RunMode {
     my $self = shift;
- 
+
     # This is also protected because of the
     # regexp call to protected_runmodes above
   }

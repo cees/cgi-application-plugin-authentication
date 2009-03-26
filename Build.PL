@@ -12,6 +12,7 @@ Module::Build->new(
         'CGI::Cookie' => 0,
         'MIME::Base64' => 0,
         'Digest::SHA1' => 0,
+        'perl' => 5.006,
     },
     recommends => {
         'Digest::MD5' => 0,
