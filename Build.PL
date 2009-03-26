@@ -23,6 +23,7 @@ Module::Build->new(
     build_requires => {
         'Test::More' => 0,
         'Test::Warn' => 0,
+        'Task::Weaken' => 0, # to be sure that Scalar::Util has weaken
     },
     meta_merge => {
         resources=> {
