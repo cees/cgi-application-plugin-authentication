@@ -1100,7 +1100,8 @@ sub store {
         my $config = $self->_config;
 
         # Fetch the configuration parameters for the store
-        my ($store_module, @store_config) = @{ $config->{STORE} } if $config->{STORE} && ref $config->{STORE} eq 'ARRAY';
+        my ($store_module, @store_config);
+        ($store_module, @store_config) = @{ $config->{STORE} } if $config->{STORE} && ref $config->{STORE} eq 'ARRAY';
         if (!$store_module) {
             # No STORE configuration was provided
             if ($self->_cgiapp->can('session') && UNIVERSAL::isa($self->_cgiapp->session, 'CGI::Session')) {
