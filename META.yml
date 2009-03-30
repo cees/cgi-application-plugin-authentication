@@ -1,10 +1,13 @@
 ---
 name: CGI-Application-Plugin-Authentication
-version: 0.12
+version: 0.13
 author:
   - 'Cees Hek <ceeshek@gmail.com>'
 abstract: Authentication framework for CGI::Application
 license: perl
+resources:
+  license: http://dev.perl.org/licenses/
+  repository: http://github.com/cees/cgi-application-plugin-authentication/tree
 requires:
   Attribute::Handlers: 0
   CGI::Application: 4
@@ -14,18 +17,20 @@ requires:
   MIME::Base64: 0
   Scalar::Util: 0
   UNIVERSAL::require: 0
+  perl: 5.006
+build_requires:
+  Task::Weaken: 0
+  Test::More: 0
+  Test::Warn: 0.11
 recommends:
   Apache::Htpasswd: 1.6.1
   CGI::Application::Plugin::Session: 0
   Color::Calc: 0.12
   Digest::MD5: 0
-build_requires:
-  Test::More: 0
-  Test::Warn: 0
 provides:
   CGI::Application::Plugin::Authentication:
     file: lib/CGI/Application/Plugin/Authentication.pm
-    version: 0.12
+    version: 0.13
   CGI::Application::Plugin::Authentication::Driver:
     file: lib/CGI/Application/Plugin/Authentication/Driver.pm
   CGI::Application::Plugin::Authentication::Driver::Authen::Simple:
@@ -56,4 +61,11 @@ provides:
     file: lib/CGI/Application/Plugin/Authentication/Store/Cookie.pm
   CGI::Application::Plugin::Authentication::Store::Session:
     file: lib/CGI/Application/Plugin/Authentication/Store/Session.pm
-generated_by: Module::Build version 0.2612
+generated_by: Module::Build version 0.280801
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2
+keywords:
+  - cgiapp
+  - Titanium
+  - authentication
