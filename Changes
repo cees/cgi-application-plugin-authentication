@@ -1,6 +1,9 @@
 Revision history for Perl extension CGI::Application::Plugin::Authentication.
 
-????
+0.13  Mon Mar 30 23:58:25 EST 2009
+    Build fixes
+    - There are no code changes to this release, just fixes in the build and
+      test systems to solve some outstanding test failures
     - unit tests now skip tests where optional modules are not installed
       (gtermars@cpan.org)
     - remove build dependency on Test::Exception, replacing it with hand-rolled
@@ -8,6 +11,7 @@ Revision history for Perl extension CGI::Application::Plugin::Authentication.
       "Bizarre copy of HASH in sassign..." when using Test::Exception.  Cause
       of the issue may be far lower/internal than Test::Exception, but
       replacing these methods eliminates the issue for us.  (gtermars@cpan.org)
+    - cleanup prerequisites and build files (Alexandr Ciornii)
 
 0.12
 
