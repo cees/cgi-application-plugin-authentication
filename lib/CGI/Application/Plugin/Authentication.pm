@@ -487,6 +487,10 @@ a message given when a login failed
 
 use this to disable the built in stylesheet for the login box so you can provide your own custom styles
 
+=item FORM_SUBMIT_METHOD (default: post)
+
+use this to get the form to submit using 'get' instead of 'post'
+
 =item FOCUS_FORM_ONLOAD (default: 1)
 
 use this to automatically focus the login form when the page loads so a user can start typing right away.
@@ -1255,6 +1259,7 @@ sub login_box {
         FORGOTPASSWORD_LABEL    => 'Forgot Password?',
         INVALIDPASSWORD_MESSAGE => 'Invalid username or password<br />(login attempt %d)',
         INCLUDE_STYLESHEET      => 1,
+        FORM_SUBMIT_METHOD      => 'post',
         %$login_form,
     );
 
@@ -1302,7 +1307,7 @@ EOS
 
     my $html .= <<END;
 $style
-<form name="loginform" method="post" action="${action}">
+<form name="loginform" method="$options{FORM_SUBMIT_METHOD}" action="${action}">
   <div class="login">
     <div class="login_header">
       $options{TITLE}
