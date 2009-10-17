@@ -1236,7 +1236,7 @@ sub login_box {
     my $credentials = $self->credentials;
     my $runmode     = $self->_cgiapp->get_current_runmode;
     my $destination = $query->param('destination') || $query->self_url;
-    my $action      = $query->url( -absolute => 1 );
+    my $action      = $query->url( -absolute => 1, -path_info => 1 );
     my $username    = $credentials->[0];
     my $password    = $credentials->[1];
     my $login_form  = $self->_config->{LOGIN_FORM} || {};
