@@ -1160,6 +1160,10 @@ sub initialize {
     # but that causes an infinite loop. 
     $self->{initialized} = 1;
 
+    if (UNIVERSAL::can($self->_cgiapp, 'devpopup')) {
+        $self->_cgiapp->add_callback( 'devpopup_report', \&_devpopup_report );
+    }
+
     my $config = $self->_config;
 
     # See if the user is trying to log in
@@ -1699,6 +1703,42 @@ sub _config {
         $config = $__CONFIG{$class};
     }
     return $config;
+}
+
+sub _devpopup_report {
+    my $cgiapp = shift;
+    my @list;
+    my $self=$cgiapp->authen;
+    if ($self->username) {
+        push @list,['username',$self->username];
+    }
+    my $config = $self->_config;
+    my $field_names = $config->{CREDENTIALS} || [qw(authen_username authen_password)];
+    my $query = $cgiapp->query;
+    foreach my $name (@$field_names) {
+        push @list, [ $name, $query->param($name) ];
+    }
+    my $r=0;
+    my $text = join $/, map {
+                    $r=1-$r;
+                    qq(<tr class="@{[$r?'odd':'even']}"><td valign="top">$_->[0]</td><td>$_->[1]</td></tr>)
+                    }
+                    @list;
+    $cgiapp->devpopup->add_report(
+        title   => 'Authentication',
+        summary => '',
+        report  => qq(
+            <style type="text/css">
+              tr.even{background-color:#eee}
+            </style>
+            <div style="font-size: 80%">
+              <table>
+                <thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+                <tbody>$text</tbody>
+              </table>
+            </div>
+        ),
+    );
 }
 
 ###
