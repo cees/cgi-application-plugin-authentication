@@ -1,5 +1,17 @@
 Revision history for Perl extension CGI::Application::Plugin::Authentication.
 
+0.14  Sun Oct 18 02:48:10 EST 2009
+    Bug Fixes
+    - Make sure the 'action' attribute of the login_box includes the
+      path_info in the URL (resolves RT:38049 patch by Alex Becker)
+    
+    New Features
+    - Add options for LIMIT and ORDER_BY to DBI driver (requested by tbone)
+    - Add FORM_SUBMIT_METHOD option to the login box which allows you to
+      change the form method to GET instead of the default POST.
+      (resolves RT:34198 requested by jaldhar)
+    - Add hooks for devpopup (resolves RT:35989 patch by Alexandr Ciornii)
+
 0.13  Mon Mar 30 23:58:25 EST 2009
     Build fixes
     - There are no code changes to this release, just fixes in the build and

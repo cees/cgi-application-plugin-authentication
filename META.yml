@@ -1,6 +1,6 @@
 ---
 name: CGI-Application-Plugin-Authentication
-version: 0.13
+version: 0.14
 author:
   - 'Cees Hek <ceeshek@gmail.com>'
 abstract: Authentication framework for CGI::Application
@@ -30,7 +30,7 @@ recommends:
 provides:
   CGI::Application::Plugin::Authentication:
     file: lib/CGI/Application/Plugin/Authentication.pm
-    version: 0.13
+    version: 0.14
   CGI::Application::Plugin::Authentication::Driver:
     file: lib/CGI/Application/Plugin/Authentication/Driver.pm
   CGI::Application::Plugin::Authentication::Driver::Authen::Simple:
