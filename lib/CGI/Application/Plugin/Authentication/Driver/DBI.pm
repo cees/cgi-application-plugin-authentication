@@ -34,7 +34,8 @@ any database for which there is a DBD module.  You can either provide an active
 database handle, or provide the parameters necesary to connect to the database.
 
 When describing the database structure, you need to specify some or all of the
-following parameters: TABLE(S), JOIN_ON, COLUMNS and CONSTRAINTS.
+following parameters: TABLE(S), JOIN_ON, COLUMNS, CONSTRAINTS, ORDER_BY and
+LIMIT.
 
 =head2 DBH
 
@@ -102,6 +103,27 @@ CREDENTIALS in L<CGI::Application::Plugin::Authentication>.
          'users.active'         => 1,
      }
 
+
+=head2 ORDER_BY  (optional)
+
+This option allows you to order the result set, in case the query returns
+multiple rows.
+
+     ORDER_BY => 'created DESC'
+
+Note: This option is only useful if you also specify the COLUMNS option.
+
+=head2 LIMIT  (optional)
+
+In some situations your query may return multiple rows when you only want it to
+return one.  For example if you insert and date a new row instead of updating
+the existing row when the details for an account change.  In this case you want
+the newest record from the result set, so it will be important to order the
+result set and limit it to return only one row.
+
+     LIMIT => 1
+
+Note: This option is only useful if you also specify the COLUMNS option.
 
 =head1 ENCODED PASSWORDS
 
@@ -267,6 +289,12 @@ sub verify_credentials {
     my $tables = $options{TABLES} || $options{TABLE};
     $tables = [$tables] unless ref $tables eq 'ARRAY';
 
+    # See if we need to order the result set
+    my $order_by = $options{ORDER_BY} ? ' ORDER BY '.$options{ORDER_BY} : '';
+
+    # See if we need to limit the result set
+    my $limit = $options{LIMIT} ? ' LIMIT '.$options{LIMIT} : '';
+
     # Grab all the columns that we need to pull out.  We also grab a list of
     # columns that are stripped of any encoding information.
     # If no columns are provided we just select count(*) for efficiency.
@@ -308,6 +336,8 @@ sub verify_credentials {
     push @where, map { $_ . ' = ?' } keys %constraints;
     $sql .= join( ' AND ', @where );
     my @params = values %constraints;
+    $sql .= $order_by;
+    $sql .= $limit;
 
     # prepare and execute the SQL
     my $sth = $dbh->prepare_cached($sql) || die "Failed to prepare SQL statement:  " . $dbh->errstr;

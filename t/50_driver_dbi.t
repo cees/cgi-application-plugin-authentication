@@ -4,7 +4,7 @@ use lib qw(t);
 eval "use DBD::SQLite";
 plan skip_all => "DBD::SQLite required for this test" if $@;
 
-plan tests => 74;
+plan tests => 90;
 
 use strict;
 use warnings;
@@ -258,6 +258,70 @@ $dbh->do(<<"");
 DROP TABLE user;
 
 
+#
+# ORDER BY
+#
+$dbh->do(<<"");
+CREATE TABLE user (
+    id INTEGER,
+    name VARCHAR(20),
+    password VARCHAR(50),
+    created TIMESTAMP
+)
+
+$dbh->do(<<"");
+INSERT INTO user VALUES (1, 'user1', '123', '2009-01-01');
+
+$dbh->do(<<"");
+INSERT INTO user VALUES (2, 'user2', '123', '2009-01-01');
+
+$dbh->do(<<"");
+INSERT INTO user VALUES (3, 'user1', '321', '2009-01-02');
+
+$dbh->do(<<"");
+INSERT INTO user VALUES (4, 'user2', '321', '2009-01-02');
+
+
+{
+
+    package TestAppDriverDBIEncode;
+
+    use base qw(TestAppDriver);
+
+    __PACKAGE__->authen->config(
+        DRIVER => [ 'DBI',
+            DBH         => $dbh,
+            TABLE       => 'user',
+            COLUMNS     => {
+                'user.password' => '__CREDENTIAL_2__'
+            },
+            CONSTRAINTS => {
+                'user.name'     => '__CREDENTIAL_1__',
+            },
+            ORDER_BY    => 'created DESC',
+            LIMIT       => 1,
+        ],
+        STORE       => 'Store::Dummy',
+        CREDENTIALS => [qw(username password)],
+    );
+
+}
+
+TestAppDriverDBIEncode->run_authen_tests(
+    [ 'username', 'password' ],
+    [ 'user1', '321' ],
+    [ 'user2', '321' ],
+);
+
+TestAppDriverDBIEncode->run_authen_failure_tests(
+    [ 'username', 'password' ],
+    [ 'user1', '123' ],
+    [ 'user2', '123' ],
+);
+
+
+$dbh->do(<<"");
+DROP TABLE user;
 
 
 
