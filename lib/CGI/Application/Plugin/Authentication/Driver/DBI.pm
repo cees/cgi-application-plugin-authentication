@@ -31,7 +31,7 @@ CGI::Application::Plugin::Authentication::Driver::DBI - DBI Authentication drive
 
 This Authentication driver uses the DBI module to allow you to authenticate against
 any database for which there is a DBD module.  You can either provide an active
-database handle, or provide the parameters necesary to connect to the database.
+database handle, or provide the parameters necessary to connect to the database.
 
 When describing the database structure, you need to specify some or all of the
 following parameters: TABLE(S), JOIN_ON, COLUMNS, CONSTRAINTS, ORDER_BY and
@@ -74,12 +74,12 @@ username = ?), but some parameters may need to be tested locally in perl, so the
 must be listed in the COLUMNS option.  One example of a value that needs to be tested
 in perl is a crypted password.  In order to test a crypted password, you need to
 take the entered password, and crypt it with the salt of the already crypted password.
-But until we actaully see the password that is in the database, we will not know the
+But until we actually see the password that is in the database, we will not know the
 value of the salt that was used to encrypt the password.  So we pull the value out
 using COLUMNS, and the test will be performed automatically in perl.
 
 Any value that matches __CREDENTIAL_n__ (where n is a number) will be replaced with
-the coresponding credential that was entered by the user.  For an explanation of
+the corresponding credential that was entered by the user.  For an explanation of
 what the credentials are and where they come from, see the section headed with
 CREDENTIALS in L<CGI::Application::Plugin::Authentication>.
 
@@ -93,7 +93,7 @@ will be added to the WHERE clause of the SQL query, and will ideally reduce
 the number of returned rows to one.  
 
 Any value that matches __CREDENTIAL_n__ (where n is a number) will be replaced with
-the coresponding credential that was entered by the user.  For an explanation of
+the corresponding credential that was entered by the user.  For an explanation of
 what the credentials are and where they come from, see the section headed with
 CREDENTIALS in L<CGI::Application::Plugin::Authentication>.
 
@@ -179,7 +179,7 @@ And here is what will happen behind the scenes:
 
 Again, this is all done automatically behind the scenes, but I've included it here to illustrate how
 the queries are performed, and how the comparisons are handled.  For more information
-see the section labeled ENCODED PASSWORDS in the L<CGI::Application::Plugin::Authentication::Driver>
+see the section labelled ENCODED PASSWORDS in the L<CGI::Application::Plugin::Authentication::Driver>
 docs.
 
 

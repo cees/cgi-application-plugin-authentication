@@ -75,9 +75,9 @@ CGI::Application module.  Through the authen method you can call all the methods
 the CGI::Application::Plugin::Authentication plugin.
 
 There are two main decisions that you need to make when using this module.  How will
-the usernames and password be verified (ie from a database, LDAP, etc...), and how
+the usernames and password be verified (i.e. from a database, LDAP, etc...), and how
 can we keep the knowledge that a user has already logged in persistent, so that they
-will not have to enter their credentials again on the next request (ie how do we 'Store'
+will not have to enter their credentials again on the next request (i.e. how do we 'Store'
 the authentication information across requests).
 
 =head2 Choosing a Driver
@@ -122,8 +122,8 @@ If you plan to create your own login page, I would recommend that you start with
 code for the default login page, so that your login page will contain the correct form
 fields and hidden fields.
 
-TODO:  The login page is designed using CSS stylesheets.  I plan to make this more flexible,
-so that you can easily create your own stylesheets to make this login form more re-usable.
+TODO:  The login page is designed using CSS style-sheets.  I plan to make this more flexible,
+so that you can easily create your own style-sheets to make this login form more re-usable.
 Also, the default CSS has only really been tested on Mozilla based browser, so if there
 are any CSS gurus out there, I would appreciate some help in getting the default login
 page to work nicely in most browsers.  Currently it should degrade gracefully, but it
@@ -138,7 +138,7 @@ The Authentication plugin will require at least the 'username' to be retrieved f
 ticket.  A Ticket based authentication scheme will not need a Driver module at all, since the
 actual verification of credentials is done by an external authentication system, possibly
 even on a different host.  You will need to specify the location of the login page using
-the LOGIN_URL configuration variable, and un-authenticated users will automatically
+the LOGIN_URL configuration variable, and unauthenticated users will automatically
 be redirected to your ticket authentication login page.
 
 
@@ -255,7 +255,7 @@ module, or fall back on the Cookie module.  If the module requires extra paramet
 can pass an array reference that contains as the first parameter the name of the module,
 and the rest of the array should contain key value pairs of options for this module.
 These storage modules generally live under the CGI::Application::Plugin::Authentication::Store::
-namespace, and this part of the package name can be left off when specifying the STORE
+name-space, and this part of the package name can be left off when specifying the STORE
 parameter.
 
     STORE => 'Session'
@@ -286,7 +286,7 @@ will take precedence.
 =item POST_LOGIN_CALLBACK
 
 A code reference that is executed after login processing but before POST_LOGIN_RUNMODE or
-redirecting to POST_LOGIN_URL. This is normally a method in your CGI::Application app
+redirecting to POST_LOGIN_URL. This is normally a method in your CGI::Application application
 and as such the CGI::Application object is passed as a parameter. 
 
   POST_LOGIN_CALLBACK => \&update_login_date
@@ -338,7 +338,7 @@ By default this is set to ['authen_username', 'authen_password'].  The form fiel
 be set to a value that you are not likely to use in any other forms.  This is important
 because this plugin will automatically look for query parameters that match these values on
 every request to see if a user is trying to log in.  So if you use the same parameter names
-on a user management page, you may inadvertantly perform a login when that was not intended.
+on a user management page, you may inadvertently perform a login when that was not intended.
 Most of the Driver modules will return the first CREDENTIAL as the username, so make sure
 that you list the username field first.  This option can be ignored if you use the built in
 login box
@@ -360,11 +360,11 @@ a few different possibilities that can all be used concurrently:
 
 =item IDLE_FOR
 
-If this value is set, a re-auth will be forced if the user was idle for more then x amount of time.
+If this value is set, a re-authentication will be forced if the user was idle for more then x amount of time.
 
 =item EVERY
 
-If this value is set, a re-auth will be forced every x amount of time.
+If this value is set, a re-authentication will be forced every x amount of time.
 
 =item CUSTOM
 
@@ -385,12 +385,12 @@ store.
 For backwards compatibility, if you set LOGIN_SESSION_TIMEOUT to a time value instead of a hashref,
 it will be treated as an IDLE_FOR time out.
 
-  # force re-auth if idle for more than 15 minutes
+  # force re-authentication if idle for more than 15 minutes
   LOGIN_SESSION_TIMEOUT => '15m'
 
-  # Everyone must re-auth if idle for more than 30 minutes
-  # also, everyone must re-auth at least once a day
-  # and root must re-auth if idle for more than 5 minutes
+  # Everyone must re-authentication if idle for more than 30 minutes
+  # also, everyone must re-authentication at least once a day
+  # and root must re-authentication if idle for more than 5 minutes
   LOGIN_SESSION_TIMEOUT => {
         IDLE_FOR => '30m',
         EVERY    => '1d',
@@ -404,7 +404,7 @@ it will be treated as an IDLE_FOR time out.
 
 This value can be set to a subroutine reference that returns the HTML of a login
 form. The subroutine reference overrides the default call to login_box.
-The subroutine is normally a method in your CGI::Application app and as such the 
+The subroutine is normally a method in your CGI::Application application and as such the 
 CGI::Application object is passed as the first parameter. 
 
   RENDER_LOGIN => \&login_form
@@ -465,7 +465,7 @@ the name of the cookie where the user name will be saved
 
 =item REGISTER_URL (default: <none>)
 
-the url for the register new account link
+the URL for the register new account link
 
 =item REGISTER_LABEL (default: Register Now!)
 
@@ -473,7 +473,7 @@ the label for the register new account link
 
 =item FORGOTPASSWORD_URL (default: <none>)
 
-the url for the forgot password link
+the URL for the forgot password link
 
 =item FORGOTPASSWORD_LABEL (default: Forgot Password?)
 
@@ -485,7 +485,7 @@ a message given when a login failed
 
 =item INCLUDE_STYLESHEET (default: 1)
 
-use this to disable the built in stylesheet for the login box so you can provide your own custom styles
+use this to disable the built in style-sheet for the login box so you can provide your own custom styles
 
 =item FORM_SUBMIT_METHOD (default: post)
 
@@ -758,7 +758,7 @@ sub protected_runmodes {
 =head2 is_protected_runmode
 
 This method accepts the name of a runmode, and will tell you if that runmode is
-a protected runmode (ie does a user need to be authenticated to access this runmode).
+a protected runmode (i.e. does a user need to be authenticated to access this runmode).
 
 =cut
 
@@ -795,7 +795,7 @@ This method is be called during the prerun stage to
 redirect the user to the page that has been configured
 as the destination after a successful login.  The location
 is based on the values of the POST_LOGIN_RUNMODE or 
-POST_LOGIN_URL config parameter, or in their absense,
+POST_LOGIN_URL config parameter, or in their absence,
 the page will be redirected to the page that was originally
 requested when the login page was triggered.
 
@@ -970,7 +970,7 @@ sub is_authenticated {
 =head2 login_attempts
 
 This method will return the number of failed login attempts have been made by this
-user since the last successfull login.  This is not a number that can be trusted,
+user since the last successful login.  This is not a number that can be trusted,
 as it is dependant on the underlying store to be able to return the correct value for
 this user.  For example, if the store uses a cookie based session, the user trying
 to login could delete their cookies, and hence get a new session which will not have
@@ -1139,7 +1139,7 @@ credential form fields in the query object.  It will load the required driver
 objects and authenticate the user.  It is OK to call this method multiple times
 as it checks to see if it has already been executed and will just return
 without doing anything if called multiple times.  This allows us to call
-initialize as late as possible in the request so that no unnecesary work is
+initialize as late as possible in the request so that no unnecessary work is
 done.
 
 The user will be logged out by calling the C<logout()> method if the login
@@ -1347,7 +1347,7 @@ END
 
 =head2 login_styles
 
-This method returns a stylesheet that can be used for the login box that the
+This method returns a style-sheet that can be used for the login box that the
 plugin provides.  The login box automatically includes these default styles in
 the page unless you set the LOGIN_FORM => INCLUDE_STYLESHEET option to 0.  The
 colours used in the returned styles can be customized by providing colour
@@ -1832,7 +1832,7 @@ to avoid duplicated efforts, send me a note, and I'll let you know of anyone els
 
 =item clean up the documentation
 
-=item build a DB driver that builds it's own table structure.  This can be used by people that don't have their oen user database to work with, and could include a simple user management application.
+=item build a DB driver that builds it's own table structure.  This can be used by people that don't have their own user database to work with, and could include a simple user management application.
 
 
 =back

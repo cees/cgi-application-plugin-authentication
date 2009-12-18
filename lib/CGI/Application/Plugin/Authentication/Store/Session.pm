@@ -49,7 +49,7 @@ sub fetch {
 
 =head2 save
 
-This method accpets a hash of parameters and values and saves them into the session.
+This method accepts a hash of parameters and values and saves them into the session.
 
 =cut
 

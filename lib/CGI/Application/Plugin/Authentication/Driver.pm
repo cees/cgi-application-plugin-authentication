@@ -7,7 +7,7 @@ use UNIVERSAL::require;
 
 =head1 NAME
 
-CGI::Application::Plugin::Authentication::Driver - Base module for building driver clasees
+CGI::Application::Plugin::Authentication::Driver - Base module for building driver classes
 for CGI::Application::Plugin::Authentication
 
 
@@ -169,7 +169,7 @@ sub options { return (@{$_[0]->{options}}) }
 =head2 authen
 
 This will return the underlying L<CGI::Application::Plugin::Authentication> object.  In most cases it will
-not be necesary to access this.
+not be necessary to access this.
 
 =cut
 

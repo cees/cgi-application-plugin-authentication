@@ -1,7 +1,7 @@
 # This Makefile is for the CGI::Application::Plugin::Authentication extension to perl.
 #
 # It was generated automatically by MakeMaker version
-# 6.48 (Revision: 64800) from the contents of
+# 6.54 (Revision: 65400) from the contents of
 # Makefile.PL. Don't edit this file, edit Makefile.PL instead.
 #
 #       ANY CHANGES MADE HERE WILL BE LOST!
@@ -10,10 +10,11 @@
 #
 #   MakeMaker Parameters:
 
+#     EXE_FILES => []
 #     INSTALLDIRS => q[site]
 #     NAME => q[CGI::Application::Plugin::Authentication]
 #     PL_FILES => {  }
-#     PREREQ_PM => { Scalar::Util=>q[0], CGI::Cookie=>q[0], Attribute::Handlers=>q[0], Digest::SHA1=>q[0], CGI::Application=>q[4], Test::More=>q[0], Test::Warn=>q[0], MIME::Base64=>q[0], Class::ISA=>q[0], UNIVERSAL::require=>q[0] }
+#     PREREQ_PM => { Scalar::Util=>q[0], CGI::Cookie=>q[0], Attribute::Handlers=>q[0], Digest::SHA1=>q[0], CGI::Application=>q[4], Test::More=>q[0], Test::Warn=>q[0.11], MIME::Base64=>q[0], Class::ISA=>q[0], UNIVERSAL::require=>q[0], Task::Weaken=>q[0] }
 #     VERSION_FROM => q[lib/CGI/Application/Plugin/Authentication.pm]
 
 # --- MakeMaker post_initialize section:
@@ -21,105 +22,105 @@
 
 # --- MakeMaker const_config section:
 
-# These definitions are from config.sh (via C:/strawberry/perl/lib/Config.pm).
+# These definitions are from config.sh (via /usr/lib/perl/5.10/Config.pm).
 # They may have been overridden via Makefile.PL or on the command line.
 AR = ar
-CC = gcc
-CCCDLFLAGS =  
-CCDLFLAGS =  
-DLEXT = dll
-DLSRC = dl_win32.xs
-EXE_EXT = .exe
-FULL_AR = 
-LD = g++
-LDDLFLAGS = -mdll -s -L"C:\strawberry\perl\lib\CORE" -L"C:\strawberry\c\lib"
-LDFLAGS = -s -L"C:\strawberry\perl\lib\CORE" -L"C:\strawberry\c\lib"
-LIBC = -lmsvcrt
+CC = cc
+CCCDLFLAGS = -fPIC
+CCDLFLAGS = -Wl,-E
+DLEXT = so
+DLSRC = dl_dlopen.xs
+EXE_EXT = 
+FULL_AR = /usr/bin/ar
+LD = cc
+LDDLFLAGS = -shared -O2 -g -L/usr/local/lib
+LDFLAGS =  -L/usr/local/lib
+LIBC = /lib/libc-2.7.so
 LIB_EXT = .a
 OBJ_EXT = .o
-OSNAME = MSWin32
-OSVERS = 5.1
-RANLIB = rem
-SITELIBEXP = C:\strawberry\perl\site\lib
-SITEARCHEXP = C:\strawberry\perl\site\lib
-SO = dll
-VENDORARCHEXP = 
-VENDORLIBEXP = 
+OSNAME = linux
+OSVERS = 2.6.26-2-amd64
+RANLIB = :
+SITELIBEXP = /usr/local/share/perl/5.10.0
+SITEARCHEXP = /usr/local/lib/perl/5.10.0
+SO = so
+VENDORARCHEXP = /usr/lib/perl5
+VENDORLIBEXP = /usr/share/perl5
 
 
 # --- MakeMaker constants section:
 AR_STATIC_ARGS = cr
-DIRFILESEP = \\
+DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = CGI::Application::Plugin::Authentication
 NAME_SYM = CGI_Application_Plugin_Authentication
-VERSION = 0.12
+VERSION = 0.14
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_12
+VERSION_SYM = 0_14
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.12
+XS_VERSION = 0.14
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
-INST_ARCHLIB = blib\arch
-INST_SCRIPT = blib\script
-INST_BIN = blib\bin
-INST_LIB = blib\lib
-INST_MAN1DIR = blib\man1
-INST_MAN3DIR = blib\man3
-MAN1EXT = 1
-MAN3EXT = 3
+INST_ARCHLIB = blib/arch
+INST_SCRIPT = blib/script
+INST_BIN = blib/bin
+INST_LIB = blib/lib
+INST_MAN1DIR = blib/man1
+INST_MAN3DIR = blib/man3
+MAN1EXT = 1p
+MAN3EXT = 3pm
 INSTALLDIRS = site
 DESTDIR = 
 PREFIX = $(SITEPREFIX)
-PERLPREFIX = C:\strawberry\perl
-SITEPREFIX = C:\strawberry\perl\site
-VENDORPREFIX = 
-INSTALLPRIVLIB = C:\strawberry\perl\lib
+PERLPREFIX = /usr
+SITEPREFIX = /usr/local
+VENDORPREFIX = /usr
+INSTALLPRIVLIB = /usr/share/perl/5.10
 DESTINSTALLPRIVLIB = $(DESTDIR)$(INSTALLPRIVLIB)
-INSTALLSITELIB = C:\strawberry\perl\site\lib
+INSTALLSITELIB = /usr/local/share/perl/5.10.0
 DESTINSTALLSITELIB = $(DESTDIR)$(INSTALLSITELIB)
-INSTALLVENDORLIB = 
+INSTALLVENDORLIB = /usr/share/perl5
 DESTINSTALLVENDORLIB = $(DESTDIR)$(INSTALLVENDORLIB)
-INSTALLARCHLIB = C:\strawberry\perl\lib
+INSTALLARCHLIB = /usr/lib/perl/5.10
 DESTINSTALLARCHLIB = $(DESTDIR)$(INSTALLARCHLIB)
-INSTALLSITEARCH = C:\strawberry\perl\site\lib
+INSTALLSITEARCH = /usr/local/lib/perl/5.10.0
 DESTINSTALLSITEARCH = $(DESTDIR)$(INSTALLSITEARCH)
-INSTALLVENDORARCH = 
+INSTALLVENDORARCH = /usr/lib/perl5
 DESTINSTALLVENDORARCH = $(DESTDIR)$(INSTALLVENDORARCH)
-INSTALLBIN = C:\strawberry\perl\bin
+INSTALLBIN = /usr/bin
 DESTINSTALLBIN = $(DESTDIR)$(INSTALLBIN)
-INSTALLSITEBIN = C:\strawberry\perl\bin
+INSTALLSITEBIN = /usr/local/bin
 DESTINSTALLSITEBIN = $(DESTDIR)$(INSTALLSITEBIN)
-INSTALLVENDORBIN = 
+INSTALLVENDORBIN = /usr/bin
 DESTINSTALLVENDORBIN = $(DESTDIR)$(INSTALLVENDORBIN)
-INSTALLSCRIPT = C:\strawberry\perl\bin
+INSTALLSCRIPT = /usr/bin
 DESTINSTALLSCRIPT = $(DESTDIR)$(INSTALLSCRIPT)
-INSTALLSITESCRIPT = $(INSTALLSCRIPT)
+INSTALLSITESCRIPT = /usr/local/bin
 DESTINSTALLSITESCRIPT = $(DESTDIR)$(INSTALLSITESCRIPT)
-INSTALLVENDORSCRIPT = 
+INSTALLVENDORSCRIPT = /usr/bin
 DESTINSTALLVENDORSCRIPT = $(DESTDIR)$(INSTALLVENDORSCRIPT)
-INSTALLMAN1DIR = none
+INSTALLMAN1DIR = /usr/share/man/man1
 DESTINSTALLMAN1DIR = $(DESTDIR)$(INSTALLMAN1DIR)
-INSTALLSITEMAN1DIR = $(INSTALLMAN1DIR)
+INSTALLSITEMAN1DIR = /usr/local/man/man1
 DESTINSTALLSITEMAN1DIR = $(DESTDIR)$(INSTALLSITEMAN1DIR)
-INSTALLVENDORMAN1DIR = 
+INSTALLVENDORMAN1DIR = /usr/share/man/man1
 DESTINSTALLVENDORMAN1DIR = $(DESTDIR)$(INSTALLVENDORMAN1DIR)
-INSTALLMAN3DIR = none
+INSTALLMAN3DIR = /usr/share/man/man3
 DESTINSTALLMAN3DIR = $(DESTDIR)$(INSTALLMAN3DIR)
-INSTALLSITEMAN3DIR = $(INSTALLMAN3DIR)
+INSTALLSITEMAN3DIR = /usr/local/man/man3
 DESTINSTALLSITEMAN3DIR = $(DESTDIR)$(INSTALLSITEMAN3DIR)
-INSTALLVENDORMAN3DIR = 
+INSTALLVENDORMAN3DIR = /usr/share/man/man3
 DESTINSTALLVENDORMAN3DIR = $(DESTDIR)$(INSTALLVENDORMAN3DIR)
-PERL_LIB = C:\strawberry\perl\lib
-PERL_ARCHLIB = C:\strawberry\perl\lib
+PERL_LIB = /usr/share/perl/5.10
+PERL_ARCHLIB = /usr/lib/perl/5.10
 LIBPERL_A = libperl.a
 FIRST_MAKEFILE = Makefile
 MAKEFILE_OLD = Makefile.old
 MAKE_APERL_FILE = Makefile.aperl
 PERLMAINCC = $(CC)
-PERL_INC = C:\strawberry\perl\lib\CORE
-PERL = C:\strawberry\perl\bin\sperl.exe
-FULLPERL = C:\strawberry\perl\bin\sperl.exe
+PERL_INC = /usr/lib/perl/5.10/CORE
+PERL = /usr/bin/perl
+FULLPERL = /usr/bin/perl
 ABSPERL = $(PERL)
 PERLRUN = $(PERL)
 FULLPERLRUN = $(FULLPERL)
@@ -128,19 +129,20 @@ PERLRUNINST = $(PERLRUN) "-I$(INST_ARCHLIB)" "-I$(INST_LIB)"
 FULLPERLRUNINST = $(FULLPERLRUN) "-I$(INST_ARCHLIB)" "-I$(INST_LIB)"
 ABSPERLRUNINST = $(ABSPERLRUN) "-I$(INST_ARCHLIB)" "-I$(INST_LIB)"
 PERL_CORE = 0
+PERM_DIR = 755
 PERM_RW = 644
 PERM_RWX = 755
 
-MAKEMAKER   = C:/strawberry/perl/lib/ExtUtils/MakeMaker.pm
-MM_VERSION  = 6.48
-MM_REVISION = 64800
+MAKEMAKER   = /usr/local/share/perl/5.10.0/ExtUtils/MakeMaker.pm
+MM_VERSION  = 6.54
+MM_REVISION = 65400
 
 # FULLEXT = Pathname for extension directory (eg Foo/Bar/Oracle).
 # BASEEXT = Basename part of FULLEXT. May be just equal FULLEXT. (eg Oracle)
 # PARENT_NAME = NAME without BASEEXT and no trailing :: (eg Foo::Bar)
 # DLBASE  = Basename part of dynamic library. May be just equal BASEEXT.
-MAKE = dmake
-FULLEXT = CGI\Application\Plugin\Authentication
+MAKE = make
+FULLEXT = CGI/Application/Plugin/Authentication
 BASEEXT = Authentication
 PARENT_NAME = CGI::Application::Plugin
 DLBASE = $(BASEEXT)
@@ -156,25 +158,40 @@ C_FILES  =
 O_FILES  = 
 H_FILES  = 
 MAN1PODS = 
-MAN3PODS = 
+MAN3PODS = lib/CGI/Application/Plugin/Authentication.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Authen/Simple.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/DBI.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Dummy.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/crypt.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/lc.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/md5.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/sha1.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/strip.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/uc.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Generic.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/HTPasswd.pm \
+	lib/CGI/Application/Plugin/Authentication/Store.pm \
+	lib/CGI/Application/Plugin/Authentication/Store/Cookie.pm \
+	lib/CGI/Application/Plugin/Authentication/Store/Session.pm
 
 # Where is the Config information that we are using/depend on
 CONFIGDEP = $(PERL_ARCHLIB)$(DFSEP)Config.pm $(PERL_INC)$(DFSEP)config.h
 
 # Where to build things
-INST_LIBDIR      = $(INST_LIB)\CGI\Application\Plugin
-INST_ARCHLIBDIR  = $(INST_ARCHLIB)\CGI\Application\Plugin
+INST_LIBDIR      = $(INST_LIB)/CGI/Application/Plugin
+INST_ARCHLIBDIR  = $(INST_ARCHLIB)/CGI/Application/Plugin
 
-INST_AUTODIR     = $(INST_LIB)\auto\$(FULLEXT)
-INST_ARCHAUTODIR = $(INST_ARCHLIB)\auto\$(FULLEXT)
+INST_AUTODIR     = $(INST_LIB)/auto/$(FULLEXT)
+INST_ARCHAUTODIR = $(INST_ARCHLIB)/auto/$(FULLEXT)
 
 INST_STATIC      = 
 INST_DYNAMIC     = 
 INST_BOOT        = 
 
 # Extra linker info
-EXPORT_LIST        = $(BASEEXT).def
-PERL_ARCHIVE       = $(PERL_INC)\libperl510.a
+EXPORT_LIST        = 
+PERL_ARCHIVE       = 
 PERL_ARCHIVE_AFTER = 
 
 
@@ -195,47 +212,48 @@ TO_INST_PM = lib/CGI/Application/Plugin/Authentication.pm \
 	lib/CGI/Application/Plugin/Authentication/Store/Cookie.pm \
 	lib/CGI/Application/Plugin/Authentication/Store/Session.pm
 
-PM_TO_BLIB = lib/CGI/Application/Plugin/Authentication/Driver/Filter/md5.pm \
-	blib\lib\CGI\Application\Plugin\Authentication\Driver\Filter\md5.pm \
-	lib/CGI/Application/Plugin/Authentication/Driver/Dummy.pm \
-	blib\lib\CGI\Application\Plugin\Authentication\Driver\Dummy.pm \
-	lib/CGI/Application/Plugin/Authentication/Store/Session.pm \
-	blib\lib\CGI\Application\Plugin\Authentication\Store\Session.pm \
-	lib/CGI/Application/Plugin/Authentication/Driver/Filter/lc.pm \
-	blib\lib\CGI\Application\Plugin\Authentication\Driver\Filter\lc.pm \
+PM_TO_BLIB = lib/CGI/Application/Plugin/Authentication/Driver/Dummy.pm \
+	blib/lib/CGI/Application/Plugin/Authentication/Driver/Dummy.pm \
 	lib/CGI/Application/Plugin/Authentication/Driver/Authen/Simple.pm \
-	blib\lib\CGI\Application\Plugin\Authentication\Driver\Authen\Simple.pm \
+	blib/lib/CGI/Application/Plugin/Authentication/Driver/Authen/Simple.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/lc.pm \
+	blib/lib/CGI/Application/Plugin/Authentication/Driver/Filter/lc.pm \
 	lib/CGI/Application/Plugin/Authentication/Driver/Filter/sha1.pm \
-	blib\lib\CGI\Application\Plugin\Authentication\Driver\Filter\sha1.pm \
+	blib/lib/CGI/Application/Plugin/Authentication/Driver/Filter/sha1.pm \
 	lib/CGI/Application/Plugin/Authentication/Driver/DBI.pm \
-	blib\lib\CGI\Application\Plugin\Authentication\Driver\DBI.pm \
-	lib/CGI/Application/Plugin/Authentication.pm \
-	blib\lib\CGI\Application\Plugin\Authentication.pm \
+	blib/lib/CGI/Application/Plugin/Authentication/Driver/DBI.pm \
 	lib/CGI/Application/Plugin/Authentication/Store/Cookie.pm \
-	blib\lib\CGI\Application\Plugin\Authentication\Store\Cookie.pm \
-	lib/CGI/Application/Plugin/Authentication/Driver/Filter/crypt.pm \
-	blib\lib\CGI\Application\Plugin\Authentication\Driver\Filter\crypt.pm \
-	lib/CGI/Application/Plugin/Authentication/Driver/Filter/strip.pm \
-	blib\lib\CGI\Application\Plugin\Authentication\Driver\Filter\strip.pm \
+	blib/lib/CGI/Application/Plugin/Authentication/Store/Cookie.pm \
 	lib/CGI/Application/Plugin/Authentication/Driver.pm \
-	blib\lib\CGI\Application\Plugin\Authentication\Driver.pm \
-	lib/CGI/Application/Plugin/Authentication/Store.pm \
-	blib\lib\CGI\Application\Plugin\Authentication\Store.pm \
-	lib/CGI/Application/Plugin/Authentication/Driver/Generic.pm \
-	blib\lib\CGI\Application\Plugin\Authentication\Driver\Generic.pm \
+	blib/lib/CGI/Application/Plugin/Authentication/Driver.pm \
 	lib/CGI/Application/Plugin/Authentication/Driver/HTPasswd.pm \
-	blib\lib\CGI\Application\Plugin\Authentication\Driver\HTPasswd.pm \
+	blib/lib/CGI/Application/Plugin/Authentication/Driver/HTPasswd.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Generic.pm \
+	blib/lib/CGI/Application/Plugin/Authentication/Driver/Generic.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/md5.pm \
+	blib/lib/CGI/Application/Plugin/Authentication/Driver/Filter/md5.pm \
+	lib/CGI/Application/Plugin/Authentication/Store/Session.pm \
+	blib/lib/CGI/Application/Plugin/Authentication/Store/Session.pm \
+	lib/CGI/Application/Plugin/Authentication.pm \
+	blib/lib/CGI/Application/Plugin/Authentication.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/crypt.pm \
+	blib/lib/CGI/Application/Plugin/Authentication/Driver/Filter/crypt.pm \
+	lib/CGI/Application/Plugin/Authentication/Store.pm \
+	blib/lib/CGI/Application/Plugin/Authentication/Store.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/strip.pm \
+	blib/lib/CGI/Application/Plugin/Authentication/Driver/Filter/strip.pm \
 	lib/CGI/Application/Plugin/Authentication/Driver/Filter/uc.pm \
-	blib\lib\CGI\Application\Plugin\Authentication\Driver\Filter\uc.pm
+	blib/lib/CGI/Application/Plugin/Authentication/Driver/Filter/uc.pm
 
 
 # --- MakeMaker platform_constants section:
-MM_Win32_VERSION = 6.48
+MM_Unix_VERSION = 6.54
+PERL_MALLOC_DEF = -DPERL_EXTMALLOC_DEF -Dmalloc=Perl_malloc -Dfree=Perl_mfree -Drealloc=Perl_realloc -Dcalloc=Perl_calloc
 
 
 # --- MakeMaker tool_autosplit section:
 # Usage: $(AUTOSPLITFILE) FileToSplit AutoDirToSplitInto
-AUTOSPLITFILE = $(ABSPERLRUN)  -e "use AutoSplit;  autosplit($$ARGV[0], $$ARGV[1], 0, 1, 1)" --
+AUTOSPLITFILE = $(ABSPERLRUN)  -e 'use AutoSplit;  autosplit($$ARGV[0], $$ARGV[1], 0, 1, 1)' --
 
 
 
@@ -243,31 +261,34 @@ AUTOSPLITFILE = $(ABSPERLRUN)  -e "use AutoSplit;  autosplit($$ARGV[0], $$ARGV[1
 
 
 # --- MakeMaker tools_other section:
-CHMOD = $(ABSPERLRUN) -MExtUtils::Command -e chmod
-CP = $(ABSPERLRUN) -MExtUtils::Command -e cp
-MV = $(ABSPERLRUN) -MExtUtils::Command -e mv
-NOOP = rem
+SHELL = /bin/sh
+CHMOD = chmod
+CP = cp
+MV = mv
+NOOP = $(TRUE)
 NOECHO = @
-RM_F = $(ABSPERLRUN) -MExtUtils::Command -e rm_f
-RM_RF = $(ABSPERLRUN) -MExtUtils::Command -e rm_rf
-TEST_F = $(ABSPERLRUN) -MExtUtils::Command -e test_f
-TOUCH = $(ABSPERLRUN) -MExtUtils::Command -e touch
+RM_F = rm -f
+RM_RF = rm -rf
+TEST_F = test -f
+TOUCH = touch
 UMASK_NULL = umask 0
-DEV_NULL = > NUL
-MKPATH = $(ABSPERLRUN) "-MExtUtils::Command" -e mkpath
-EQUALIZE_TIMESTAMP = $(ABSPERLRUN) "-MExtUtils::Command" -e eqtime
-ECHO = $(ABSPERLRUN) -l -e "print qq{{@ARGV}" --
-ECHO_N = $(ABSPERLRUN)  -e "print qq{{@ARGV}" --
+DEV_NULL = > /dev/null 2>&1
+MKPATH = $(ABSPERLRUN) -MExtUtils::Command -e 'mkpath' --
+EQUALIZE_TIMESTAMP = $(ABSPERLRUN) -MExtUtils::Command -e 'eqtime' --
+FALSE = false
+TRUE = true
+ECHO = echo
+ECHO_N = echo -n
 UNINST = 0
 VERBINST = 0
-MOD_INSTALL = $(ABSPERLRUN) -MExtUtils::Install -e "install({{@ARGV}, '$(VERBINST)', 0, '$(UNINST)');" --
-DOC_INSTALL = $(ABSPERLRUN) "-MExtUtils::Command::MM" -e perllocal_install
-UNINSTALL = $(ABSPERLRUN) "-MExtUtils::Command::MM" -e uninstall
-WARN_IF_OLD_PACKLIST = $(ABSPERLRUN) "-MExtUtils::Command::MM" -e warn_if_old_packlist
+MOD_INSTALL = $(ABSPERLRUN) -MExtUtils::Install -e 'install([ from_to => {@ARGV}, verbose => '\''$(VERBINST)'\'', uninstall_shadows => '\''$(UNINST)'\'', dir_mode => '\''$(PERM_DIR)'\'' ]);' --
+DOC_INSTALL = $(ABSPERLRUN) -MExtUtils::Command::MM -e 'perllocal_install' --
+UNINSTALL = $(ABSPERLRUN) -MExtUtils::Command::MM -e 'uninstall' --
+WARN_IF_OLD_PACKLIST = $(ABSPERLRUN) -MExtUtils::Command::MM -e 'warn_if_old_packlist' --
 MACROSTART = 
 MACROEND = 
 USEMAKEFILE = -f
-FIXIN = pl2bat.bat
+FIXIN = $(ABSPERLRUN) -MExtUtils::MY -e 'MY->fixin(shift)' --
 
 
 # --- MakeMaker makemakerdflt section:
@@ -291,7 +312,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = CGI-Application-Plugin-Authentication
-DISTVNAME = CGI-Application-Plugin-Authentication-0.12
+DISTVNAME = CGI-Application-Plugin-Authentication-0.14
 
 
 # --- MakeMaker macro section:
@@ -313,14 +334,17 @@ DISTVNAME = CGI-Application-Plugin-Authentication-0.12
 
 
 # --- MakeMaker pasthru section:
-PASTHRU = 
+
+PASTHRU = LIBPERL_A="$(LIBPERL_A)"\
+	LINKTYPE="$(LINKTYPE)"\
+	PREFIX="$(PREFIX)"
+
 
 # --- MakeMaker special_targets section:
 .SUFFIXES : .xs .c .C .cpp .i .s .cxx .cc $(OBJ_EXT)
 
 .PHONY: all config static dynamic test linkext manifest blibdirs clean realclean disttest distdir
 
-.USESHELL :
 
 
 # --- MakeMaker c_o section:
@@ -333,7 +357,7 @@ PASTHRU =
 
 
 # --- MakeMaker top_targets section:
-all :: pure_all
+all :: pure_all manifypods
 	$(NOECHO) $(NOOP)
 
 
@@ -360,42 +384,42 @@ blibdirs.ts : blibdirs
 
 $(INST_LIBDIR)$(DFSEP).exists :: Makefile.PL
 	$(NOECHO) $(MKPATH) $(INST_LIBDIR)
-	$(NOECHO) $(CHMOD) 755 $(INST_LIBDIR)
+	$(NOECHO) $(CHMOD) $(PERM_DIR) $(INST_LIBDIR)
 	$(NOECHO) $(TOUCH) $(INST_LIBDIR)$(DFSEP).exists
 
 $(INST_ARCHLIB)$(DFSEP).exists :: Makefile.PL
 	$(NOECHO) $(MKPATH) $(INST_ARCHLIB)
-	$(NOECHO) $(CHMOD) 755 $(INST_ARCHLIB)
+	$(NOECHO) $(CHMOD) $(PERM_DIR) $(INST_ARCHLIB)
 	$(NOECHO) $(TOUCH) $(INST_ARCHLIB)$(DFSEP).exists
 
 $(INST_AUTODIR)$(DFSEP).exists :: Makefile.PL
 	$(NOECHO) $(MKPATH) $(INST_AUTODIR)
-	$(NOECHO) $(CHMOD) 755 $(INST_AUTODIR)
+	$(NOECHO) $(CHMOD) $(PERM_DIR) $(INST_AUTODIR)
 	$(NOECHO) $(TOUCH) $(INST_AUTODIR)$(DFSEP).exists
 
 $(INST_ARCHAUTODIR)$(DFSEP).exists :: Makefile.PL
 	$(NOECHO) $(MKPATH) $(INST_ARCHAUTODIR)
-	$(NOECHO) $(CHMOD) 755 $(INST_ARCHAUTODIR)
+	$(NOECHO) $(CHMOD) $(PERM_DIR) $(INST_ARCHAUTODIR)
 	$(NOECHO) $(TOUCH) $(INST_ARCHAUTODIR)$(DFSEP).exists
 
 $(INST_BIN)$(DFSEP).exists :: Makefile.PL
 	$(NOECHO) $(MKPATH) $(INST_BIN)
-	$(NOECHO) $(CHMOD) 755 $(INST_BIN)
+	$(NOECHO) $(CHMOD) $(PERM_DIR) $(INST_BIN)
 	$(NOECHO) $(TOUCH) $(INST_BIN)$(DFSEP).exists
 
 $(INST_SCRIPT)$(DFSEP).exists :: Makefile.PL
 	$(NOECHO) $(MKPATH) $(INST_SCRIPT)
-	$(NOECHO) $(CHMOD) 755 $(INST_SCRIPT)
+	$(NOECHO) $(CHMOD) $(PERM_DIR) $(INST_SCRIPT)
 	$(NOECHO) $(TOUCH) $(INST_SCRIPT)$(DFSEP).exists
 
 $(INST_MAN1DIR)$(DFSEP).exists :: Makefile.PL
 	$(NOECHO) $(MKPATH) $(INST_MAN1DIR)
-	$(NOECHO) $(CHMOD) 755 $(INST_MAN1DIR)
+	$(NOECHO) $(CHMOD) $(PERM_DIR) $(INST_MAN1DIR)
 	$(NOECHO) $(TOUCH) $(INST_MAN1DIR)$(DFSEP).exists
 
 $(INST_MAN3DIR)$(DFSEP).exists :: Makefile.PL
 	$(NOECHO) $(MKPATH) $(INST_MAN3DIR)
-	$(NOECHO) $(CHMOD) 755 $(INST_MAN3DIR)
+	$(NOECHO) $(CHMOD) $(PERM_DIR) $(INST_MAN3DIR)
 	$(NOECHO) $(TOUCH) $(INST_MAN3DIR)$(DFSEP).exists
 
 
@@ -407,10 +431,6 @@ linkext :: $(LINKTYPE)
 
 
 # --- MakeMaker dlsyms section:
-
-Authentication.def: Makefile.PL
-	$(PERLRUN) -MExtUtils::Mksymlists \
-     -e "Mksymlists('NAME'=>\"CGI::Application::Plugin::Authentication\", 'DLBASE' => '$(BASEEXT)', 'DL_FUNCS' => {  }, 'FUNCLIST' => [], 'IMPORTS' => {  }, 'DL_VARS' => []);"
 
 
 # --- MakeMaker dynamic section:
@@ -444,8 +464,40 @@ POD2MAN_EXE = $(PERLRUN) "-MExtUtils::Command::MM" -e pod2man "--"
 POD2MAN = $(POD2MAN_EXE)
 
 
-manifypods : pure_all 
-	$(NOECHO) $(NOOP)
+manifypods : pure_all  \
+	lib/CGI/Application/Plugin/Authentication/Driver/Dummy.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/md5.pm \
+	lib/CGI/Application/Plugin/Authentication/Store/Session.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Authen/Simple.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/lc.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/sha1.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/DBI.pm \
+	lib/CGI/Application/Plugin/Authentication.pm \
+	lib/CGI/Application/Plugin/Authentication/Store/Cookie.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/crypt.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/HTPasswd.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Generic.pm \
+	lib/CGI/Application/Plugin/Authentication/Store.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/strip.pm \
+	lib/CGI/Application/Plugin/Authentication/Driver/Filter/uc.pm
+	$(NOECHO) $(POD2MAN) --section=3 --perm_rw=$(PERM_RW) \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Dummy.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication::Driver::Dummy.$(MAN3EXT) \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/md5.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication::Driver::Filter::md5.$(MAN3EXT) \
+	  lib/CGI/Application/Plugin/Authentication/Store/Session.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication::Store::Session.$(MAN3EXT) \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Authen/Simple.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication::Driver::Authen::Simple.$(MAN3EXT) \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/lc.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication::Driver::Filter::lc.$(MAN3EXT) \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/sha1.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication::Driver::Filter::sha1.$(MAN3EXT) \
+	  lib/CGI/Application/Plugin/Authentication/Driver/DBI.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication::Driver::DBI.$(MAN3EXT) \
+	  lib/CGI/Application/Plugin/Authentication.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication.$(MAN3EXT) \
+	  lib/CGI/Application/Plugin/Authentication/Store/Cookie.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication::Store::Cookie.$(MAN3EXT) \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/crypt.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication::Driver::Filter::crypt.$(MAN3EXT) \
+	  lib/CGI/Application/Plugin/Authentication/Driver/HTPasswd.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication::Driver::HTPasswd.$(MAN3EXT) \
+	  lib/CGI/Application/Plugin/Authentication/Driver.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication::Driver.$(MAN3EXT) \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Generic.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication::Driver::Generic.$(MAN3EXT) \
+	  lib/CGI/Application/Plugin/Authentication/Store.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication::Store.$(MAN3EXT) \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/strip.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication::Driver::Filter::strip.$(MAN3EXT) \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/uc.pm $(INST_MAN3DIR)/CGI::Application::Plugin::Authentication::Driver::Filter::uc.$(MAN3EXT) 
 
 
 
@@ -473,13 +525,13 @@ clean_subdirs :
 clean :: clean_subdirs
 	- $(RM_F) \
 	  *$(LIB_EXT) core \
-	  core.[0-9] core.[0-9][0-9] \
-	  $(BASEEXT).bso $(INST_ARCHAUTODIR)\extralibs.ld \
+	  core.[0-9] $(INST_ARCHAUTODIR)/extralibs.all \
+	  core.[0-9][0-9] $(BASEEXT).bso \
 	  pm_to_blib.ts core.[0-9][0-9][0-9][0-9] \
 	  $(BASEEXT).x $(BOOTSTRAP) \
 	  perl$(EXE_EXT) tmon.out \
-	  $(INST_ARCHAUTODIR)\extralibs.all *$(OBJ_EXT) \
-	  pm_to_blib blibdirs.ts \
+	  *$(OBJ_EXT) pm_to_blib \
+	  $(INST_ARCHAUTODIR)/extralibs.ld blibdirs.ts \
 	  core.[0-9][0-9][0-9][0-9][0-9] *perl.core \
 	  core.*perl.*.? $(MAKE_APERL_FILE) \
 	  perl $(BASEEXT).def \
@@ -488,7 +540,6 @@ clean :: clean_subdirs
 	  perl.exe so_locations \
 	  $(BASEEXT).exp 
 	- $(RM_RF) \
-	  dll.exp dll.base \
 	  blib 
 	- $(MV) $(FIRST_MAKEFILE) $(MAKEFILE_OLD) $(DEV_NULL)
 
@@ -510,34 +561,37 @@ realclean purge ::  clean realclean_subdirs
 # --- MakeMaker metafile section:
 metafile : create_distdir
 	$(NOECHO) $(ECHO) Generating META.yml
-	$(NOECHO) $(ECHO) "--- #YAML:1.0" > META_new.yml
-	$(NOECHO) $(ECHO) "name:               CGI-Application-Plugin-Authentication" >> META_new.yml
-	$(NOECHO) $(ECHO) "version:            0.12" >> META_new.yml
-	$(NOECHO) $(ECHO) "abstract:           ~" >> META_new.yml
-	$(NOECHO) $(ECHO) "author:  []" >> META_new.yml
-	$(NOECHO) $(ECHO) "license:            unknown" >> META_new.yml
-	$(NOECHO) $(ECHO) "distribution_type:  module" >> META_new.yml
-	$(NOECHO) $(ECHO) "configure_requires:" >> META_new.yml
-	$(NOECHO) $(ECHO) "    ExtUtils::MakeMaker:  0" >> META_new.yml
-	$(NOECHO) $(ECHO) "requires:" >> META_new.yml
-	$(NOECHO) $(ECHO) "    Attribute::Handlers:  0" >> META_new.yml
-	$(NOECHO) $(ECHO) "    CGI::Application:     4" >> META_new.yml
-	$(NOECHO) $(ECHO) "    CGI::Cookie:          0" >> META_new.yml
-	$(NOECHO) $(ECHO) "    Class::ISA:           0" >> META_new.yml
-	$(NOECHO) $(ECHO) "    Digest::SHA1:         0" >> META_new.yml
-	$(NOECHO) $(ECHO) "    MIME::Base64:         0" >> META_new.yml
-	$(NOECHO) $(ECHO) "    Scalar::Util:         0" >> META_new.yml
-	$(NOECHO) $(ECHO) "    Test::More:           0" >> META_new.yml
-	$(NOECHO) $(ECHO) "    Test::Warn:           0" >> META_new.yml
-	$(NOECHO) $(ECHO) "    UNIVERSAL::require:   0" >> META_new.yml
-	$(NOECHO) $(ECHO) "no_index:" >> META_new.yml
-	$(NOECHO) $(ECHO) "    directory:" >> META_new.yml
-	$(NOECHO) $(ECHO) "        - t" >> META_new.yml
-	$(NOECHO) $(ECHO) "        - inc" >> META_new.yml
-	$(NOECHO) $(ECHO) "generated_by:       ExtUtils::MakeMaker version 6.48" >> META_new.yml
-	$(NOECHO) $(ECHO) "meta-spec:" >> META_new.yml
-	$(NOECHO) $(ECHO) "    url:      http://module-build.sourceforge.net/META-spec-v1.4.html" >> META_new.yml
-	$(NOECHO) $(ECHO) "    version:  1.4" >> META_new.yml
+	$(NOECHO) $(ECHO) '--- #YAML:1.0' > META_new.yml
+	$(NOECHO) $(ECHO) 'name:               CGI-Application-Plugin-Authentication' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version:            0.14' >> META_new.yml
+	$(NOECHO) $(ECHO) 'abstract:           ~' >> META_new.yml
+	$(NOECHO) $(ECHO) 'author:  []' >> META_new.yml
+	$(NOECHO) $(ECHO) 'license:            unknown' >> META_new.yml
+	$(NOECHO) $(ECHO) 'distribution_type:  module' >> META_new.yml
+	$(NOECHO) $(ECHO) 'configure_requires:' >> META_new.yml
+	$(NOECHO) $(ECHO) '    ExtUtils::MakeMaker:  0' >> META_new.yml
+	$(NOECHO) $(ECHO) 'build_requires:' >> META_new.yml
+	$(NOECHO) $(ECHO) '    ExtUtils::MakeMaker:  0' >> META_new.yml
+	$(NOECHO) $(ECHO) 'requires:' >> META_new.yml
+	$(NOECHO) $(ECHO) '    Attribute::Handlers:  0' >> META_new.yml
+	$(NOECHO) $(ECHO) '    CGI::Application:     4' >> META_new.yml
+	$(NOECHO) $(ECHO) '    CGI::Cookie:          0' >> META_new.yml
+	$(NOECHO) $(ECHO) '    Class::ISA:           0' >> META_new.yml
+	$(NOECHO) $(ECHO) '    Digest::SHA1:         0' >> META_new.yml
+	$(NOECHO) $(ECHO) '    MIME::Base64:         0' >> META_new.yml
+	$(NOECHO) $(ECHO) '    Scalar::Util:         0' >> META_new.yml
+	$(NOECHO) $(ECHO) '    Task::Weaken:         0' >> META_new.yml
+	$(NOECHO) $(ECHO) '    Test::More:           0' >> META_new.yml
+	$(NOECHO) $(ECHO) '    Test::Warn:           0.11' >> META_new.yml
+	$(NOECHO) $(ECHO) '    UNIVERSAL::require:   0' >> META_new.yml
+	$(NOECHO) $(ECHO) 'no_index:' >> META_new.yml
+	$(NOECHO) $(ECHO) '    directory:' >> META_new.yml
+	$(NOECHO) $(ECHO) '        - t' >> META_new.yml
+	$(NOECHO) $(ECHO) '        - inc' >> META_new.yml
+	$(NOECHO) $(ECHO) 'generated_by:       ExtUtils::MakeMaker version 6.54' >> META_new.yml
+	$(NOECHO) $(ECHO) 'meta-spec:' >> META_new.yml
+	$(NOECHO) $(ECHO) '    url:      http://module-build.sourceforge.net/META-spec-v1.4.html' >> META_new.yml
+	$(NOECHO) $(ECHO) '    version:  1.4' >> META_new.yml
 	-$(NOECHO) $(MV) META_new.yml $(DISTVNAME)/META.yml
 
 
@@ -567,8 +621,8 @@ veryclean : realclean
 # --- MakeMaker dist_core section:
 
 dist : $(DIST_DEFAULT) $(FIRST_MAKEFILE)
-	$(NOECHO) $(ABSPERLRUN) -l -e "print 'Warning: Makefile possibly out of date with $(VERSION_FROM)'\
-    if -e '$(VERSION_FROM)' and -M '$(VERSION_FROM)' < -M '$(FIRST_MAKEFILE)';" --
+	$(NOECHO) $(ABSPERLRUN) -l -e 'print '\''Warning: Makefile possibly out of date with $(VERSION_FROM)'\''' \
+	  -e '    if -e '\''$(VERSION_FROM)'\'' and -M '\''$(VERSION_FROM)'\'' < -M '\''$(FIRST_MAKEFILE)'\'';' --
 
 tardist : $(DISTVNAME).tar$(SUFFIX)
 	$(NOECHO) $(NOOP)
@@ -630,15 +684,15 @@ ci :
 
 # --- MakeMaker distmeta section:
 distmeta : create_distdir metafile
-	$(NOECHO) cd $(DISTVNAME) && $(ABSPERLRUN) -MExtUtils::Manifest=maniadd -e "eval {{ maniadd({{q{{META.yml} => q{{Module meta-data (added by MakeMaker)}}}) } \
-    or print \"Could not add META.yml to MANIFEST: $${{'@'}\n\"" --
+	$(NOECHO) cd $(DISTVNAME) && $(ABSPERLRUN) -MExtUtils::Manifest=maniadd -e 'eval { maniadd({q{META.yml} => q{Module meta-data (added by MakeMaker)}}) } ' \
+	  -e '    or print "Could not add META.yml to MANIFEST: $${'\''@'\''}\n"' --
 
 
 
 # --- MakeMaker distsignature section:
 distsignature : create_distdir
-	$(NOECHO) cd $(DISTVNAME) && $(ABSPERLRUN) -MExtUtils::Manifest=maniadd -e "eval {{ maniadd({{q{{SIGNATURE} => q{{Public-key signature (added by MakeMaker)}}}) } \
-    or print \"Could not add SIGNATURE to MANIFEST: $${{'@'}\n\"" --
+	$(NOECHO) cd $(DISTVNAME) && $(ABSPERLRUN) -MExtUtils::Manifest=maniadd -e 'eval { maniadd({q{SIGNATURE} => q{Public-key signature (added by MakeMaker)}}) } ' \
+	  -e '    or print "Could not add SIGNATURE to MANIFEST: $${'\''@'\''}\n"' --
 	$(NOECHO) cd $(DISTVNAME) && $(TOUCH) SIGNATURE
 	cd $(DISTVNAME) && cpansign -s
 
@@ -646,16 +700,16 @@ distsignature : create_distdir
 
 # --- MakeMaker install section:
 
-install :: all pure_install doc_install
+install :: pure_install doc_install
 	$(NOECHO) $(NOOP)
 
-install_perl :: all pure_perl_install doc_perl_install
+install_perl :: pure_perl_install doc_perl_install
 	$(NOECHO) $(NOOP)
 
-install_site :: all pure_site_install doc_site_install
+install_site :: pure_site_install doc_site_install
 	$(NOECHO) $(NOOP)
 
-install_vendor :: all pure_vendor_install doc_vendor_install
+install_vendor :: pure_vendor_install doc_vendor_install
 	$(NOECHO) $(NOOP)
 
 pure_install :: pure_$(INSTALLDIRS)_install
@@ -670,10 +724,10 @@ pure__install : pure_site_install
 doc__install : doc_site_install
 	$(NOECHO) $(ECHO) INSTALLDIRS not defined, defaulting to INSTALLDIRS=site
 
-pure_perl_install ::
+pure_perl_install :: all
 	$(NOECHO) $(MOD_INSTALL) \
-		read $(PERL_ARCHLIB)\auto\$(FULLEXT)\.packlist \
-		write $(DESTINSTALLARCHLIB)\auto\$(FULLEXT)\.packlist \
+		read $(PERL_ARCHLIB)/auto/$(FULLEXT)/.packlist \
+		write $(DESTINSTALLARCHLIB)/auto/$(FULLEXT)/.packlist \
 		$(INST_LIB) $(DESTINSTALLPRIVLIB) \
 		$(INST_ARCHLIB) $(DESTINSTALLARCHLIB) \
 		$(INST_BIN) $(DESTINSTALLBIN) \
@@ -681,13 +735,13 @@ pure_perl_install ::
 		$(INST_MAN1DIR) $(DESTINSTALLMAN1DIR) \
 		$(INST_MAN3DIR) $(DESTINSTALLMAN3DIR)
 	$(NOECHO) $(WARN_IF_OLD_PACKLIST) \
-		$(SITEARCHEXP)\auto\$(FULLEXT)
+		$(SITEARCHEXP)/auto/$(FULLEXT)
 
 
-pure_site_install ::
+pure_site_install :: all
 	$(NOECHO) $(MOD_INSTALL) \
-		read $(SITEARCHEXP)\auto\$(FULLEXT)\.packlist \
-		write $(DESTINSTALLSITEARCH)\auto\$(FULLEXT)\.packlist \
+		read $(SITEARCHEXP)/auto/$(FULLEXT)/.packlist \
+		write $(DESTINSTALLSITEARCH)/auto/$(FULLEXT)/.packlist \
 		$(INST_LIB) $(DESTINSTALLSITELIB) \
 		$(INST_ARCHLIB) $(DESTINSTALLSITEARCH) \
 		$(INST_BIN) $(DESTINSTALLSITEBIN) \
@@ -695,12 +749,12 @@ pure_site_install ::
 		$(INST_MAN1DIR) $(DESTINSTALLSITEMAN1DIR) \
 		$(INST_MAN3DIR) $(DESTINSTALLSITEMAN3DIR)
 	$(NOECHO) $(WARN_IF_OLD_PACKLIST) \
-		$(PERL_ARCHLIB)\auto\$(FULLEXT)
+		$(PERL_ARCHLIB)/auto/$(FULLEXT)
 
-pure_vendor_install ::
+pure_vendor_install :: all
 	$(NOECHO) $(MOD_INSTALL) \
-		read $(VENDORARCHEXP)\auto\$(FULLEXT)\.packlist \
-		write $(DESTINSTALLVENDORARCH)\auto\$(FULLEXT)\.packlist \
+		read $(VENDORARCHEXP)/auto/$(FULLEXT)/.packlist \
+		write $(DESTINSTALLVENDORARCH)/auto/$(FULLEXT)/.packlist \
 		$(INST_LIB) $(DESTINSTALLVENDORLIB) \
 		$(INST_ARCHLIB) $(DESTINSTALLVENDORARCH) \
 		$(INST_BIN) $(DESTINSTALLVENDORBIN) \
@@ -708,7 +762,7 @@ pure_vendor_install ::
 		$(INST_MAN1DIR) $(DESTINSTALLVENDORMAN1DIR) \
 		$(INST_MAN3DIR) $(DESTINSTALLVENDORMAN3DIR)
 
-doc_perl_install ::
+doc_perl_install :: all
 	$(NOECHO) $(ECHO) Appending installation info to $(DESTINSTALLARCHLIB)/perllocal.pod
 	-$(NOECHO) $(MKPATH) $(DESTINSTALLARCHLIB)
 	-$(NOECHO) $(DOC_INSTALL) \
@@ -717,9 +771,9 @@ doc_perl_install ::
 		LINKTYPE "$(LINKTYPE)" \
 		VERSION "$(VERSION)" \
 		EXE_FILES "$(EXE_FILES)" \
-		>> $(DESTINSTALLARCHLIB)\perllocal.pod
+		>> $(DESTINSTALLARCHLIB)/perllocal.pod
 
-doc_site_install ::
+doc_site_install :: all
 	$(NOECHO) $(ECHO) Appending installation info to $(DESTINSTALLARCHLIB)/perllocal.pod
 	-$(NOECHO) $(MKPATH) $(DESTINSTALLARCHLIB)
 	-$(NOECHO) $(DOC_INSTALL) \
@@ -728,9 +782,9 @@ doc_site_install ::
 		LINKTYPE "$(LINKTYPE)" \
 		VERSION "$(VERSION)" \
 		EXE_FILES "$(EXE_FILES)" \
-		>> $(DESTINSTALLARCHLIB)\perllocal.pod
+		>> $(DESTINSTALLARCHLIB)/perllocal.pod
 
-doc_vendor_install ::
+doc_vendor_install :: all
 	$(NOECHO) $(ECHO) Appending installation info to $(DESTINSTALLARCHLIB)/perllocal.pod
 	-$(NOECHO) $(MKPATH) $(DESTINSTALLARCHLIB)
 	-$(NOECHO) $(DOC_INSTALL) \
@@ -739,20 +793,20 @@ doc_vendor_install ::
 		LINKTYPE "$(LINKTYPE)" \
 		VERSION "$(VERSION)" \
 		EXE_FILES "$(EXE_FILES)" \
-		>> $(DESTINSTALLARCHLIB)\perllocal.pod
+		>> $(DESTINSTALLARCHLIB)/perllocal.pod
 
 
 uninstall :: uninstall_from_$(INSTALLDIRS)dirs
 	$(NOECHO) $(NOOP)
 
 uninstall_from_perldirs ::
-	$(NOECHO) $(UNINSTALL) $(PERL_ARCHLIB)\auto\$(FULLEXT)\.packlist
+	$(NOECHO) $(UNINSTALL) $(PERL_ARCHLIB)/auto/$(FULLEXT)/.packlist
 
 uninstall_from_sitedirs ::
-	$(NOECHO) $(UNINSTALL) $(SITEARCHEXP)\auto\$(FULLEXT)\.packlist
+	$(NOECHO) $(UNINSTALL) $(SITEARCHEXP)/auto/$(FULLEXT)/.packlist
 
 uninstall_from_vendordirs ::
-	$(NOECHO) $(UNINSTALL) $(VENDORARCHEXP)\auto\$(FULLEXT)\.packlist
+	$(NOECHO) $(UNINSTALL) $(VENDORARCHEXP)/auto/$(FULLEXT)/.packlist
 
 
 # --- MakeMaker force section:
@@ -776,7 +830,7 @@ $(FIRST_MAKEFILE) : Makefile.PL $(CONFIGDEP)
 	$(PERLRUN) Makefile.PL 
 	$(NOECHO) $(ECHO) "==> Your Makefile has been rebuilt. <=="
 	$(NOECHO) $(ECHO) "==> Please rerun the $(MAKE) command.  <=="
-	false
+	$(FALSE)
 
 
 
@@ -784,7 +838,7 @@ $(FIRST_MAKEFILE) : Makefile.PL $(CONFIGDEP)
 
 # --- MakeMaker makeaperl section ---
 MAP_TARGET    = perl
-FULLPERL      = C:\strawberry\perl\bin\sperl.exe
+FULLPERL      = /usr/bin/perl
 
 $(MAP_TARGET) :: static $(MAKE_APERL_FILE)
 	$(MAKE) $(USEMAKEFILE) $(MAKE_APERL_FILE) $@
@@ -814,10 +868,10 @@ subdirs-test ::
 
 
 test_dynamic :: pure_all
-	$(FULLPERLRUN) "-MExtUtils::Command::MM" "-e" "test_harness($(TEST_VERBOSE), '$(INST_LIB)', '$(INST_ARCHLIB)')" $(TEST_FILES)
+	PERL_DL_NONLAZY=1 $(FULLPERLRUN) "-MExtUtils::Command::MM" "-e" "test_harness($(TEST_VERBOSE), '$(INST_LIB)', '$(INST_ARCHLIB)')" $(TEST_FILES)
 
 testdb_dynamic :: pure_all
-	$(FULLPERLRUN) $(TESTDB_SW) "-I$(INST_LIB)" "-I$(INST_ARCHLIB)" $(TEST_FILE)
+	PERL_DL_NONLAZY=1 $(FULLPERLRUN) $(TESTDB_SW) "-I$(INST_LIB)" "-I$(INST_ARCHLIB)" $(TEST_FILE)
 
 test_ : test_dynamic
 
@@ -828,49 +882,47 @@ testdb_static :: testdb_dynamic
 # --- MakeMaker ppd section:
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
-	$(NOECHO) $(ECHO) "<SOFTPKG NAME=\"$(DISTNAME)\" VERSION=\"0,12,0,0\">" > $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "    <TITLE>$(DISTNAME)</TITLE>" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "    <ABSTRACT></ABSTRACT>" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "    <AUTHOR></AUTHOR>" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "    <IMPLEMENTATION>" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "        <DEPENDENCY NAME=\"Attribute-Handlers\" VERSION=\"0,0,0,0\" />" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "        <DEPENDENCY NAME=\"CGI-Application\" VERSION=\"4,0,0,0\" />" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "        <DEPENDENCY NAME=\"CGI-Cookie\" VERSION=\"0,0,0,0\" />" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "        <DEPENDENCY NAME=\"Class-ISA\" VERSION=\"0,0,0,0\" />" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "        <DEPENDENCY NAME=\"Digest-SHA1\" VERSION=\"0,0,0,0\" />" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "        <DEPENDENCY NAME=\"MIME-Base64\" VERSION=\"0,0,0,0\" />" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "        <DEPENDENCY NAME=\"Scalar-Util\" VERSION=\"0,0,0,0\" />" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "        <DEPENDENCY NAME=\"Test-More\" VERSION=\"0,0,0,0\" />" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "        <DEPENDENCY NAME=\"Test-Warn\" VERSION=\"0,0,0,0\" />" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "        <DEPENDENCY NAME=\"UNIVERSAL-require\" VERSION=\"0,0,0,0\" />" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "        <OS NAME=\"$(OSNAME)\" />" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "        <ARCHITECTURE NAME=\"MSWin32-x86-multi-thread-5.1\" />" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "        <CODEBASE HREF=\"\" />" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "    </IMPLEMENTATION>" >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "</SOFTPKG>" >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="0.14">' > $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '    <ABSTRACT></ABSTRACT>' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '    <AUTHOR></AUTHOR>' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Attribute::Handlers" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="CGI::Application" VERSION="4" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="CGI::Cookie" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Class::ISA" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Digest::SHA1" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="MIME::Base64" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Scalar::Util" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Task::Weaken" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Test::More" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Test::Warn" VERSION="0.11" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="UNIVERSAL::require" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="i486-linux-gnu-thread-multi-5.10" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <CODEBASE HREF="" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '    </IMPLEMENTATION>' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '</SOFTPKG>' >> $(DISTNAME).ppd
 
 
 # --- MakeMaker pm_to_blib section:
 
-pm_to_blib : $(TO_INST_PM)
-	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e "pm_to_blib({{@ARGV}, '$(INST_LIB)\auto', '$(PM_FILTER)')" -- \
-	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/md5.pm blib\lib\CGI\Application\Plugin\Authentication\Driver\Filter\md5.pm \
-	  lib/CGI/Application/Plugin/Authentication/Driver/Dummy.pm blib\lib\CGI\Application\Plugin\Authentication\Driver\Dummy.pm \
-	  lib/CGI/Application/Plugin/Authentication/Store/Session.pm blib\lib\CGI\Application\Plugin\Authentication\Store\Session.pm \
-	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/lc.pm blib\lib\CGI\Application\Plugin\Authentication\Driver\Filter\lc.pm \
-	  lib/CGI/Application/Plugin/Authentication/Driver/Authen/Simple.pm blib\lib\CGI\Application\Plugin\Authentication\Driver\Authen\Simple.pm \
-	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/sha1.pm blib\lib\CGI\Application\Plugin\Authentication\Driver\Filter\sha1.pm \
-	  lib/CGI/Application/Plugin/Authentication/Driver/DBI.pm blib\lib\CGI\Application\Plugin\Authentication\Driver\DBI.pm \
-	  lib/CGI/Application/Plugin/Authentication.pm blib\lib\CGI\Application\Plugin\Authentication.pm \
-	  lib/CGI/Application/Plugin/Authentication/Store/Cookie.pm blib\lib\CGI\Application\Plugin\Authentication\Store\Cookie.pm \
-	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/crypt.pm blib\lib\CGI\Application\Plugin\Authentication\Driver\Filter\crypt.pm 
-	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e "pm_to_blib({{@ARGV}, '$(INST_LIB)\auto', '$(PM_FILTER)')" -- \
-	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/strip.pm blib\lib\CGI\Application\Plugin\Authentication\Driver\Filter\strip.pm \
-	  lib/CGI/Application/Plugin/Authentication/Driver.pm blib\lib\CGI\Application\Plugin\Authentication\Driver.pm \
-	  lib/CGI/Application/Plugin/Authentication/Store.pm blib\lib\CGI\Application\Plugin\Authentication\Store.pm \
-	  lib/CGI/Application/Plugin/Authentication/Driver/Generic.pm blib\lib\CGI\Application\Plugin\Authentication\Driver\Generic.pm \
-	  lib/CGI/Application/Plugin/Authentication/Driver/HTPasswd.pm blib\lib\CGI\Application\Plugin\Authentication\Driver\HTPasswd.pm \
-	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/uc.pm blib\lib\CGI\Application\Plugin\Authentication\Driver\Filter\uc.pm 
+pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
+	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Dummy.pm blib/lib/CGI/Application/Plugin/Authentication/Driver/Dummy.pm \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Authen/Simple.pm blib/lib/CGI/Application/Plugin/Authentication/Driver/Authen/Simple.pm \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/lc.pm blib/lib/CGI/Application/Plugin/Authentication/Driver/Filter/lc.pm \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/sha1.pm blib/lib/CGI/Application/Plugin/Authentication/Driver/Filter/sha1.pm \
+	  lib/CGI/Application/Plugin/Authentication/Driver/DBI.pm blib/lib/CGI/Application/Plugin/Authentication/Driver/DBI.pm \
+	  lib/CGI/Application/Plugin/Authentication/Store/Cookie.pm blib/lib/CGI/Application/Plugin/Authentication/Store/Cookie.pm \
+	  lib/CGI/Application/Plugin/Authentication/Driver.pm blib/lib/CGI/Application/Plugin/Authentication/Driver.pm \
+	  lib/CGI/Application/Plugin/Authentication/Driver/HTPasswd.pm blib/lib/CGI/Application/Plugin/Authentication/Driver/HTPasswd.pm \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Generic.pm blib/lib/CGI/Application/Plugin/Authentication/Driver/Generic.pm \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/md5.pm blib/lib/CGI/Application/Plugin/Authentication/Driver/Filter/md5.pm \
+	  lib/CGI/Application/Plugin/Authentication/Store/Session.pm blib/lib/CGI/Application/Plugin/Authentication/Store/Session.pm \
+	  lib/CGI/Application/Plugin/Authentication.pm blib/lib/CGI/Application/Plugin/Authentication.pm \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/crypt.pm blib/lib/CGI/Application/Plugin/Authentication/Driver/Filter/crypt.pm \
+	  lib/CGI/Application/Plugin/Authentication/Store.pm blib/lib/CGI/Application/Plugin/Authentication/Store.pm \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/strip.pm blib/lib/CGI/Application/Plugin/Authentication/Driver/Filter/strip.pm \
+	  lib/CGI/Application/Plugin/Authentication/Driver/Filter/uc.pm blib/lib/CGI/Application/Plugin/Authentication/Driver/Filter/uc.pm 
 	$(NOECHO) $(TOUCH) pm_to_blib
 
 

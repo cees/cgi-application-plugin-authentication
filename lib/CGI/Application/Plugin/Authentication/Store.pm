@@ -151,7 +151,7 @@ sub options {
 =head2 authen
 
 This will return the underlying L<CGI::Application::Plugin::Authentication> object.  In most cases it will
-not be necesary to access this.
+not be necessary to access this.
 
 =cut
 
