@@ -44,9 +44,13 @@ t/60_store_cookie.t
 t/60_store_session.t
 t/98_pod.t
 t/99_pod_coverage.t
+t/Authen/Simple/Dummy.pm
+t/changes.t
 t/htpasswd
 t/htpasswd2
-t/Authen/Simple/Dummy.pm
+t/manifest.t
+t/podspell.t
+t/prereq.t
 t/Store/Dummy.pm
 t/TestAppDriver.pm
 t/TestAppStore.pm
