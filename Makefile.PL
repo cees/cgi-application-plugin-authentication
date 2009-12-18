@@ -10,7 +10,6 @@ WriteMakefile
                            'CGI::Application' => 4,
                            'CGI::Cookie' => 0,
                            'Class::ISA' => 0,
-			   'Color::Calc' => 0,
                            'Digest::SHA1' => 0,
                            'MIME::Base64' => 0,
                            'Scalar::Util' => 0,
