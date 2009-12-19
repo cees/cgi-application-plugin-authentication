@@ -42,6 +42,7 @@ t/50_driver_htpasswd.t
 t/60_store.t
 t/60_store_cookie.t
 t/60_store_session.t
+t/60_parsimony.t
 t/98_pod.t
 t/99_pod_coverage.t
 t/Authen/Simple/Dummy.pm
@@ -54,3 +55,4 @@ t/prereq.t
 t/Store/Dummy.pm
 t/TestAppDriver.pm
 t/TestAppStore.pm
+t/TestAppParsimony.pm

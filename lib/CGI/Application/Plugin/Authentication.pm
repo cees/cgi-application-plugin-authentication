@@ -1208,7 +1208,11 @@ sub initialize {
           if($config->{POST_LOGIN_CALLBACK});
     }
 
-    if ($self->username && $config->{LOGIN_SESSION_TIMEOUT} && !$self->{is_new_login}) {
+    # Check the user name last of all because only this check might create a session behind the scenes.
+    # In other words if a website works perfectly well without authentication,
+    # then adding a protected run mode should not add session to the unprotected modes.
+    # See 60_parsimony.t for the test.
+    if ($config->{LOGIN_SESSION_TIMEOUT} && !$self->{is_new_login} && $self->username) {
         # This is not a fresh login, and there are time out rules, so make sure the login is still valid
         if ($config->{LOGIN_SESSION_TIMEOUT}->{IDLE_FOR} && time() - $self->last_access >= $config->{LOGIN_SESSION_TIMEOUT}->{IDLE_FOR}) {
             # this login has been idle for too long
