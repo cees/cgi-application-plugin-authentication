@@ -1,5 +1,8 @@
 Revision history for Perl extension CGI::Application::Plugin::Authentication.
 
+0.15 Tue Jan 12 15:42 GMT 2010
+    Redist to fix tar format issues RT:45155 & 23705
+
 0.14  Sun Oct 18 02:48:10 EST 2009
     Bug Fixes
     - Make sure the 'action' attribute of the login_box includes the
