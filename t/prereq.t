@@ -7,13 +7,13 @@ if ( not $ENV{TEST_PREREQ} ) {
     plan( skip_all => $msg );
 }
 
-eval { require Test::Prereq; };
+eval { require Test::Prereq::Build; };
 
 if ( $@) {
    my $msg = 'Test::Prereq required to criticise code';
    plan( skip_all => $msg );
 }
 
-Test::Prereq::prereq_ok(undef, 'prereq', ['Test::CheckChanges', 'Test::CheckManifest', 'Test::Differences', 'Test::Perl::Critic', 'Test::Spelling', 'Test::Prereq', 'Color::Calc']);
+Test::Prereq::Build::prereq_ok(undef, 'prereq', ['Test::CheckChanges', 'Test::CheckManifest', 'Test::Spelling', 'Test::Prereq', 'Test::Prereq::Build', 'Color::Calc','Apache::Htpasswd']);
 
 

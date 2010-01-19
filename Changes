@@ -1,5 +1,15 @@
 Revision history for Perl extension CGI::Application::Plugin::Authentication.
 
+0.16  Mon Jan 18 22:18 GMT 2010 
+    Release dedicated to improving CPAN readiness - see RT:50670.
+    Fixed spelling mistakes and added a test script that uses Test::Spelling.
+    Fixed dependency on Test::Exception and added a test script that uses Test::Prereq::Build.
+    Added test scripts to validate the MANIFEST file and Changes file.
+    Removed files that are generated during './Build dist' from repository.
+    
+0.15  Tue Jan 12 15:42 GMT 2010
+    Redist to fix tar format issues RT:45155 & 23705
+
 0.14  Sun Oct 18 02:48:10 EST 2009
     Bug Fixes
     - Make sure the 'action' attribute of the login_box includes the

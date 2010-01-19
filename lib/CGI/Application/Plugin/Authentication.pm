@@ -2,7 +2,7 @@ package CGI::Application::Plugin::Authentication;
 
 use 5.006;
 use strict;
-our $VERSION = '0.14';
+our $VERSION = '0.16';
 
 our %__CONFIG;
 
@@ -1850,7 +1850,7 @@ L<CGI::Application>, perl(1)
 
 =head1 AUTHOR
 
-Cees Hek <ceeshek@gmail.com>
+Author: Cees Hek <ceeshek@gmail.com>; Co-maintainer: Nicholas Bamber <nicholas@periapt.co.uk>.
 
 =head1 CREDITS
 
