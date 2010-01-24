@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 use Test::More;
 use lib qw(t);
-eval "use version; use Apache::Htpasswd 1.6.1;";
-plan skip_all => "Apache::Htpasswd >= 1.6.1 required for this test (it is also possible that you do not have the 'version.pm' pragma installed which is needed to successfully test three part version numbers)" if $@;
+eval "use Apache::Htpasswd 1.8;";
+plan skip_all => "Apache::Htpasswd >= 1.8 required for this test" if $@;
 
 plan tests => 30;
 

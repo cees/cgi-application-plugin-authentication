@@ -60,6 +60,8 @@ TestAppDriverDBISimple->run_authen_tests(
     [ 'user2', '123' ],
 );
 
+$dbh->disconnect;
+$dbh = DBI->connect( "dbi:SQLite:dbname=$DBNAME", "", "" );
 $dbh->do(<<"");
 DROP TABLE user;
 
@@ -139,6 +141,8 @@ TestAppDriverDBIMultiTable->run_authen_tests(
     [ 'user1', 'domain2', '234' ],
 );
 
+$dbh->disconnect;
+$dbh = DBI->connect( "dbi:SQLite:dbname=$DBNAME", "", "" );
 $dbh->do(<<"");
 DROP TABLE domain;
 
@@ -199,6 +203,8 @@ TestAppDriverDBIEncode->run_authen_tests(
     [ 'user2', '123' ],
 );
 
+$dbh->disconnect;
+$dbh = DBI->connect( "dbi:SQLite:dbname=$DBNAME", "", "" );
 $dbh->do(<<"");
 DROP TABLE user;
 
@@ -254,6 +260,8 @@ TestAppDriverDBIEncode->run_authen_failure_tests(
     [ 'user2', '123' ],
 );
 
+$dbh->disconnect;
+$dbh = DBI->connect( "dbi:SQLite:dbname=$DBNAME", "", "" );
 $dbh->do(<<"");
 DROP TABLE user;
 
@@ -320,6 +328,8 @@ TestAppDriverDBIEncode->run_authen_failure_tests(
 );
 
 
+$dbh->disconnect;
+$dbh = DBI->connect( "dbi:SQLite:dbname=$DBNAME", "", "" );
 $dbh->do(<<"");
 DROP TABLE user;
 
@@ -394,6 +404,8 @@ TestAppDriverDBIEncode->run_authen_failure_tests(
     [ 'user2', '123', '123' ],
 );
 
+$dbh->disconnect;
+$dbh = DBI->connect( "dbi:SQLite:dbname=$DBNAME", "", "" );
 $dbh->do(<<"");
 DROP TABLE user;
 
@@ -452,6 +464,8 @@ SKIP: {
 
 }
 
+$dbh->disconnect;
+$dbh = DBI->connect( "dbi:SQLite:dbname=$DBNAME", "", "" );
 $dbh->do(<<"");
 DROP TABLE user;
 
