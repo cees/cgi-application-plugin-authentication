@@ -200,7 +200,8 @@ package CGI::Application::Plugin::Authentication;
 =head2 config
 
 This method is used to configure the CGI::Application::Plugin::Authentication
-module.  It can be called as an object method, or as a class method.
+module.  It can be called as an object method, or as a class method. Calling this function,
+will not itself generate cookies or session ids.
 
 The following parameters are accepted:
 
@@ -723,7 +724,8 @@ tries to access one of these runmodes, then they will be redirected to a login p
 unless they are properly logged in.  The runmode names can be a list of simple strings, regular
 expressions, or special directives that start with a colon.  This method is cumulative, so
 if it is called multiple times, the new values are added to existing entries.  It returns
-a list of all entries that have been saved so far.
+a list of all entries that have been saved so far.  Calling this function,
+will not itself generate cookies or session ids.
 
 =over 4
 
@@ -759,6 +761,7 @@ sub protected_runmodes {
 
 This method accepts the name of a runmode, and will tell you if that runmode is
 a protected runmode (i.e. does a user need to be authenticated to access this runmode).
+Calling this function, will not itself generate cookies or session ids.
 
 =cut
 
@@ -884,6 +887,7 @@ sub redirect_to_logout {
 
 This method is called during the prerun stage to register some custom
 runmodes that the Authentication plugin requires in order to function.
+Calling this function, will not itself generate cookies or session ids.
 
 =cut
 
@@ -905,6 +909,8 @@ This will return return the time of the last login for this user
 
   my $last_login = $self->authen->last_login;
 
+This function will initiate a session or cookie if one has not been created already.
+
 =cut
 
 sub last_login {
@@ -923,6 +929,8 @@ sub last_login {
 This will return return the time of the last access for this user
 
   my $last_access = $self->authen->last_access;
+
+This function will initiate a session or cookie if one has not been created already.
 
 =cut
 
@@ -943,6 +951,8 @@ This will return true or false depending on whether the users login status just 
 
   $self->add_message('login session timed out') if $self->authen->is_login_timeout;
 
+This function will initiate a session or cookie if one has not been created already.
+
 =cut
 
 sub is_login_timeout {
@@ -957,6 +967,8 @@ sub is_login_timeout {
 This will return true or false depending on the login status of this user
 
   assert($self->authen->is_authenticated); # The user should be logged in if we got here
+
+This function will initiate a session or cookie if one has not been created already.
 
 =cut
 
@@ -975,6 +987,7 @@ as it is dependant on the underlying store to be able to return the correct valu
 this user.  For example, if the store uses a cookie based session, the user trying
 to login could delete their cookies, and hence get a new session which will not have
 any login attempts listed.  The number will be cleared upon a successful login.
+This function will initiate a session or cookie if one has not been created already.
 
 =cut
 
@@ -993,6 +1006,8 @@ no user is currently logged in.
 
   my $username = $self->authen->username;
 
+This function will initiate a session or cookie if one has not been created already.
+
 =cut
 
 sub username {
@@ -1009,6 +1024,8 @@ This will return true or false depending on if this is a fresh login
 
   $self->log->info("New Login") if $self->authen->is_new_login;
 
+This function will initiate a session or cookie if one has not been created already.
+
 =cut
 
 sub is_new_login {
@@ -1023,7 +1040,7 @@ sub is_new_login {
 This method will return the names of the form parameters that will be
 looked for during a login.  By default they are authen_username and authen_password,
 but these values can be changed by supplying the CREDENTIALS parameters in the
-configuration.
+configuration. Calling this function, will not itself generate cookies or session ids.
 
 =cut
 
@@ -1041,6 +1058,8 @@ to log out the user.
 
   $self->authen->logout();
 
+This function will initiate a session or cookie if one has not been created already.
+
 =cut
 
 sub logout {
@@ -1053,7 +1072,7 @@ sub logout {
 =head2 drivers
 
 This method will return a list of driver objects that are used for
-verifying the login credentials.
+verifying the login credentials. Calling this function, will not itself generate cookies or session ids.
 
 =cut
 
@@ -1094,6 +1113,7 @@ sub drivers {
 
 This method will return a store object that is used to store information
 about the status of the authentication across multiple requests.
+This function will initiate a session or cookie if one has not been created already.
 
 =cut
 
@@ -1149,6 +1169,8 @@ out because of a time out, you can call the C<is_login_timeout> method.
 
 If all goes well, a true value will be returned, although it is usually not
 necessary to check.
+
+This function will initiate a session or cookie if one has not been created already.
 
 =cut
 
@@ -1238,7 +1260,7 @@ This method will return the HTML for a login box that can be
 embedded into another page.  This is the same login box that is used
 in the default authen_login runmode that the plugin provides.
 
-TODO: Allow the user to provide custom styles for rendering this page
+This function will initiate a session or cookie if one has not been created already.
 
 =cut
 
@@ -1356,6 +1378,8 @@ plugin provides.  The login box automatically includes these default styles in
 the page unless you set the LOGIN_FORM => INCLUDE_STYLESHEET option to 0.  The
 colours used in the returned styles can be customized by providing colour
 options to LOGIN_FORM configuration parameter.
+
+Calling this function, will not itself generate cookies or session ids.
 
 =cut
 
@@ -1543,7 +1567,7 @@ This method creates a new CGI::Application::Plugin::Authentication object.  It r
 as it's only parameter a CGI::Application object.  This method should never be called
 directly, since the 'authen' method that is imported into the CGI::Application module
 will take care of creating the CGI::Application::Plugin::Authentication object when it
-is required.
+is required. Calling this function, will not itself generate cookies or session ids.
 
 =cut
 
@@ -1565,7 +1589,7 @@ This method works the same way as 'new', except that it returns the same Authent
 object for the duration of the request.  This method should never be called
 directly, since the 'authen' method that is imported into the CGI::Application module
 will take care of creating the CGI::Application::Plugin::Authentication object when it
-is required.
+is required. Calling this function, will not itself generate cookies or session ids.
 
 =cut
 

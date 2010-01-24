@@ -3,6 +3,7 @@ Revision history for Perl extension CGI::Application::Plugin::Authentication.
 0.17  Thu Jan 21 19:16 GMT 2010
     During initialization deferred checking the users credentials to the last possible moment.
     This ensures that sessions are not created unless actually required. 
+    Also documented which functions add session/cookie state.
 
 0.16  Mon Jan 18 22:18 GMT 2010 
     Release dedicated to improving CPAN readiness - see RT:50670.
