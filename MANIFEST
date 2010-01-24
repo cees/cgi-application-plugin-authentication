@@ -54,3 +54,5 @@ t/Store/Dummy.pm
 t/TestAppDriver.pm
 t/TestAppStore.pm
 t/TestAppParsimony.pm
+Makefile.PL
+META.yml
