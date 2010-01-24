@@ -1,8 +1,13 @@
 Revision history for Perl extension CGI::Application::Plugin::Authentication.
 
 0.17  Thu Jan 21 19:16 GMT 2010
-    During initialization deferred checking the users credentials to the last possible moment.
+    Bug Fixes
+    rt53533 - During initialization deferred checking the users credentials to the last possible moment.
     This ensures that sessions are not created unless actually required. 
+
+    Build Fixes
+    rt35030 - Fixed various test script issues. So the 50_driver_dbi no longer fails on windows.
+    Upped the requirement on Apache::Htpasswd to 1.8 as this simplifies our dependency management.
 
 0.16  Mon Jan 18 22:18 GMT 2010 
     Release dedicated to improving CPAN readiness - see RT:50670.

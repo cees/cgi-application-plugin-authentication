@@ -17,14 +17,14 @@ Module::Build->new(
     recommends => {
         'Digest::MD5' => 0,
         'CGI::Application::Plugin::Session' => 0,
-        'Apache::Htpasswd' => '1.6.1',
+        'Apache::Htpasswd' => '1.8',
         'Color::Calc' => '0.12',
     },
     build_requires => {
         'Test::More' => 0,
         'Test::Warn' => 0.11, # older versions may have problems with fresh Sub::Uplevel
         'Task::Weaken' => 0, # to be sure that Scalar::Util has weaken
-	'Test::Exception' => 0
+	'Test::Exception' => 0,
     },
     meta_merge => {
         resources=> {
