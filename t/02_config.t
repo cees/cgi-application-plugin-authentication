@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -T
 use Test::More tests => 69;
 use Test::Warn;
 use Scalar::Util;

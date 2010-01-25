@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -T
 use Test::More tests => 9;
 use Test::Exception;
 use Scalar::Util;

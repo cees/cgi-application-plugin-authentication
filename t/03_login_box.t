@@ -1,7 +1,8 @@
-#!/usr/bin/perl 
+#!/usr/bin/perl -T
 use Test::More;
-eval "use CGI::Application::Plugin::Session";
-plan skip_all => "CGI::Application::Plugin::Session required for this test" if $@;
+eval "use Test::Regression";
+plan skip_all => "Test::Regression required for this test" if $@;
+use Scalar::Util qw(tainted);
 
 plan tests => 11;
 
@@ -20,7 +21,6 @@ use CGI ();
 
     __PACKAGE__->authen->config(
         DRIVER => [ 'Generic', { user1 => '123' } ],
-        STORE  => 'Session',
         POST_LOGIN_CALLBACK => \&post_login, 
     );
 
@@ -61,27 +61,6 @@ my $results = $cgiapp->run;
 ok(!$cgiapp->authen->is_authenticated,'missing credentials - login failure');
 is( $cgiapp->authen->username, undef, 'missing credentials - username not set' );
 is( $cgiapp->param('post_login'),1,'missing credentials - POST_LOGIN_CALLBACK executed' );
-
-# Successful Login
-$query =
- CGI->new( { authen_username => 'user1', authen_password => '123', rm => 'two' } );
-
-$cgiapp = TestAppAuthenticate->new( QUERY => $query );
-$results = $cgiapp->run;
-
-ok($cgiapp->authen->is_authenticated,'successful login');
-is( $cgiapp->authen->username, 'user1', 'successful login - username set' );
-is( $cgiapp->authen->login_attempts, 0, "successful login - failed login count" );
-is( $cgiapp->param('post_login'),1,'successful login - POST_LOGIN_CALLBACK executed' );
-
-# Bad user or password
-$query =
- CGI->new( { authen_username => 'user2', authen_password => '123', rm => 'two' } );
-$cgiapp = TestAppAuthenticate->new( QUERY => $query );
-$results = $cgiapp->run;
-
-ok(!$cgiapp->authen->is_authenticated,'login failure');
-is( $cgiapp->authen->username, undef, "login failure - username not set" );
-is( $cgiapp->authen->login_attempts, 1, "login failure - failed login count" );
-is( $cgiapp->param('post_login'),1,'login failure - POST_LOGIN_CALLBACK executed' );
+ok_regression(sub {$cgiapp->authen->login_box}, 't/out/login0', 'verify login box');
+is(tainted($cgiapp->authen->login_box), 'check login box taint');
 
