@@ -3,7 +3,7 @@ use Test::More;
 use Test::Taint;
 use Test::Regression;
 
-plan tests => 10;
+plan tests => 12;
 
 use strict;
 use warnings;
@@ -63,8 +63,10 @@ my $results = $cgiapp->run;
 ok(!$cgiapp->authen->is_authenticated,'missing credentials - login failure');
 is( $cgiapp->authen->username, undef, 'missing credentials - username not set' );
 is( $cgiapp->param('post_login'),1,'missing credentials - POST_LOGIN_CALLBACK executed' );
-is( $cgiapp->authen->_detaint_destination, 'http://localhost?rm=two;authen_username=user1', '_detaint_destination');
+is( $cgiapp->authen->_detaint_destination, '', '_detaint_destination');
 untainted_ok($cgiapp->authen->_detaint_destination, '_detaint_destination untainted');
+is( $cgiapp->authen->_detaint_selfurl, 'http://localhost?rm=two;authen_username=user1', '_detaint_selfurl');
+untainted_ok($cgiapp->authen->_detaint_selfurl, '_detaint_selfurl untainted');
 is( $cgiapp->authen->_detaint_url, '', '_detaint_url');
 untainted_ok($cgiapp->authen->_detaint_url, '_detaint_url untainted');
 ok_regression(sub {$cgiapp->authen->login_box}, 't/out/login0', 'verify login box');

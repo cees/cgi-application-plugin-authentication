@@ -15,6 +15,6 @@ if ( $EVAL_ERROR ) {
    plan( skip_all => $msg );
 }
 
-Test::Spelling::add_stopwords(qw(CPAN Bamber Cees Hek AnnoCPAN RT API SiteSuite crypted SHA CRC DBD DBH SQL DBI username usernames CALLBACKS CALLBACKS HTML LDAP RUNMODES TODO URL CAPAUTHTOKEN webserver Hardcode hardcode everytime initialize authen customizations runmode runmodes prerun pre callback checkbox customize customized desaturating));
+Test::Spelling::add_stopwords(qw(CPAN Bamber Cees Hek AnnoCPAN RT API SiteSuite crypted SHA CRC DBD DBH SQL DBI username usernames CALLBACKS CALLBACKS HTML LDAP RUNMODES TODO URL CAPAUTHTOKEN webserver Hardcode hardcode everytime initialize authen customizations runmode runmodes prerun pre callback checkbox customize customized desaturating detaint URLs));
 Test::Spelling::all_pod_files_spelling_ok();
 

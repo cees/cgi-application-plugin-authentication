@@ -845,7 +845,7 @@ sub redirect_after_login {
         $cgiapp->header_add(-location => $config->{POST_LOGIN_URL});
         $cgiapp->header_type('redirect');
         $cgiapp->prerun_mode('authen_dummy_redirect');
-    } elsif (my $destination = $cgiapp->_detaint_destination()) {
+    } elsif (my $destination = $cgiapp->authen->_detaint_destination()) {
         $cgiapp->header_add(-location => $destination);
         $cgiapp->header_type('redirect');
         $cgiapp->prerun_mode('authen_dummy_redirect');
@@ -1293,7 +1293,7 @@ sub login_box {
     my $self        = shift;
     my $credentials = $self->credentials;
     my $runmode     = $self->_cgiapp->get_current_runmode;
-    my $destination = $self->_detaint_destination;
+    my $destination = $self->_detaint_destination || $self->_detaint_selfurl;
     my $action      = $self->_detaint_url;
     my $username    = $credentials->[0];
     my $password    = $credentials->[1];
@@ -1740,11 +1740,19 @@ sub _detaint_destination {
     if ($destination && $destination =~ /$self->_config->{DETAINT_URL_REGEXP}/) {
 	$destination = $1;
     }
-    elsif ($query->self_url =~ /$regexp/) {
-	$destination = $1;
-    }
     else {
 	$destination = "";
+    }
+    return $destination;
+}
+
+sub _detaint_selfurl {
+    my $self = shift;
+    my $query       = $self->_cgiapp->query;
+    my $destination = "";
+    my $regexp = $self->_config->{DETAINT_URL_REGEXP};
+    if ($query->self_url =~ /$regexp/) {
+        $destination = $1;
     }
     return $destination;
 }
