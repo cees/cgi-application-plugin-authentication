@@ -1332,8 +1332,7 @@ sub login_box {
     if ($options{REMEMBERUSER_OPTION}) {
         $rememberuser = qq[<input id="authen_rememberuserfield" tabindex="$tabindex" type="checkbox" name="authen_rememberuser" value="1" />$options{REMEMBERUSER_LABEL}<br />];
         $tabindex++;
-        my $query = $self->_cgiapp->query;
-        $username_value = $query->param($username) || $query->cookie($options{REMEMBERUSER_COOKIENAME}) || '';
+        $username_value = $self->_detaint_username($username, $options{REMEMBERUSER_COOKIENAME});
         $javascript .= "document.loginform.${username}.select();\n" if $username_value;
     }
     my $submit_tabindex = $tabindex++;
@@ -1759,6 +1758,19 @@ sub _detaint_url {
         $url = $1;
     }
     return $url;
+}
+
+sub _detaint_username {
+    my $self = shift;
+    my $username = shift;
+    my $cookiename = shift;
+    my $query       = $self->_cgiapp->query;
+    my $regexp = $self->_config->{DETAINT_USERNAME_REGEXP};
+    my $username_value = "";
+    if (($query->param($username) || $query->cookie($cookiename) || '') =~ /$regexp/) {
+        $username_value = $1;
+    }
+    return $username_value;
 }
  
 ###

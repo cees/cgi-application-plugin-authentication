@@ -3,7 +3,7 @@ use Test::More;
 use Test::Taint;
 use Test::Regression;
 
-plan tests => 11;
+plan tests => 10;
 
 use strict;
 use warnings;
