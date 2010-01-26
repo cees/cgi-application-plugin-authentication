@@ -1,8 +1,7 @@
 #!/usr/bin/perl -T
 use Test::More;
-eval "use Test::Regression";
-plan skip_all => "Test::Regression required for this test" if $@;
-use Scalar::Util qw(tainted);
+use Test::Taint;
+use Test::Regression;
 
 plan tests => 11;
 
@@ -10,17 +9,18 @@ use strict;
 use warnings;
 
 use CGI ();
+taint_checking_ok('taint checking is on');
 
 {
 
     package TestAppAuthenticate;
 
     use base qw(CGI::Application);
-    CGI::Application::Plugin::Session->import; # it was used conditionally above 
     use CGI::Application::Plugin::Authentication;
 
     __PACKAGE__->authen->config(
         DRIVER => [ 'Generic', { user1 => '123' } ],
+	STORE => ['Cookie', SECRET => "Shhh, don't tell anyone", NAME => 'CAPAUTH_DATA', EXPIRY => '+1y'],
         POST_LOGIN_CALLBACK => \&post_login, 
     );
 
@@ -51,8 +51,10 @@ use CGI ();
 $ENV{CGI_APP_RETURN_ONLY} = 1;
 
 # Missing Credentials
-my $query =
-  CGI->new( { authen_username => 'user1', rm => 'two' } );
+my $param = { authen_username => 'user1', rm => 'two' };
+taint($param->{authen_username});
+taint($param->{rm});
+my $query = CGI->new( $param);
 
 my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
 
@@ -61,6 +63,8 @@ my $results = $cgiapp->run;
 ok(!$cgiapp->authen->is_authenticated,'missing credentials - login failure');
 is( $cgiapp->authen->username, undef, 'missing credentials - username not set' );
 is( $cgiapp->param('post_login'),1,'missing credentials - POST_LOGIN_CALLBACK executed' );
+is( $cgiapp->authen->_detaint_destination, 'http://localhost?rm=two;authen_username=user1', '_detaint_detsination');
+untainted_ok($cgiapp->authen->_detaint_destination, '_detaint_detsination untainted');
 ok_regression(sub {$cgiapp->authen->login_box}, 't/out/login0', 'verify login box');
-is(tainted($cgiapp->authen->login_box), 'check login box taint');
+untainted_ok($cgiapp->authen->login_box, 'check login box taint');
 

@@ -2,7 +2,7 @@ package CGI::Application::Plugin::Authentication;
 
 use 5.006;
 use strict;
-our $VERSION = '0.17';
+our $VERSION = '0.17_1';
 
 our %__CONFIG;
 
@@ -331,6 +331,20 @@ LOGOUT_URL and LOGOUT_RUNMODE are specified, then the latter will take precedenc
 
   LOGIN_URL => 'http://example.com/logout.html'
 
+=item DETAINT_URL_REGEXP
+
+This is a regular expression used to detaint URLs used in the login form. By default it will be set to
+
+  ^([\w\_\%\?\&\;\-\/\@\.\+\$\=\#\:\!\*\"\'\(\)\,]+)$
+
+This regular expression is based upon the document http://www.w3.org/Addressing/URL/url-spec.txt. You could 
+set it to a more specific regular expression to limit the domains to which users could be directed.
+
+=item DETAINT_USERNAME_REGEXP
+
+This is a regular expression used to detaint the username parameter used in the login form. By default it will be set to
+
+  ^([\w\_]+)$
 
 =item CREDENTIALS
 
@@ -712,6 +726,22 @@ sub config {
             $config->{LOGIN_FORM} = delete $props->{LOGIN_FORM};
         }
 
+	# Check for DETAINT_URL_REGEXP
+        if ( defined $props->{DETAINT_URL_REGEXP} ) {
+            $config->{DETAINT_URL_REGEXP} = delete $props->{DETAINT_URL_REGEXP};
+        }
+	else {
+	    $config->{DETAINT_URL_REGEXP} =  '^([\w\_\%\?\&\;\-\/\@\.\+\$\=\#\:\!\*\"\'\(\)\,]+)$';
+	}
+
+        # Check for DETAINT_USERNAME_REGEXP
+        if ( defined $props->{DETAINT_USERNAME_REGEXP} ) {
+            $config->{DETAINT_USERNAME_REGEXP} = delete $props->{DETAINT_USERNAME_REGEXP};
+        }
+        else {
+            $config->{DETAINT_USERNAME_REGEXP} =  '^([\w\_]+)$';
+        }
+
         # If there are still entries left in $props then they are invalid
         croak "Invalid option(s) (" . join( ', ', keys %$props ) . ") passed to config" if %$props;
     }
@@ -815,15 +845,10 @@ sub redirect_after_login {
         $cgiapp->header_add(-location => $config->{POST_LOGIN_URL});
         $cgiapp->header_type('redirect');
         $cgiapp->prerun_mode('authen_dummy_redirect');
-    } elsif (my $destination = $cgiapp->query->param('destination')) {
+    } elsif (my $destination = $cgiapp->_detaint_destination()) {
         $cgiapp->header_add(-location => $destination);
         $cgiapp->header_type('redirect');
         $cgiapp->prerun_mode('authen_dummy_redirect');
-#--------------------------------------------------
-#     } else {
-#         $cgiapp->header_add(-location => $cgiapp->query->url(absolute => 1));
-#         $cgiapp->prerun_mode('authen_dummy_redirect');
-#-------------------------------------------------- 
     }
 }
 
@@ -1269,7 +1294,8 @@ sub login_box {
     my $query       = $self->_cgiapp->query;
     my $credentials = $self->credentials;
     my $runmode     = $self->_cgiapp->get_current_runmode;
-    my $destination = $query->param('destination') || $query->self_url;
+    my $destination = $self->_detaint_destination();
+# my $destination = $query->param('destination') || $query->self_url;
     my $action      = $query->url( -absolute => 1, -path_info => 1 );
     my $username    = $credentials->[0];
     my $password    = $credentials->[1];
@@ -1705,6 +1731,29 @@ sub authen_dummy_redirect {
     return '';
 }
 
+###
+### Detainting helper methods
+###
+
+sub _detaint_destination {
+    my $self = shift;
+    my $query       = $self->_cgiapp->query;
+    my $destination = $query->param('destination');
+    my $regexp = $self->_config->{DETAINT_URL_REGEXP};
+    if ($destination && $destination =~ /$self->_config->{DETAINT_URL_REGEXP}/) {
+	$destination = $1;
+    }
+    elsif ($query->self_url =~ /$regexp/) {
+	$destination = $1;
+    }
+    else {
+	$destination = "";
+    }
+    return $destination;
+}
+    
+#    my $action      = $query->url( -absolute => 1, -path_info => 1 );
+ 
 ###
 ### Helper methods
 ###

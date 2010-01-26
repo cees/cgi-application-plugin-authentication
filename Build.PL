@@ -25,6 +25,8 @@ Module::Build->new(
         'Test::Warn' => 0.11, # older versions may have problems with fresh Sub::Uplevel
         'Task::Weaken' => 0, # to be sure that Scalar::Util has weaken
 	'Test::Exception' => 0,
+	'Test::Regression' => 0, # login_bix generates a lot of HTML to verify
+	'Test::Taint' => 0
     },
     meta_merge => {
         resources=> {
