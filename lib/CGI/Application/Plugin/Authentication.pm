@@ -1291,12 +1291,10 @@ This function will initiate a session or cookie if one has not been created alre
 
 sub login_box {
     my $self        = shift;
-    my $query       = $self->_cgiapp->query;
     my $credentials = $self->credentials;
     my $runmode     = $self->_cgiapp->get_current_runmode;
-    my $destination = $self->_detaint_destination();
-# my $destination = $query->param('destination') || $query->self_url;
-    my $action      = $query->url( -absolute => 1, -path_info => 1 );
+    my $destination = $self->_detaint_destination;
+    my $action      = $self->_detaint_url;
     my $username    = $credentials->[0];
     my $password    = $credentials->[1];
     my $login_form  = $self->_config->{LOGIN_FORM} || {};
@@ -1751,8 +1749,17 @@ sub _detaint_destination {
     }
     return $destination;
 }
-    
-#    my $action      = $query->url( -absolute => 1, -path_info => 1 );
+
+sub _detaint_url {
+    my $self = shift;
+    my $query       = $self->_cgiapp->query;
+    my $regexp = $self->_config->{DETAINT_URL_REGEXP};
+    my $url = "";
+    if ($query->url( -absolute => 1, -path_info => 1 ) =~ /$regexp/) {
+        $url = $1;
+    }
+    return $url;
+}
  
 ###
 ### Helper methods
