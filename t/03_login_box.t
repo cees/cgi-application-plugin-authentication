@@ -52,8 +52,7 @@ $ENV{CGI_APP_RETURN_ONLY} = 1;
 
 # Missing Credentials
 my $param = { authen_username => 'user1', rm => 'two' };
-taint($param->{authen_username});
-taint($param->{rm});
+taint_deeply($param);
 my $query = CGI->new( $param);
 
 my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
