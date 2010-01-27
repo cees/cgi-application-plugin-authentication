@@ -10,6 +10,14 @@ use warnings;
 
 use CGI ();
 taint_checking_ok('taint checking is on');
+$ENV{CGI_APP_RETURN_ONLY} = 1;
+
+my $cap_options = 
+{
+        DRIVER => [ 'Generic', { user1 => '123' } ],
+	STORE => ['Cookie', SECRET => "Shhh, don't tell anyone", NAME => 'CAPAUTH_DATA', EXPIRY => '+1y'],
+        POST_LOGIN_CALLBACK => \&TestAppAuthenticate::post_login, 
+};
 
 {
 
@@ -18,17 +26,12 @@ taint_checking_ok('taint checking is on');
     use base qw(CGI::Application);
     use CGI::Application::Plugin::Authentication;
 
-    __PACKAGE__->authen->config(
-        DRIVER => [ 'Generic', { user1 => '123' } ],
-	STORE => ['Cookie', SECRET => "Shhh, don't tell anyone", NAME => 'CAPAUTH_DATA', EXPIRY => '+1y'],
-        POST_LOGIN_CALLBACK => \&post_login, 
-    );
-
     sub setup {
         my $self = shift;
         $self->start_mode('one');
         $self->run_modes([qw(one two)]);
         $self->authen->protected_runmodes(qw(two));
+    	$self->authen->config($cap_options);
     }
 
     sub one {
@@ -48,26 +51,31 @@ taint_checking_ok('taint checking is on');
 
 }
 
-$ENV{CGI_APP_RETURN_ONLY} = 1;
+test_auth();
 
-# Missing Credentials
-my $param = { authen_username => 'user1', rm => 'two' };
-taint_deeply($param);
-my $query = CGI->new( $param);
+sub test_auth {
+    my $test_name = shift || "default";
+    my $login_form = shift;
+    local $cap_options->{LOGIN_FORM} = $login_form if $login_form;
 
-my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+    # Missing Credentials
+    my $param = { authen_username => 'user1', rm => 'two' };
+    taint_deeply($param);
+    my $query = CGI->new( $param);
 
-my $results = $cgiapp->run;
+    my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
 
-ok(!$cgiapp->authen->is_authenticated,'missing credentials - login failure');
-is( $cgiapp->authen->username, undef, 'missing credentials - username not set' );
-is( $cgiapp->param('post_login'),1,'missing credentials - POST_LOGIN_CALLBACK executed' );
-is( $cgiapp->authen->_detaint_destination, '', '_detaint_destination');
-untainted_ok($cgiapp->authen->_detaint_destination, '_detaint_destination untainted');
-is( $cgiapp->authen->_detaint_selfurl, 'http://localhost?rm=two;authen_username=user1', '_detaint_selfurl');
-untainted_ok($cgiapp->authen->_detaint_selfurl, '_detaint_selfurl untainted');
-is( $cgiapp->authen->_detaint_url, '', '_detaint_url');
-untainted_ok($cgiapp->authen->_detaint_url, '_detaint_url untainted');
-ok_regression(sub {$cgiapp->authen->login_box}, 't/out/login0', 'verify login box');
-untainted_ok($cgiapp->authen->login_box, 'check login box taint');
+    my $results = $cgiapp->run;
 
+    ok(!$cgiapp->authen->is_authenticated,"$test_name - login failure");
+    is( $cgiapp->authen->username, undef, "$test_name - username not set" );
+    is( $cgiapp->param('post_login'),1,"$test_name - POST_LOGIN_CALLBACK executed" );
+    is( $cgiapp->authen->_detaint_destination, '', "$test_name - _detaint_destination");
+    untainted_ok($cgiapp->authen->_detaint_destination, "$test_name - _detaint_destination untainted");
+    is( $cgiapp->authen->_detaint_selfurl, 'http://localhost?rm=two;authen_username=user1', "$test_name - _detaint_selfurl");
+    untainted_ok($cgiapp->authen->_detaint_selfurl, "$test_name - _detaint_selfurl untainted");
+    is( $cgiapp->authen->_detaint_url, '', "$test_name - _detaint_url");
+    untainted_ok($cgiapp->authen->_detaint_url, "$test_name - _detaint_url untainted");
+    ok_regression(sub {$cgiapp->authen->login_box}, "t/out/$test_name", "$test_name - verify login box");
+    untainted_ok($cgiapp->authen->login_box, "$test_name - check login box taint");
+}
