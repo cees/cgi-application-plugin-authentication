@@ -3,7 +3,7 @@ use Test::More;
 use Test::Taint;
 use Test::Regression;
 
-plan tests => 12;
+plan tests => 23;
 
 use strict;
 use warnings;
@@ -52,6 +52,16 @@ my $cap_options =
 }
 
 test_auth();
+test_auth('cosmetic', {
+	TITLE=>'Aanmelden',
+	USERNAME_LABEL=>'Gebruikersnaam',
+	PASSWORD_LABEL=>'Wachtwoord',
+	SUBMIT_LABEL=>'Aanmelden',
+	COMMENT=>'Vul uw gebruikersnaam en wachtwoord in de velden hieronder.',
+	REMEMBERUSER_LABEL=>'Onthouden Gebruikersnaam',
+	INVALIDPASSWORD_MESSAGE=>'Ongeldige gebruikersnaam of wachtwoord <br /> (login poging% d)',
+	INCLUDE_STYLESHEET=>0
+});
 
 sub test_auth {
     my $test_name = shift || "default";
