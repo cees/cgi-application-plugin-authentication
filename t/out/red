@@ -32,7 +32,7 @@ div.login .login_content {
   font-size: 80%;
 }
 div.login .login_footer {
-  background: #c4a2aa;
+  background: #c2a0a8;
   border-top: 1px solid white;
   border-bottom: 1px solid white;
   text-align: left;
@@ -59,8 +59,8 @@ div.login label {
   background-color: #fff;
   border-top: solid 1px #5a5a5a;
   border-left: solid 1px #5a5a5a;
-  border-bottom: solid 1px #c4a2aa;
-  border-right: solid 1px #c4a2aa;
+  border-bottom: solid 1px #c2a0a8;
+  border-right: solid 1px #c2a0a8;
   padding: 2px 0 2px 18px;
   margin: 0.3em 0;
   width: 12em;
@@ -71,8 +71,8 @@ div.login label {
   background-color: #fff;
   border-top: solid 1px #5a5a5a;
   border-left: solid 1px #5a5a5a;
-  border-bottom: solid 1px #c4a2aa;
-  border-right: solid 1px #c4a2aa;
+  border-bottom: solid 1px #c2a0a8;
+  border-right: solid 1px #c2a0a8;
   padding: 2px 0 2px 18px;
   margin: 0.3em 0;
   width: 12em;
@@ -94,8 +94,8 @@ div.login a {
   color: #5f303b;
 }
 div.login div.buttons input {
-  border-top: solid 2px #c4a2aa;
-  border-left: solid 2px #c4a2aa;
+  border-top: solid 2px #c2a0a8;
+  border-left: solid 2px #c2a0a8;
   border-bottom: solid 2px #5a5a5a;
   border-right: solid 2px #5a5a5a;
   background-color: #e1d0d4;

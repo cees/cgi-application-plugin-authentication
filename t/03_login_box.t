@@ -63,13 +63,23 @@ test_auth('cosmetic', {
 	INCLUDE_STYLESHEET=>0
 });
 test_auth('red', {
-	BASE_COLOUR=>'#884454'
-});
+	BASE_COLOUR=>'#884454',
+	LIGHT_COLOUR=>'49%'
+}, 1);
 
 
 sub test_auth {
     my $test_name = shift || "default";
     my $login_form = shift;
+    my $color_calc_required = shift;
+    if (defined $color_calc_required) {
+	eval "use Color::Calc";
+	if ($@) {
+		diag "Color::Calc required for this sub test";
+		pass($test_name);
+		return;
+	}
+    }
     subtest $test_name => sub {
        plan tests => 11;
        local $cap_options->{LOGIN_FORM} = $login_form if $login_form;
