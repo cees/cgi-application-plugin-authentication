@@ -51,8 +51,10 @@ t/changes.t
 t/htpasswd
 t/htpasswd2
 t/manifest.t
-t/out/default
 t/out/cosmetic
+t/out/default
+t/out/green
+t/out/red
 t/podspell.t
 t/prereq.t
 t/Store/Dummy.pm
