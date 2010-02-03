@@ -6,7 +6,7 @@ div.login {
   padding: 3px;
   font-weight: bold;
   border: 2px solid #884454;
-  color: #5f303b;
+  color: #61303c;
   font-family: sans-serif;
 }
 div.login div {
@@ -16,7 +16,7 @@ div.login div {
 }
 div.login .login_header {
   background: #884454;
-  border-bottom: 1px solid #361b22;
+  border-bottom: 1px solid #381c22;
   height: 1.5em;
   padding: 0.45em;
   text-align: left;
@@ -91,7 +91,7 @@ div.login label {
 }
 div.login a {
   font-size: 80%;
-  color: #5f303b;
+  color: #61303c;
 }
 div.login div.buttons input {
   border-top: solid 2px #c2a0a8;
@@ -102,7 +102,7 @@ div.login div.buttons input {
   padding: .2em 1em ;
   font-size: 80%;
   font-weight: bold;
-  color: #5f303b;
+  color: #61303c;
 }
 div.login div.buttons {
   display: block;
