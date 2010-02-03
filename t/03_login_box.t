@@ -64,7 +64,8 @@ test_auth('cosmetic', {
 });
 test_auth('red', {
 	BASE_COLOUR=>'#884454',
-	LIGHT_COLOUR=>'49%'
+	LIGHT_COLOUR=>'49%',
+	LIGHTER_COLOUR=>'74%'
 }, 1);
 
 

@@ -25,7 +25,7 @@ div.login .login_header {
   font-weight: bold;
 }
 div.login .login_content {
-  background: #e1d0d4;
+  background: #e0ced3;
   padding: 0.8em;
   border-top: 1px solid white;
   border-bottom: 1px solid #5a5a5a;
@@ -98,7 +98,7 @@ div.login div.buttons input {
   border-left: solid 2px #c2a0a8;
   border-bottom: solid 2px #5a5a5a;
   border-right: solid 2px #5a5a5a;
-  background-color: #e1d0d4;
+  background-color: #e0ced3;
   padding: .2em 1em ;
   font-size: 80%;
   font-weight: bold;
