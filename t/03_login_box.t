@@ -3,7 +3,7 @@ use Test::More;
 use Test::Taint;
 use Test::Regression;
 
-plan tests => 4;
+plan tests => 5;
 
 use strict;
 use warnings;
@@ -69,6 +69,10 @@ test_auth('red', {
 	DARK_COLOUR=>'29%',
 	DARKER_COLOUR=>'59%'
 }, 1);
+test_auth('green', {
+        BASE_COLOUR=>'#2cf816'
+}, 1);
+
 
 
 sub test_auth {
