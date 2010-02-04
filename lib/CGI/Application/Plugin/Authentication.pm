@@ -1737,7 +1737,7 @@ sub _detaint_destination {
     my $query       = $self->_cgiapp->query;
     my $destination = $query->param('destination');
     my $regexp = $self->_config->{DETAINT_URL_REGEXP};
-    if ($destination && $destination =~ /$self->_config->{DETAINT_URL_REGEXP}/) {
+    if ($destination && $destination =~ /$regexp/) {
 	$destination = $1;
     }
     else {
