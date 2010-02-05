@@ -3,7 +3,7 @@ use Test::More;
 use Test::Taint;
 use Test::Regression;
 
-plan tests => 4;
+plan tests => 5;
 
 use strict;
 use warnings;
@@ -92,6 +92,20 @@ subtest 'redirection with constraining taint check' => sub {
         is( $cgiapp->authen->login_attempts, 0, "successful login - failed login count" );
         is( $cgiapp->param('post_login'),1,'successful login - POST_LOGIN_CALLBACK executed' );
 };
+subtest 'user name failing taint check' => sub {
+        plan tests => 5;
+        local $cap_options->{DETAINT_USERNAME_REGEXP} = '^([A-Z]+)$';
+        my $query = CGI->new( { authen_username => 'user1', rm => 'two', destination=>'http://news.bbc.co.uk' } );
+
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+        ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/username", "username");
+
+        ok(!$cgiapp->authen->is_authenticated,'login failure');
+        is( $cgiapp->authen->username, undef, "login failure - username not set" );
+        is( $cgiapp->authen->login_attempts, 1, "failed login - failed login count" );
+        is( $cgiapp->param('post_login'),1,'failed login - POST_LOGIN_CALLBACK executed' );
+};
+
 
 
 sub make_output_timeless {
