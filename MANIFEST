@@ -56,8 +56,12 @@ t/out/cosmetic
 t/out/crlf
 t/out/default
 t/out/green
+t/out/loginurl
 t/out/red
 t/out/redirect
+t/out/restricted
+t/out/runmode
+t/out/username
 t/podspell.t
 t/prereq.t
 t/Store/Dummy.pm
