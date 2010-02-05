@@ -1,9 +1,9 @@
-#!/usr/bin/perl 
+#!/usr/bin/perl  -T
 use Test::More;
 use Test::Taint;
 use Test::Regression;
 
-plan tests => 6;
+plan tests => 3;
 
 use strict;
 use warnings;
@@ -35,10 +35,12 @@ my $cap_options =
 
     sub one {
         my $self = shift;
+	return "<html><body>ONE</body></html>";
     }
 
     sub two {
         my $self = shift;
+	return "<html><body>TWO</body></html>";
     }
 
     sub post_login {
@@ -53,16 +55,30 @@ my $cap_options =
 $ENV{CGI_APP_RETURN_ONLY} = 1;
 
 # successful login
-my $query =
-  CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', destination=>'http://news.bbc.co.uk' } );
+subtest 'straightforward use of destination parameter' => sub {
+	plan tests => 5;
+	my $query = CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', destination=>'http://news.bbc.co.uk' } );
 
-my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
-ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/redirect", "redirection");
+	my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+	ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/redirect", "redirection");
 
-ok($cgiapp->authen->is_authenticated,'login success');
-is( $cgiapp->authen->username, 'user1', "login success - username set" );
-is( $cgiapp->authen->login_attempts, 0, "successful login - failed login count" );
-is( $cgiapp->param('post_login'),1,'successful login - POST_LOGIN_CALLBACK executed' );
+	ok($cgiapp->authen->is_authenticated,'login success');
+	is( $cgiapp->authen->username, 'user1', "login success - username set" );
+	is( $cgiapp->authen->login_attempts, 0, "successful login - failed login count" );
+	is( $cgiapp->param('post_login'),1,'successful login - POST_LOGIN_CALLBACK executed' );
+};
+subtest 'redirection including CRLF' => sub {
+        plan tests => 5;
+        my $query = CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', destination=>'http://news.bbc.co.uk\r\nLocation: blah' } );
+
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+        ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/crlf", "crlf");
+
+        ok($cgiapp->authen->is_authenticated,'login success');
+        is( $cgiapp->authen->username, 'user1', "login success - username set" );
+        is( $cgiapp->authen->login_attempts, 0, "successful login - failed login count" );
+        is( $cgiapp->param('post_login'),1,'successful login - POST_LOGIN_CALLBACK executed' );
+};
 
 sub make_output_timeless {
         my $output = shift;

@@ -826,11 +826,28 @@ sub is_protected_runmode {
 
 This method is be called during the prerun stage to
 redirect the user to the page that has been configured
-as the destination after a successful login.  The location
-is based on the values of the POST_LOGIN_RUNMODE or 
-POST_LOGIN_URL config parameter, or in their absence,
-the page will be redirected to the page that was originally
-requested when the login page was triggered.
+as the destination after a successful login.  The location is determined as follows:
+
+=over 
+
+=item POST_LOGIN_RUNMODE 
+
+If the POST_LOGIN_RUNMODE config parameter is set, that run mode will be the chosen location.
+
+=item POST_LOGIN_URL
+
+If the above fails and the POST_LOGIN_URL config parameter is set, then there will be a 302 redirection to that location.
+
+=item destination
+
+If the above fails and there is a destination query parameter, which must a taint check against the DETAINT_URL_REGEXP config parameter,
+then there will be a 302 redirection to that location.
+
+=item original destination
+
+If all the above fail then there the originally requested page will be delivered.
+
+=back
 
 =cut
 
@@ -850,6 +867,7 @@ sub redirect_after_login {
         $cgiapp->header_type('redirect');
         $cgiapp->prerun_mode('authen_dummy_redirect');
     }
+    return;
 }
 
 =head2 redirect_to_login
