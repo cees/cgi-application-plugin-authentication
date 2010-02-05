@@ -1,9 +1,9 @@
-#!/usr/bin/perl  
+#!/usr/bin/perl  -T
 use Test::More;
 use Test::Taint;
 use Test::Regression;
 
-plan tests => 5;
+plan tests => 7;
 
 use strict;
 use warnings;
@@ -28,8 +28,8 @@ my $cap_options =
     sub setup {
         my $self = shift;
         $self->start_mode('one');
-        $self->run_modes([qw(one two)]);
-        $self->authen->protected_runmodes(qw(two));
+        $self->run_modes([qw(one two three)]);
+        $self->authen->protected_runmodes(qw(two three));
         $self->authen->config($cap_options);
     }
 
@@ -41,6 +41,11 @@ my $cap_options =
     sub two {
         my $self = shift;
 	return "<html><body>TWO</body></html>";
+    }
+
+    sub three {
+        my $self = shift;
+        return "<html><body>THREE</body></html>";
     }
 
     sub post_login {
@@ -104,6 +109,33 @@ subtest 'user name failing taint check' => sub {
         is( $cgiapp->authen->username, undef, "login failure - username not set" );
         is( $cgiapp->authen->login_attempts, 1, "failed login - failed login count" );
         is( $cgiapp->param('post_login'),1,'failed login - POST_LOGIN_CALLBACK executed' );
+};
+subtest 'POST_LOGIN_URL usage' => sub {
+        plan tests => 5;
+        local $cap_options->{POST_LOGIN_URL} = 'http://www.perl.org';
+        my $query = CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', destination=>'http://news.bbc.co.uk' } );
+
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+        ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/loginurl", "loginurl");
+
+        ok($cgiapp->authen->is_authenticated,'login success');
+        is( $cgiapp->authen->username, 'user1', "login success - username set" );
+        is( $cgiapp->authen->login_attempts, 0, "successful login - failed login count" );
+        is( $cgiapp->param('post_login'),1,'successful login - POST_LOGIN_CALLBACK executed' );
+};
+subtest 'POST_LOGIN_RUNMODE usage' => sub {
+        plan tests => 5;
+        local $cap_options->{POST_LOGIN_RUNMODE} = 'three';
+        local $cap_options->{POST_LOGIN_URL} = 'http://www.perl.org';
+        my $query = CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', destination=>'http://news.bbc.co.uk' } );
+
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+        ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/runmode", "runmode");
+
+        ok($cgiapp->authen->is_authenticated,'login success');
+        is( $cgiapp->authen->username, 'user1', "login success - username set" );
+        is( $cgiapp->authen->login_attempts, 0, "successful login - failed login count" );
+        is( $cgiapp->param('post_login'),1,'successful login - POST_LOGIN_CALLBACK executed' );
 };
 
 
