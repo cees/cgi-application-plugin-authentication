@@ -1,9 +1,9 @@
-#!/usr/bin/perl  -T
+#!/usr/bin/perl  
 use Test::More;
 use Test::Taint;
 use Test::Regression;
 
-plan tests => 3;
+plan tests => 4;
 
 use strict;
 use warnings;
@@ -79,6 +79,20 @@ subtest 'redirection including CRLF' => sub {
         is( $cgiapp->authen->login_attempts, 0, "successful login - failed login count" );
         is( $cgiapp->param('post_login'),1,'successful login - POST_LOGIN_CALLBACK executed' );
 };
+subtest 'redirection with constraining taint check' => sub {
+        plan tests => 5;
+	local $cap_options->{DETAINT_URL_REGEXP} = '^(http\:\/\/www\.perl.org\/[\w\_\%\?\&\;\-\/\@\.\+\$\=\#\:\!\*\"\'\(\)\,]+)$';
+        my $query = CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', destination=>'http://news.bbc.co.uk' } );
+
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+        ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/restricted", "restricted");
+
+        ok($cgiapp->authen->is_authenticated,'login success');
+        is( $cgiapp->authen->username, 'user1', "login success - username set" );
+        is( $cgiapp->authen->login_attempts, 0, "successful login - failed login count" );
+        is( $cgiapp->param('post_login'),1,'successful login - POST_LOGIN_CALLBACK executed' );
+};
+
 
 sub make_output_timeless {
         my $output = shift;
