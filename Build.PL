@@ -9,7 +9,7 @@ Module::Build->new(
         'Class::ISA' => 0,
         'Attribute::Handlers' => 0,
         'UNIVERSAL::require' => 0,
-        'CGI' => '3.11',
+        'CGI' => '3.16',
         'MIME::Base64' => 0,
         'Digest::SHA1' => 0,
         'perl' => 5.006,
