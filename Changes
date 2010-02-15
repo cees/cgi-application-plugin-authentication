@@ -7,6 +7,7 @@ Revision history for Perl extension CGI::Application::Plugin::Authentication.
     Upped requiredment on CGI to 3.11 as that seems to cause unusual behaviour in returning
     self referring urls.
     Further upped requirement on CGI to 3.16 as 3.15 has a buggy interpretation of redirection headers.
+    Fixed regular expressions in destination test to respect HTTP header CRLF conventions.
 
 0.17  Thu Jan 21 19:16 GMT 2010
     Bug Fixes
