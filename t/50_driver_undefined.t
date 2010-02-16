@@ -4,7 +4,7 @@ use Test::Taint;
 use Test::Exception;
 use lib qw(t);
 
-plan tests => 17;
+plan tests => 18;
 
 use strict;
 use warnings;
@@ -124,4 +124,14 @@ $ENV{CGI_APP_RETURN_ONLY} = 1;
         my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
 	throws_ok {$cgiapp->authen->drivers} qr/Driver Blah can not be found/, 'Non existent driver';
 };
+
+# Test what happens when a driver constructor dies
+{
+        local $cap_options->{DRIVER} = ['Die'];
+        my $query = CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', destination=>'http://news.bbc.co.uk' } );
+
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+        throws_ok {$cgiapp->authen->drivers} qr/Could not create new CGI::Application::Plugin::Authentication::Driver::Die object/, 'Suicidal driver';
+};
+
 
