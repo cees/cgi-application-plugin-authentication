@@ -4,7 +4,7 @@ use Test::Taint;
 use Test::Exception;
 use lib qw(t);
 
-plan tests => 16;
+plan tests => 17;
 
 use strict;
 use warnings;
@@ -114,5 +114,14 @@ $ENV{CGI_APP_RETURN_ONLY} = 1;
         my @drivers = $cgiapp->authen->drivers;
         ok(scalar(@drivers) == 1, 'We should have just one driver');
 	isa_ok($drivers[0], 'CGI::Application::Plugin::Authentication::Driver::Dummy', 'Dummy is the default driver');
+};
+
+# Test what happens when a non-existent driver is called
+{
+        local $cap_options->{DRIVER} = ['Blah'];
+        my $query = CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', destination=>'http://news.bbc.co.uk' } );
+
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+	throws_ok {$cgiapp->authen->drivers} qr/Driver Blah can not be found/, 'Non existent driver';
 };
 
