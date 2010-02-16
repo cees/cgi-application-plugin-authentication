@@ -4,7 +4,7 @@ use Test::Taint;
 use Test::Exception;
 use lib qw(t);
 
-plan tests => 6;
+plan tests => 10;
 
 use strict;
 use warnings;
@@ -14,13 +14,6 @@ use CGI ();
 
 my $cap_options =
 {
-        DRIVER =>
-	[
-		'Silly',
-		option1 => 'Tom',
-		option2 => 'Dick',
-		option3 => 'Harry'
-	],
         STORE => ['Cookie', SECRET => "Shhh, don't tell anyone", NAME => 'CAPAUTH_DATA', EXPIRY => '+1y'],
 };
 
@@ -65,8 +58,15 @@ my $cap_options =
 
 $ENV{CGI_APP_RETURN_ONLY} = 1;
 
-# successful login
+# Test 'find_options' function and what happens when we don't define 'verify_credentials'
 {
+	local $cap_options->{DRIVER} = 
+	[
+		'Silly',
+		option1 => 'Tom',
+		option2 => 'Dick',
+		option3 => 'Harry'
+	];
 	my $query = CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', destination=>'http://news.bbc.co.uk' } );
 
 	my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
@@ -79,3 +79,22 @@ $ENV{CGI_APP_RETURN_ONLY} = 1;
 	ok($drivers[0]->find_option('option3', 'Harry'), 'Harry');
 	throws_ok {$cgiapp->run} qr/verify_credentials must be implemented in the subclass/, 'undefined function caught okay';
 };
+
+# Test what happens when we have no options.
+{
+        local $cap_options->{DRIVER} =
+        [
+                'Silly',
+        ];
+        my $query = CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', destination=>'http://news.bbc.co.uk' } );
+
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+
+        my @drivers = $cgiapp->authen->drivers;
+        ok(scalar(@drivers) == 1, 'We should have just one driver');
+
+        ok(!defined($drivers[0]->find_option('option1', 'Tom')), 'Tom');
+        ok(!defined($drivers[0]->find_option('option2', 'Dick')), 'Dick');
+        ok(!defined($drivers[0]->find_option('option3', 'Harry')), 'Harry');
+};
+
