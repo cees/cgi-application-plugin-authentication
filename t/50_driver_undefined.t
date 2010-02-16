@@ -4,7 +4,7 @@ use Test::Taint;
 use Test::Exception;
 use lib qw(t);
 
-plan tests => 10;
+plan tests => 14;
 
 use strict;
 use warnings;
@@ -90,8 +90,15 @@ $ENV{CGI_APP_RETURN_ONLY} = 1;
 
         my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
 
+	ok(!exists $cgiapp->authen->{drivers}, 'nothing cached yet');
         my @drivers = $cgiapp->authen->drivers;
         ok(scalar(@drivers) == 1, 'We should have just one driver');
+	ok(scalar(@{$cgiapp->authen->{drivers}}) == 1, 'cached now');
+
+	# test caching
+	my @drivers1 = $cgiapp->authen->drivers;
+        ok(scalar(@drivers1) == 1, 'We should have just one driver');
+	ok($drivers[0] == $drivers1[0], 'test caching');
 
         ok(!defined($drivers[0]->find_option('option1', 'Tom')), 'Tom');
         ok(!defined($drivers[0]->find_option('option2', 'Dick')), 'Dick');
