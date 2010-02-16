@@ -4,7 +4,7 @@ use Test::Taint;
 use Test::Exception;
 use lib qw(t);
 
-plan tests => 2;
+plan tests => 6;
 
 use strict;
 use warnings;
@@ -14,7 +14,13 @@ use CGI ();
 
 my $cap_options =
 {
-        DRIVER => [ 'Silly' ],
+        DRIVER =>
+	[
+		'Silly',
+		option1 => 'Tom',
+		option2 => 'Dick',
+		option3 => 'Harry'
+	],
         STORE => ['Cookie', SECRET => "Shhh, don't tell anyone", NAME => 'CAPAUTH_DATA', EXPIRY => '+1y'],
 };
 
@@ -64,5 +70,12 @@ $ENV{CGI_APP_RETURN_ONLY} = 1;
 	my $query = CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', destination=>'http://news.bbc.co.uk' } );
 
 	my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+
+	my @drivers = $cgiapp->authen->drivers;
+	ok(scalar(@drivers) == 1, 'We should have just one driver');
+
+	ok($drivers[0]->find_option('option1', 'Tom'), 'Tom');
+	ok($drivers[0]->find_option('option2', 'Dick'), 'Dick');
+	ok($drivers[0]->find_option('option3', 'Harry'), 'Harry');
 	throws_ok {$cgiapp->run} qr/verify_credentials must be implemented in the subclass/, 'undefined function caught okay';
 };
