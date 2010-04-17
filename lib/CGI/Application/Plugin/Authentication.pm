@@ -1692,7 +1692,10 @@ sub prerun_callback {
         $authen->last_access($now);
     }
 
-    if ($authen->is_protected_runmode($self->get_current_runmode)) {
+    my $run_mode = $self->prerun_mode;
+    $run_mode ||= $self->get_current_runmode;
+    
+    if ( $authen->is_protected_runmode( $run_mode ) ) {
         # This runmode requires authentication
         unless ($authen->is_authenticated) {
             # This user is NOT logged in
