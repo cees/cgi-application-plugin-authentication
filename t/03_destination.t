@@ -35,12 +35,12 @@ my $cap_options =
 
     sub one {
         my $self = shift;
-	return "<html><body>ONE</body></html>";
+        return "<html><body>ONE</body></html>";
     }
 
     sub two {
         my $self = shift;
-	return "<html><body>TWO</body></html>";
+        return "<html><body>TWO</body></html>";
     }
 
     sub three {
@@ -61,16 +61,16 @@ $ENV{CGI_APP_RETURN_ONLY} = 1;
 
 # successful login
 subtest 'straightforward use of destination parameter' => sub {
-	plan tests => 5;
-	my $query = CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', destination=>'http://news.bbc.co.uk' } );
+        plan tests => 5;
+        my $query = CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', destination=>'http://news.bbc.co.uk' } );
 
-	my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
-	ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/redirect", "redirection");
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+        ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/redirect", "redirection");
 
-	ok($cgiapp->authen->is_authenticated,'login success');
-	is( $cgiapp->authen->username, 'user1', "login success - username set" );
-	is( $cgiapp->authen->login_attempts, 0, "successful login - failed login count" );
-	is( $cgiapp->param('post_login'),1,'successful login - POST_LOGIN_CALLBACK executed' );
+        ok($cgiapp->authen->is_authenticated,'login success');
+        is( $cgiapp->authen->username, 'user1', "login success - username set" );
+        is( $cgiapp->authen->login_attempts, 0, "successful login - failed login count" );
+        is( $cgiapp->param('post_login'),1,'successful login - POST_LOGIN_CALLBACK executed' );
 };
 subtest 'redirection including CRLF' => sub {
         plan tests => 5;
@@ -86,7 +86,7 @@ subtest 'redirection including CRLF' => sub {
 };
 subtest 'redirection with constraining taint check' => sub {
         plan tests => 5;
-	local $cap_options->{DETAINT_URL_REGEXP} = '^(http\:\/\/www\.perl.org\/[\w\_\%\?\&\;\-\/\@\.\+\$\=\#\:\!\*\"\'\(\)\,]+)$';
+        local $cap_options->{DETAINT_URL_REGEXP} = '^(http\:\/\/www\.perl.org\/[\w\_\%\?\&\;\-\/\@\.\+\$\=\#\:\!\*\"\'\(\)\,]+)$';
         my $query = CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', destination=>'http://news.bbc.co.uk' } );
 
         my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
