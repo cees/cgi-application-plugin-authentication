@@ -21,7 +21,7 @@ Module::Build->new(
         'Color::Calc' => '0.12',
     },
     build_requires => {
-        'Test::More' => 0,
+        'Test::More' => '0.90',
         'Test::Warn' => 0.11, # older versions may have problems with fresh Sub::Uplevel
         'Task::Weaken' => 0, # to be sure that Scalar::Util has weaken
 	'Test::Exception' => 0,
