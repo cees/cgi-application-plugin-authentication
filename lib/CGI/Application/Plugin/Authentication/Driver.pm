@@ -90,6 +90,7 @@ You can then use the filter name on any of the fields as if it was a builtin fil
                 ],
 
  sub rot13_filter {
+     my $param = shift;
      my $value = shift;
      $value =~ tr/A-Za-z/N-ZA-Mn-za-m/;
      return $value;
@@ -243,7 +244,7 @@ sub filter {
 
     return unless defined $plain;
 
-    my @filters = split /:/, $field;
+    my @filters = split /\:/, $field;
     my $fieldname = pop @filters;
 
     my $filtered = $plain;
@@ -260,12 +261,12 @@ sub filter {
             if ( $custom_filters ) {
                 die "the FILTERS configuration option must be a hashref"
                   unless ref( $custom_filters ) eq 'HASH';
-                if ( $custom_filters->{$filter} ) {
+                if ( $custom_filters->{$filter_name} ) {
                     die "the '$filter' filter listed in FILTERS must be a subroutine reference"
-                      unless ref( $custom_filters->{$filter} ) eq 'CODE';
-                    $filtered = $custom_filters->{$filter}->( $param, $filtered, @other );
+                      unless ref( $custom_filters->{$filter_name} ) eq 'CODE';
+                    $filtered = $custom_filters->{$filter_name}->( $param, $filtered, @other );
                 } else {
-                    die "No filter found for '$filter'";
+                    die "No filter found for '$filter_name'";
                 }
             } else {
                 die "No filters found for '$filter'";

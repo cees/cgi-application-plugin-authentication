@@ -1964,6 +1964,8 @@ to avoid duplicated efforts, send me a note, and I'll let you know of anyone els
 This is alpha software and as such, the features and interface
 are subject to change.  So please check the Changes file when upgrading.
 
+Some of the test scripts appear to be incompatible with versions of
+L<Devel::Cover> later than 0.65.
 
 =head1 SEE ALSO
 
