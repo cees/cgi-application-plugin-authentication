@@ -181,6 +181,7 @@ qr/Could not create new CGI::Application::Plugin::Authentication::Driver::Die ob
 
 # Start playing with filter
 {
+   
     my $query = CGI->new(
         {
             authen_username => 'user1',
