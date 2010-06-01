@@ -2,9 +2,10 @@
 use Test::More;
 use Test::Taint;
 use Test::Exception;
+use Test::Regression;
 use lib qw(t);
 
-plan tests => 39;
+plan tests => 44;
 srand(0);
 
 use strict;
@@ -204,6 +205,10 @@ qr/Could not create new CGI::Application::Plugin::Authentication::Driver::Die ob
     is($driver->filter('crypt_blah:password', 'hello123', ''), "4rJy6RLB765G6", "crypt - bland salt");
     throws_ok { $driver->filter('nonsense:crypt_blah:password', 'hello123', '') }
          qr/No filters found for 'nonsense'/, "undefined filter";
+    throws_ok { $driver->filter('md5_blah:crypt_blah:password', 'hello123', '') }
+         qr/Unknown MD5 format blah/, "Unknown MD5 parameter";
+    throws_ok { $driver->filter('sha1_blah:crypt_blah:password', 'hello123', '') }
+         qr/Unknown SHA1 format blah/, "Unknown SHA1 parameter";
 };
 
 # Nonsense filter
@@ -285,8 +290,74 @@ qr/Could not create new CGI::Application::Plugin::Authentication::Driver::Die ob
     is($driver->filter('nonsense:password', 'hello123', ''), "|hello123|G", "custom filter");
 };
 
+# Generic driver
+{
+    local $cap_options->{DRIVER} = [
+        'Generic', 'Use me if you can'
+    ];
+    my $query = CGI->new(
+        {
+            authen_username => 'user1',
+            rm              => 'two',
+            authen_password => '123',
+            destination     => 'http://news.bbc.co.uk'
+        }
+    );
+
+    my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+
+    throws_ok { $cgiapp->run }
+      qr/Unknown options for Generic Driver/,
+      'Unknown options for Generic Driver';
+};
+
+# DBI driver
+{
+    local $cap_options->{DRIVER} = [
+        'DBI', 'Use me if you can'
+    ];
+    my $query = CGI->new(
+        {
+            authen_username => 'user1',
+            rm              => 'two',
+            authen_password => '123',
+            destination     => 'http://news.bbc.co.uk'
+        }
+    );
+
+    my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+
+    throws_ok { $cgiapp->run }
+      qr/The DBI driver requires a hash of options/,
+      'The DBI driver requires a hash of options';
+};
+
+# DBI driver (no dbh)
+{
+    local $cap_options->{DRIVER} = [
+        'DBI',
+    ];
+    my $query = CGI->new(
+        {
+            authen_username => 'user1',
+            rm              => 'two',
+            authen_password => '123',
+            destination     => 'http://news.bbc.co.uk'
+        }
+    );
+
+    my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+
+    throws_ok { $cgiapp->run }
+      qr/No DBH handle passed to the DBI Driver, and no dbh\(\) method detected/,
+      'No DBH';
+};
+
+
+
 sub obfuscate {
     my $param = shift || "G";
     my $value = shift;
     return "|$value|$param";
 }
+
