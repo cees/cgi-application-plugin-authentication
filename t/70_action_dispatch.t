@@ -4,11 +4,11 @@ use Test::Taint;
 use Test::Regression;
 
 use lib qw(t);
-#BEGIN {
-#    use CGI::Application;
-#    eval "use CGI::Application::Plugin::ActionDispatch;";
-#    plan skip_all => "CGI::Application::Plugin::ActionDispatch required for this test" if $@;
-#}
+
+if ( not $ENV{TEST_ACTION_DISPATCH} ) {
+    my $msg = 'Set $ENV{TEST_ACTION_DISPATCH} to a true value to run.';
+    plan( skip_all => $msg );
+}
 
 plan tests => 4;
 taint_checking_ok('taint checking is on');
@@ -70,7 +70,7 @@ subtest 'front page' => sub {
 
 # login intercepted
 subtest 'interception' => sub {
-        plan tests => 2;
+        plan tests => 3;
         local $ENV{PATH_INFO} = '/private';
         my $query = CGI->new();
 
@@ -78,6 +78,7 @@ subtest 'interception' => sub {
         ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/login", "login");
 
         ok(!$cgiapp->authen->is_authenticated,'not authenticated');
+        ok( !defined($cgiapp->param('post_login')),'unsuccessful login' );
 };
 
 # successful login
