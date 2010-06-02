@@ -2,6 +2,7 @@
 use Test::More;
 use Test::Taint;
 use Test::Regression;
+use Test::Warn;
 use Test::Without::Module qw(Color::Calc);
 
 plan tests => 2;
@@ -62,12 +63,16 @@ $ENV{CGI_APP_RETURN_ONLY} = 1;
 
 
 subtest 'Base color' => sub {
-        plan tests => 1;
+        plan tests => 2;
         local $cap_options->{LOGIN_FORM}->{BASE_COLOUR} = 'purple';
         my $query = CGI->new( { rm => 'two'} );
 
         my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
-        ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/missing_color", "Missing color");
+        my $output;
+        warning_is {$output = $cgiapp->run;}
+            "Color::Calc is required when specifying a custom BASE_COLOUR, and leaving LIGHTER_COLOUR, LIGHT_COLOUR, DARK_COLOUR or DARKER_COLOUR blank or when providing percentage based colour",
+            "checking generated warning";
+        ok_regression(sub {make_output_timeless($output)}, "t/out/missing_color", "Missing color");
 
 };
 

@@ -2,6 +2,7 @@
 use Test::More;
 use Test::Taint;
 use Test::Regression;
+use Test::Warn;
 
 plan tests => 9;
 
@@ -124,12 +125,15 @@ subtest 'POST_LOGIN_URL usage' => sub {
         is( $cgiapp->param('post_login'),1,'successful login - POST_LOGIN_CALLBACK executed' );
 };
 subtest 'POST_LOGIN_RUNMODE usage' => sub {
-        plan tests => 5;
+        plan tests => 6;
         local $cap_options->{POST_LOGIN_RUNMODE} = 'three';
         local $cap_options->{POST_LOGIN_URL} = 'http://www.perl.org';
         my $query = CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', destination=>'http://news.bbc.co.uk' } );
 
-        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+        my $cgiapp;
+        warning_is {$cgiapp = TestAppAuthenticate->new( QUERY => $query );}
+            "authen config warning:  parameter POST_LOGIN_URL ignored since we already have POST_LOGIN_RUNMODE",
+            "checking generated warning";
         ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/runmode", "runmode");
 
         ok($cgiapp->authen->is_authenticated,'login success');
