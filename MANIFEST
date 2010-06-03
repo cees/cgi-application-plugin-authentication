@@ -1,4 +1,5 @@
 Build.PL
+MANIFEST.SKIP
 Changes
 example/sample.cgi
 lib/CGI/Application/Plugin/Authentication.pm
@@ -19,8 +20,6 @@ lib/CGI/Application/Plugin/Authentication/Store/Cookie.pm
 lib/CGI/Application/Plugin/Authentication/Store/Session.pm
 Makefile.PL
 MANIFEST			This list of files
-MANIFEST.bak
-MANIFEST.SKIP
 META.yml
 README
 t/01_basic.t
@@ -83,3 +82,4 @@ t/Store/Dummy.pm
 t/TestAppDriver.pm
 t/TestAppParsimony.pm
 t/TestAppStore.pm
+Makefile.PL

@@ -1,6 +1,9 @@
 Revision history for Perl extension CGI::Application::Plugin::Authentication.
 
-0.17_4  Mon Feb 13 22:17 GMT 2010
+0.17_5  Thu Jun 04
+    Fixed ActionDispatch test
+
+0.17_4  Mon Jun 02
     Fixed dependency on Test::More - must be at least version 0.90.
     Added more tests documentation.
     Fixed handling of custom filters - now they must have a $param and a $value.

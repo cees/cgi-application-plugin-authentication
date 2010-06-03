@@ -14,5 +14,5 @@ if ( $@ ) {
    plan( skip_all => $msg );
 }
 
-Test::CheckManifest::ok_manifest({filter=>[qr/\/\.git/,qr/\/\.dotest/,qr/\.bak$/,qr/\.old$/,qr/t\/dbfile$/,qr/\.tar\.gz$/,qr/Makefile(?:\.PL)$/]});
+Test::CheckManifest::ok_manifest({filter=>[qr/\/cover_db/,qr/\/\.git/,qr/\/\.dotest/,qr/\.bak$/,qr/\.old$/,qr/t\/dbfile$/,qr/\.tar\.gz$/,qr/Makefile(?:\.PL)$/]});
 

@@ -5,18 +5,21 @@ use Test::Regression;
 
 use lib qw(t);
 
-if ( not $ENV{TEST_ACTION_DISPATCH} ) {
-    my $msg = 'Set $ENV{TEST_ACTION_DISPATCH} to a true value to run.';
-    plan( skip_all => $msg );
+BEGIN {
+    use Test::More;
+    eval {require CGI::Application::Plugin::ActionDispatch;};
+    if ($@) {
+        my $msg = 'CGI::Application::Plugin::ActionDispatch required';
+        plan skip_all => $msg;
+    }
+    plan tests => 4;
 }
-
-plan tests => 4;
-taint_checking_ok('taint checking is on');
 
 use strict;
 use warnings;
-
 use CGI ();
+
+taint_checking_ok('taint checking is on');
 
 my $cap_options =
 {
@@ -32,7 +35,7 @@ my $cap_options =
     use base qw(CGI::Application);
     use CGI::Application::Plugin::ActionDispatch;
     use CGI::Application::Plugin::Authentication;
-    
+
     sub setup {
         my $self = shift;
         $self->authen->protected_runmodes(qw(protected));
