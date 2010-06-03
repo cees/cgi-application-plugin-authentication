@@ -5,7 +5,7 @@ use Test::Exception;
 use Test::Regression;
 use lib qw(t);
 
-plan tests => 44;
+plan tests => 46;
 srand(0);
 
 use strict;
@@ -353,6 +353,29 @@ qr/Could not create new CGI::Application::Plugin::Authentication::Driver::Die ob
       'No DBH';
 };
 
+# Generic driver where first credential is undefined
+{
+    local $cap_options->{DRIVER} = [
+        'Generic',
+	{user=>'123',},
+    ];
+    my $query = CGI->new(
+        {
+            authen_username => undef,
+            rm              => 'two',
+            authen_password => '123',
+            destination     => 'http://news.bbc.co.uk'
+        }
+    );
+
+    my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+
+    $cgiapp->run;
+    ok(!$cgiapp->authen->is_authenticated, "undefined username");
+    my @drivers = $cgiapp->authen->drivers;
+    ok(!defined($drivers[0]->verify_credentials(undef, 'blah')));
+};
+
 
 
 sub obfuscate {
@@ -360,4 +383,5 @@ sub obfuscate {
     my $value = shift;
     return "|$value|$param";
 }
+
 
