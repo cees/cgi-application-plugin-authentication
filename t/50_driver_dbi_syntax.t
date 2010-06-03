@@ -39,7 +39,8 @@ INSERT INTO user VALUES ('user2', 'mQPVY1HNg8SJ2');  # crypt("123", "mQ")
             [
                 'DBI',
                 DBH         => $dbh,
-                TABLE       => undef,
+                TABLE       => 'user',
+		JOIN_ON     => ' blah blah blah',
                 CONSTRAINTS => { 'user.name' => '__CREDENTIAL_1__', 'user.password' => '__CREDENTIAL_2__' },
             ],
         ],
@@ -48,15 +49,18 @@ INSERT INTO user VALUES ('user2', 'mQPVY1HNg8SJ2');  # crypt("123", "mQ")
 
 }
 
-throws_ok {TestAppDriverDBISimple->run_authen_tests(
-    [ 'authen_username', 'authen_password' ],
-    [ 'user1', '123' ],
-    [ 'user2', '123' ],
-);}
-   qr/Error executing class callback in prerun stage: No TABLE parameter defined/,
-   "no TABLE";
+$ENV{CGI_APP_RETURN_ONLY} = 1;
 
-
+my $params = {
+    authen_username => 'user1',
+    authen_password => '123',
+    rm => 'protected',
+};
+my $query = CGI->new( $params );
+my $cgiapp = TestAppDriverDBISimple->new( QUERY => $query );
+throws_ok {$cgiapp->run;}
+    qr/Error executing class callback in prerun stage: Failed to prepare SQL statement:  near "blah": syntax error/,
+    'Syntax error';
 
 $dbh->do(<<"");
 DROP TABLE user;
@@ -65,6 +69,8 @@ DROP TABLE user;
 undef $dbh;
 
 unlink $DBNAME if -e $DBNAME;
+
+
 
 
 
