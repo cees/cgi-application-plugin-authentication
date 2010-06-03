@@ -287,6 +287,7 @@ sub verify_credentials {
 
     # Grab the database table names (TABLE and TABLES are synonymous)
     my $tables = $options{TABLES} || $options{TABLE};
+    die "No TABLE parameter defined" unless defined($tables);
     $tables = [$tables] unless ref $tables eq 'ARRAY';
 
     # See if we need to order the result set

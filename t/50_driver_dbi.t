@@ -44,7 +44,7 @@ INSERT INTO user VALUES ('user2', 'mQPVY1HNg8SJ2');  # crypt("123", "mQ")
             [
                 'DBI',
                 DBH         => $dbh,
-                TABLE       => 'user',
+                TABLES      => 'user',
                 COLUMNS     => { 'crypt:user.password' => '__CREDENTIAL_2__' },
                 CONSTRAINTS => { 'user.name' => '__CREDENTIAL_1__' },
             ],

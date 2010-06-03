@@ -376,12 +376,11 @@ qr/Could not create new CGI::Application::Plugin::Authentication::Driver::Die ob
     ok(!defined($drivers[0]->verify_credentials(undef, 'blah')));
 };
 
-
-
 sub obfuscate {
     my $param = shift || "G";
     my $value = shift;
     return "|$value|$param";
 }
+
 
 
