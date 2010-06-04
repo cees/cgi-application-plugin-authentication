@@ -1,11 +1,12 @@
 #!/usr/bin/perl
 use Test::More;
 use Test::Exception;
+use Test::Warn;
 use lib qw(t);
 eval "use DBD::SQLite";
 plan skip_all => "DBD::SQLite required for this test" if $@;
 
-plan tests => 1;
+plan tests => 2;
 
 use strict;
 use warnings;
@@ -58,9 +59,13 @@ my $params = {
 };
 my $query = CGI->new( $params );
 my $cgiapp = TestAppDriverDBISimple->new( QUERY => $query );
-throws_ok {$cgiapp->run;}
+warning_is {throws_ok {$cgiapp->run;}
     qr/Error executing class callback in prerun stage: Failed to prepare SQL statement:  near "blah": syntax error/,
-    'Syntax error';
+    'Syntax error';}
+    'DBD::SQLite::db prepare_cached failed: near "blah": syntax error',
+    'checking warnings';
+
+
 
 $dbh->do(<<"");
 DROP TABLE user;
