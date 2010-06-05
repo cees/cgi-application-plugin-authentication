@@ -5,7 +5,7 @@ use lib qw(t);
 eval "use DBD::SQLite";
 plan skip_all => "DBD::SQLite required for this test" if $@;
 
-plan tests => 2;
+plan tests => 3;
 
 use strict;
 use warnings;
@@ -32,10 +32,6 @@ my %options = (
         'DBI',
         DBH         => $dbh,
         TABLE       => 'user',
-        CONSTRAINTS => {
-            'user.name' => '__CREDENTIAL_1__',
-            'user.password' => '__CREDENTIAL_2__'
-        },
     ],
     STORE => 'Store::Dummy',
 );
@@ -46,9 +42,10 @@ my %options = (
 
     use base qw(TestAppDriver);
 
-    __PACKAGE__->authen->config(
-	%options
-    );
+    sub setup {
+        my $self = shift;
+        $self->authen->config(%options);
+    }
 
 }
 
@@ -62,8 +59,10 @@ my %options = (
    qr/Error executing class callback in prerun stage: No TABLE parameter defined/,
    "no TABLE";
 }
+
 {
-    push local @{$options{DRIVER}}, ('COLUMNS', 'bad column');
+    my @opts = @{$options{DRIVER}};
+    local $options{DRIVER} = [@opts, 'COLUMNS', 'bad column'];
     throws_ok {TestAppDriverDBISimple->run_authen_tests(
         [ 'authen_username', 'authen_password' ],
         [ 'user1', '123' ],
@@ -71,6 +70,18 @@ my %options = (
     );}
    qr/Error executing class callback in prerun stage: COLUMNS must be a hashref/,
    "COLUMNS not a hashref";
+}
+
+{
+    my @opts = @{$options{DRIVER}};
+    local $options{DRIVER} = [@opts, 'CONSTRAINTS', 'bad constraints'];
+    throws_ok {TestAppDriverDBISimple->run_authen_tests(
+        [ 'authen_username', 'authen_password' ],
+        [ 'user1', '123' ],
+        [ 'user2', '123' ],
+    );}
+   qr/Error executing class callback in prerun stage: CONSTRAINTS must be a hashref/,
+   "CONSTRAINTS not a hashref";
 }
 
 
