@@ -5,7 +5,7 @@ use lib qw(t);
 eval "use DBD::SQLite";
 plan skip_all => "DBD::SQLite required for this test" if $@;
 
-plan tests => 3;
+plan tests => 4;
 
 use strict;
 use warnings;
@@ -83,6 +83,19 @@ my %options = (
    qr/Error executing class callback in prerun stage: CONSTRAINTS must be a hashref/,
    "CONSTRAINTS not a hashref";
 }
+
+{
+    my @opts = @{$options{DRIVER}};
+    local $options{DRIVER} = [@opts, 'CONSTRAINTS', '0'];
+    throws_ok {TestAppDriverDBISimple->run_authen_tests(
+        [ 'authen_username', 'authen_password' ],
+        [ 'user1', '123' ],
+        [ 'user2', '123' ],
+    );}
+   qr/Error executing class callback in prerun stage: Failed to prepare SQL statement:  near " "/,
+   "DBI syntax error";
+}
+
 
 
 $dbh->do(<<"");
