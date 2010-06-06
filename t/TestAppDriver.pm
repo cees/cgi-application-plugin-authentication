@@ -93,8 +93,8 @@ sub run_authen_success_tests {
         $cgiapp = $class->new( QUERY => $query );
         $results = $cgiapp->run;
 
-        ok( $cgiapp->authen->is_authenticated,'failed credentials - login failure');
-        is( $cgiapp->authen->username, $data->[0], 'failed credentials - username not set' );
+        ok( $cgiapp->authen->is_authenticated,'good credentials - login success');
+        is( $cgiapp->authen->username, $data->[0], 'good credentials - username set' );
 
     }
 }
