@@ -1,10 +1,13 @@
 Revision history for Perl extension CGI::Application::Plugin::Authentication.
 
-0.17_5  Thu Jun 04
+0.17_6  Thu Jun 04 2010
+    Fixed test dependency on Color::Calc
+
+0.17_5  Thu Jun 04 2010
     Fixed ActionDispatch test
     TABLES parameter was not made mandatory in DBI driver.
 
-0.17_4  Mon Jun 02
+0.17_4  Mon Jun 02 2010
     Fixed dependency on Test::More - must be at least version 0.90.
     Added more tests documentation.
     Fixed handling of custom filters - now they must have a $param and a $value.

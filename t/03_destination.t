@@ -4,7 +4,7 @@ use Test::Taint;
 use Test::Regression;
 use Test::Warn;
 
-plan tests => 9;
+plan tests => 8;
 
 use strict;
 use warnings;
@@ -151,21 +151,6 @@ subtest 'Redirection failure' => sub {
         ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/redirection_failure", "redirection_failure");
 
 };
-subtest 'Various other pemutations' => sub {
-        plan tests => 1;
-        undef local $cap_options->{LOGIN_FORM}->{COMMENT};
-        local $cap_options->{LOGIN_FORM}->{FOCUS_FORM_ONLOAD} = 1;
-        local $cap_options->{LOGIN_FORM}->{REMEMBERUSER_OPTION} = 0;
-        local $cap_options->{LOGIN_FORM}->{REGISTER_URL} = '/register';
-        local $cap_options->{LOGIN_FORM}->{FORGOTPASSWORD_URL} = '/forgot';
-        local $cap_options->{LOGIN_FORM}->{GREY_COLOUR} = 'purple';
-        my $query = CGI->new( { rm => 'two'} );
-
-        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
-        ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/other_permutations", "Other permutations");
-
-};
-
 
 sub make_output_timeless {
         my $output = shift;
