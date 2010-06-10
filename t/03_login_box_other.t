@@ -1,6 +1,6 @@
-#!/usr/bin/perl  -T
+#!/usr/bin/perl  
+# taint chcking seems to break Devel::Cover
 use Test::More;
-use Test::Taint;
 use Test::Regression;
 use Test::Warn;
 
@@ -12,12 +12,11 @@ BEGIN {
 	diag $msg;
         plan skip_all => $msg;
     }
-    plan tests => 2;
+    plan tests => 1;
 }
 
 use strict;
 use warnings;
-taint_checking_ok('taint checking is on');
 
 use CGI ();
 
