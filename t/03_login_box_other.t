@@ -9,6 +9,7 @@ BEGIN {
     eval {require Color::Calc;};
     if ($@) {
         my $msg = 'Color::Calc required';
+	diag $msg;
         plan skip_all => $msg;
     }
     plan tests => 2;
