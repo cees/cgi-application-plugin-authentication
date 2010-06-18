@@ -2,7 +2,7 @@ package CGI::Application::Plugin::Authentication;
 
 use 5.006;
 use strict;
-our $VERSION = '0.17_6';
+our $VERSION = '0.17_7';
 
 our %__CONFIG;
 
@@ -1973,36 +1973,7 @@ is what you want in which case that site should be the only possible external si
 
 The HTML currently generated does not seem to be standards compliant as per
 RT bug 58023. Also the default login form includes hidden forms which could
-conceivably be hijacked. For now I would suggest providing your own HTML via the RENDER_LOGIN attribute
-or one of the other means of overriding the login form.
-
-    RENDER_LOGIN => sub {
-        my $self = shift;
-        my $dest = 
-        return <<'EOS';
-    <form id="loginform" method="post" action="/private">
-        <div class="login">
-            <div class="login_header">Sign In</div>
-            <div class="login_content">
-                <ul class="message">
-                    <li>Please enter your username and password in the fields below.</li>
-                </ul>
-                <fieldset>
-                    <label for="auth_username">User Name</label>
-                    <input id="auth_username" tabindex="1" type="text" name="auth_username" size="20" value="" /><br />
-                    <label for="auth_password">Password</label>
-                    <input id="auth_password" tabindex="2" type="password" name="auth_password" size="20" /><br />
-                </fieldset>
-            </div>
-            <div class="login_footer">
-                <div class="buttons">
-                    <input id="authen_loginbutton" tabindex="4" type="submit" name="authen_loginbutton" value="Sign In" class="button" />
-                </div>
-            </div>
-        </div>
-    </form>
-    EOS
-    } 
+conceivably be hijacked. 
 
 =back
 

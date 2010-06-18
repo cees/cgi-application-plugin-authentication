@@ -1,5 +1,8 @@
 Revision history for Perl extension CGI::Application::Plugin::Authentication.
 
+0.17_7 Fri Jun 18 2010
+    Completed test coverage for Driver and below
+
 0.17_6  Thu Jun 04 2010
     Fixed test dependency on Color::Calc
 
