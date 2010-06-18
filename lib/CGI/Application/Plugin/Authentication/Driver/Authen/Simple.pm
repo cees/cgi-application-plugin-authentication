@@ -54,7 +54,8 @@ sub verify_credentials {
 
     $authen_class->require || Carp::croak("The $authen_class module is not installed");
 
-    my $authen_obj = $authen_class->new(@options) || Carp::croak("Failed to create $authen_class instance");
+    my $authen_obj = $authen_class->new(@options);
+    croak("Failed to create $authen_class instance") if !defined $authen_obj;
 
     return $authen_obj->authenticate(@creds) ? $creds[0] : undef;
 }
