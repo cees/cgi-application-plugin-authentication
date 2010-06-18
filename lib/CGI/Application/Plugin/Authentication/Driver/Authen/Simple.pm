@@ -5,7 +5,7 @@ use warnings;
 
 use base qw(CGI::Application::Plugin::Authentication::Driver);
 
-use Carp qw();
+use Carp;
 use UNIVERSAL::require;
 
 =head1 NAME

@@ -3,6 +3,7 @@ package Authen::Simple::Dummy;
 use strict;
 use warnings;
 use base 'Authen::Simple::Adapter';
+use Params::Validate;
 
 __PACKAGE__->options({
     testuser => {
