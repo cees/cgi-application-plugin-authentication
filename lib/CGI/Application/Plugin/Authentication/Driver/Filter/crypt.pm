@@ -16,7 +16,11 @@ sub filter {
     my $class = shift;
     my $param = lc shift || 'hex';
     my $plain = shift;
-    my $salt  = shift || join '', ( '.', '/', 0 .. 9, 'A' .. 'Z', 'a' .. 'z' )[ rand 64, rand 64 ];
+    my $salt  = shift;
+    if (!$salt) {
+        my @alphabet = ( '.', '/', 0 .. 9, 'A' .. 'Z', 'a' .. 'z' );
+        $salt = join '', @alphabet[ rand 64, rand 64 ];
+    }
     return crypt( $plain, $salt );
 }
 
