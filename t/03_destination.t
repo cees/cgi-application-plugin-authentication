@@ -3,6 +3,14 @@ use Test::More;
 use Test::Taint;
 use Test::Regression;
 use Test::Warn;
+use English qw(-no_match_vars);
+use strict;
+use warnings;
+
+if ($OSNAME eq 'MSWin32') {
+    my $msg = 'Not running these tests on windows yet';
+    plan skip_all => $msg;
+}
 
 plan tests => 8;
 

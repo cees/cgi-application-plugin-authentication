@@ -2,14 +2,19 @@
 use Test::More;
 use Test::Taint;
 use Test::Regression;
-
+use English qw(-no_match_vars);
 use lib qw(t);
+
 
 BEGIN {
     use Test::More;
     eval {require CGI::Application::Plugin::ActionDispatch;};
     if ($@) {
         my $msg = 'CGI::Application::Plugin::ActionDispatch required';
+        plan skip_all => $msg;
+    }
+    if ($OSNAME eq 'MSWin32') {
+        my $msg = 'Not running these tests on windows yet';
         plan skip_all => $msg;
     }
     plan tests => 4;

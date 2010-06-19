@@ -3,6 +3,7 @@
 use Test::More;
 use Test::Regression;
 use Test::Warn;
+use English qw(-no_match_vars);
 
 BEGIN {
     use Test::More;
@@ -12,7 +13,12 @@ BEGIN {
 	diag $msg;
         plan skip_all => $msg;
     }
+    if ($OSNAME eq 'MSWin32') {
+        my $msg = 'Not running these tests on windows yet';
+        plan skip_all => $msg;
+    }
     plan tests => 1;
+
 }
 
 use strict;
