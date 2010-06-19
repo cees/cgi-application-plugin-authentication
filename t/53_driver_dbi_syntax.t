@@ -59,10 +59,10 @@ my $params = {
 };
 my $query = CGI->new( $params );
 my $cgiapp = TestAppDriverDBISimple->new( QUERY => $query );
-warning_is {throws_ok {$cgiapp->run;}
+warning_like {throws_ok {$cgiapp->run;}
     qr/Error executing class callback in prerun stage: Failed to prepare SQL statement:  near "blah": syntax error/,
     'Syntax error';}
-    'DBD::SQLite::db prepare_cached failed: near "blah": syntax error',
+    qr/DBD::SQLite::db prepare_cached failed: near "blah": syntax error/,
     'checking warnings';
 
 

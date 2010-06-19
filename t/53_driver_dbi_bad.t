@@ -93,14 +93,14 @@ my %options = (
 {
     my @opts = @{$options{DRIVER}};
     local $options{DRIVER} = [@opts, 'CONSTRAINTS', 0];
-    warning_is {throws_ok {TestAppDriverDBISimple->run_authen_tests(
+    warning_like {throws_ok {TestAppDriverDBISimple->run_authen_tests(
         [ 'authen_username', 'authen_password' ],
         [ 'user1', '123' ],
         [ 'user2', '123' ],
     );}
    qr/Error executing class callback in prerun stage: Failed to prepare SQL statement:  near " "/,
    "DBI syntax error";}
-   'DBD::SQLite::db prepare_cached failed: near " ": syntax error', "DBD:SQLite";
+   qr/DBD::SQLite::db prepare_cached failed: near " ": syntax error/, "DBD:SQLite";
 }
 
 {
