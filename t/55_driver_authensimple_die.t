@@ -6,6 +6,14 @@ use Test::Warn;
 use Test::MockObject;
 use lib qw(t);
 
+BEGIN {
+    eval {require Params::Validate};
+    if ($@) {
+	my $msg = "Authen::Simple depends on Params::Validate, hence this test also";
+	plan skip_all => $msg;
+    }
+}
+
 my $authensimple = Test::MockObject->new;
 $authensimple->fake_module('Authen::Simple::Adapter', new=>sub{return undef},options=>sub{1});
 

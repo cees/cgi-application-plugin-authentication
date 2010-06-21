@@ -1,5 +1,8 @@
 Revision history for Perl extension CGI::Application::Plugin::Authentication.
 
+0.17_8 Mon Jun 21 2010
+    Fixed hidden dependency on Params::Validate.
+
 0.17_7 Fri Jun 18 2010
     Completed test coverage for Driver and below
 

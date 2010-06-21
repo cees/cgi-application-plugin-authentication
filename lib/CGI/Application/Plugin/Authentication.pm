@@ -2,7 +2,7 @@ package CGI::Application::Plugin::Authentication;
 
 use 5.006;
 use strict;
-our $VERSION = '0.17_7';
+our $VERSION = '0.17_8';
 
 our %__CONFIG;
 
