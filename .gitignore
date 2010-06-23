@@ -1,0 +1,10 @@
+cover_db/
+_build/
+blib/
+*.tar.gz
+*.SKIP
+*.yml
+*.bak
+*.tmp
+Build
+Makefile.PL
