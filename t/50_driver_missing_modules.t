@@ -5,7 +5,12 @@ use Test::Exception;
 use lib qw(t);
 use Test::Without::Module qw(Digest::MD5);
 use Test::Without::Module qw(Digest::SHA1);
+use English qw(-no_match_vars);
 
+if ($OSNAME eq 'MSWin32') {
+    my $msg = 'Not running these tests on windows yet';
+    plan skip_all => $msg;
+}
 plan tests => 11;
 srand(0);
 

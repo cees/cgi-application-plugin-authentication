@@ -1,5 +1,8 @@
 Revision history for Perl extension CGI::Application::Plugin::Authentication.
 
+0.18_1 Thu Jun 25 2010
+    Put OS dependent guards in certain tests.
+ 
 0.18 Mon Jun 23 2010
     Completed test coverage for Driver and below
     TABLES parameter was not made mandatory in DBI driver.
