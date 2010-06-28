@@ -21,7 +21,7 @@ Module::Build->new(
         'Color::Calc'                       => '0.12',
     },
     build_requires => {
-        'Test::More' => '0.90',
+        'Test::More' => '0.93_01',
         'Test::Warn' =>
           0.11,    # older versions may have problems with fresh Sub::Uplevel
         'Test::MockObject' => 0,
