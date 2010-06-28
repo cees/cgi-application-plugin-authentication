@@ -1817,7 +1817,7 @@ sub _devpopup_report {
     my $field_names = $config->{CREDENTIALS} || [qw(authen_username authen_password)];
     my $query = $cgiapp->query;
     foreach my $name (@$field_names) {
-        push @list, [ $name, $query->param($name) ];
+        push @list, [ $name, $query->param($name) || ''];
     }
     my $r=0;
     my $text = join $/, map {
