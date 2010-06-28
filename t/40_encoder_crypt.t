@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -wT
 use Test::More tests => 4;
 
 BEGIN { use_ok('CGI::Application::Plugin::Authentication::Driver::Filter::crypt') };

@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -wT
 use Test::More;
 plan tests => 22;
 
