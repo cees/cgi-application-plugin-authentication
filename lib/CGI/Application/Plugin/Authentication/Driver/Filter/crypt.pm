@@ -14,7 +14,10 @@ sub check {
 
 sub filter {
     my $class = shift;
-    my $param = lc shift || 'hex';
+    my $param = lc shift;
+    if (!defined $param) {
+        $param = 'hex';
+    }
     my $plain = shift;
     my $salt  = shift;
     if (!$salt) {
