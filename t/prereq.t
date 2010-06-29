@@ -14,6 +14,6 @@ if ( $@) {
    plan( skip_all => $msg );
 }
 
-Test::Prereq::Build::prereq_ok(undef, 'prereq', ['Test::CheckChanges', 'Test::CheckManifest', 'Test::Spelling', 'Test::Prereq', 'Test::Prereq::Build', 'Color::Calc','Apache::Htpasswd']);
+Test::Prereq::Build::prereq_ok(undef, 'prereq', ['Params::Validate', 'Test::CheckChanges', 'Test::CheckManifest', 'Test::Spelling', 'Test::Prereq', 'Test::Prereq::Build', 'Color::Calc','Apache::Htpasswd']);
 
 
