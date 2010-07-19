@@ -1,5 +1,7 @@
 Revision history for Perl extension CGI::Application::Plugin::Authentication.
 
+0.18_2  Mon 20 Jul 2010
+
 0.18_1 Thu Jun 25 2010
     Put OS dependent guards in certain tests.
     Removed deprecated *_DESTINATION parameters.
