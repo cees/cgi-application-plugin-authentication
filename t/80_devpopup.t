@@ -11,13 +11,17 @@ BEGIN {
     $ENV{CAP_DEVPOPUP_EXEC} = 1;
 
     use Test::More;
-    eval {require CGI::Application::Plugin::DevPopup;};
+    eval {require CGI::Application::Plugin::DevPopup};
     if ($@) {
         my $msg = 'CGI::Application::Plugin::DevPopup required';
         plan skip_all => $msg;
     }
     if ($OSNAME eq 'MSWin32') {
         my $msg = 'Not running these tests on windows yet';
+        plan skip_all => $msg;
+    }
+    if ($CGI::Application::Plugin::DevPopup::VERSION < 1.05) {
+        my $msg = 'There are some odd test failures that MAY be due to old versions of DevPopup';
         plan skip_all => $msg;
     }
     plan tests => 4;
