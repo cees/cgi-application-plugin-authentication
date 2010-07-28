@@ -432,120 +432,12 @@ needs to be authenticated.  If you wish to replace the entire login form with a
 completely custom version, then just set LOGIN_RUNMODE to point to your custom
 runmode.
 
-All of the parameters listed below are optional, and a reasonable default will
-be used if left blank:
+If this value is a hash ref then it will be interpeted as a Classic display box
+and one should see L<CGI::Application::Plugin::Authentication::Display::Classic>
+for further information. 
 
-=over 4
-
-=item TITLE (default: Sign In)
-
-the heading at the top of the login box 
-
-=item USERNAME_LABEL (default: User Name)
-
-the label for the user name input
-
-=item PASSWORD_LABEL (default: Password)
-
-the label for the password input
-
-=item SUBMIT_LABEL (default: Sign In)
-
-the label for the submit button
-
-=item COMMENT (default: Please enter your username and password in the fields below.)
-
-a message provided on the first login attempt
-
-=item REMEMBERUSER_OPTION (default: 1)
-
-provide a checkbox to offer to remember the users name in a cookie so that
-their user name will be pre-filled the next time they log in
-
-=item REMEMBERUSER_LABEL (default: Remember User Name)
-
-the label for the remember user name checkbox
-
-=item REMEMBERUSER_COOKIENAME (default: CAPAUTHTOKEN)
-
-the name of the cookie where the user name will be saved
-
-=item REGISTER_URL (default: <none>)
-
-the URL for the register new account link
-
-=item REGISTER_LABEL (default: Register Now!)
-
-the label for the register new account link
-
-=item FORGOTPASSWORD_URL (default: <none>)
-
-the URL for the forgot password link
-
-=item FORGOTPASSWORD_LABEL (default: Forgot Password?)
-
-the label for the forgot password link
-
-=item INVALIDPASSWORD_MESSAGE (default: Invalid username or password<br />(login attempt %d)
-
-a message given when a login failed
-
-=item INCLUDE_STYLESHEET (default: 1)
-
-use this to disable the built in style-sheet for the login box so you can provide your own custom styles
-
-=item FORM_SUBMIT_METHOD (default: post)
-
-use this to get the form to submit using 'get' instead of 'post'
-
-=item FOCUS_FORM_ONLOAD (default: 1)
-
-use this to automatically focus the login form when the page loads so a user can start typing right away.
-
-=item BASE_COLOUR (default: #445588)
-
-This is the base colour that will be used in the included login box.  All other
-colours are automatically calculated based on this colour (unless you hardcode
-the colour values).  In order to calculate other colours, you will need the
-Color::Calc module.  If you do not have the Color::Calc module, then you will
-need to use fixed values for all of the colour options.  All colour values
-besides the BASE_COLOUR can be simple percentage values (including the % sign).
-For example if you set the LIGHTER_COLOUR option to 80%, then the calculated
-colour will be 80% lighter than the BASE_COLOUR.
-
-=item LIGHT_COLOUR (default: 50% or #a2aac4)
-
-A colour that is lighter than the base colour.
-
-=item LIGHTER_COLOUR (default: 75% or #d0d5e1)
-
-A colour that is another step lighter than the light colour.
-
-=item DARK_COLOUR (default: 30% or #303c5f)
-
-A colour that is darker than the base colour.
-
-=item DARKER_COLOUR (default: 60% or #1b2236)
-
-A colour that is another step darker than the dark colour.
-
-=item GREY_COLOUR (default: #565656)
-
-A grey colour that is calculated by desaturating the base colour.
-
-
-=back
-
-  LOGIN_FORM => {
-    TITLE              => 'Login',
-    SUBMIT_LABEL       => 'Login',
-    REMEMBERUSER_LABEL => 1,
-    BASE_COLOUR        => '#0099FF',
-    LIGHTER_COLOUR     => '#AAFFFF',
-    DARK_COLOUR        => '50%',
-  }
-
-=back
+If this value is an array ref then the first value will be taken to be the display driver number
+and the other elements of the arrat configuratio parameters.
 
 =cut
 
@@ -1279,108 +1171,28 @@ This function will initiate a session or cookie if one has not been created alre
 =cut
 
 sub login_box {
-    my $self        = shift;
-    my $credentials = $self->credentials;
-    my $runmode     = $self->_cgiapp->get_current_runmode;
-    my $destination = $self->_detaint_destination || $self->_detaint_selfurl;
-    my $action      = $self->_detaint_url;
-    my $username    = $credentials->[0];
-    my $password    = $credentials->[1];
-    my $login_form  = $self->_config->{LOGIN_FORM} || {};
-    my %options = (
-        TITLE                   => 'Sign In',
-        USERNAME_LABEL          => 'User Name',
-        PASSWORD_LABEL          => 'Password',
-        SUBMIT_LABEL            => 'Sign In',
-        COMMENT                 => 'Please enter your username and password in the fields below.',
-        REMEMBERUSER_OPTION     => 1,
-        REMEMBERUSER_LABEL      => 'Remember User Name',
-        REMEMBERUSER_COOKIENAME => 'CAPAUTHTOKEN',
-        REGISTER_URL            => '',
-        REGISTER_LABEL          => 'Register Now!',
-        FORGOTPASSWORD_URL      => '',
-        FORGOTPASSWORD_LABEL    => 'Forgot Password?',
-        INVALIDPASSWORD_MESSAGE => 'Invalid username or password<br />(login attempt %d)',
-        INCLUDE_STYLESHEET      => 1,
-        FORM_SUBMIT_METHOD      => 'post',
-        %$login_form,
-    );
-
-    my $messages = '';
-    if ( my $attempts = $self->login_attempts ) {
-        $messages .= '<li class="warning">' . sprintf($options{INVALIDPASSWORD_MESSAGE}, $attempts) . '</li>';
-    } elsif ($options{COMMENT}) {
-        $messages .= "<li>$options{COMMENT}</li>";
+    my $self = shift;
+    my $config = $self->config;
+    my $class = undef;
+    my $opts = undef;
+    if (ref $config eq 'HASH') {
+        $class = 'CGI::Application::Plugin::Authentication::Display::Classic';
+        $opts = $config;
     }
-
-    my $tabindex = 3;
-    my ($rememberuser, $username_value, $register, $forgotpassword, $javascript, $style) = ('','','','','','');
-    if ($options{FOCUS_FORM_ONLOAD}) {
-        $javascript .= "document.loginform.${username}.focus();\n";
+    elsif (ref $config eq 'ARRAY') {
+        my @opts = @$config;
+        croak 'No display driver name' if scalar(@opts) == 0;
+        $class = "CGI::Application::Plugin::Authentication::Display::$opts[0]";
+        shift @opts;
+        croak 'No display arguments' if scalar(@opts) == 0;
+        $opts = $config;
     }
-    if ($options{REMEMBERUSER_OPTION}) {
-        $rememberuser = qq[<input id="authen_rememberuserfield" tabindex="$tabindex" type="checkbox" name="authen_rememberuser" value="1" />$options{REMEMBERUSER_LABEL}<br />];
-        $tabindex++;
-        $username_value = $self->_detaint_username($username, $options{REMEMBERUSER_COOKIENAME});
-        $javascript .= "document.loginform.${username}.select();\n" if $username_value;
+    else {
+        croak "unrecognized dsisplay config";
     }
-    my $submit_tabindex = $tabindex++;
-    if ($options{REGISTER_URL}) {
-        $register = qq[<a href="$options{REGISTER_URL}" id="authen_registerlink" tabindex="$tabindex">$options{REGISTER_LABEL}</a>];
-        $tabindex++;
-    }
-    if ($options{FORGOTPASSWORD_URL}) {
-        $forgotpassword = qq[<a href="$options{FORGOTPASSWORD_URL}" id="authen_forgotpasswordlink" tabindex="$tabindex">$options{FORGOTPASSWORD_LABEL}</a>];
-        $tabindex++;
-    }
-    if ($options{INCLUDE_STYLESHEET}) {
-        my $login_styles = $self->login_styles;
-        $style = <<EOS;
-<style type="text/css">
-<!--/* <![CDATA[ */
-$login_styles
-/* ]]> */-->
-</style>
-EOS
-    }
-    if ($javascript) {
-        $javascript = qq[<script type="text/javascript" language="JavaScript">$javascript</script>];
-    }
-
-    my $html .= <<END;
-$style
-<form name="loginform" method="$options{FORM_SUBMIT_METHOD}" action="${action}">
-  <div class="login">
-    <div class="login_header">
-      $options{TITLE}
-    </div>
-    <div class="login_content">
-      <ul class="message">
-${messages}
-      </ul>
-      <fieldset>
-        <label for="${username}">$options{USERNAME_LABEL}</label>
-        <input id="authen_loginfield" tabindex="1" type="text" name="${username}" size="20" value="$username_value" /><br />
-        <label for="${password}">$options{PASSWORD_LABEL}</label>
-        <input id="authen_passwordfield" tabindex="2" type="password" name="${password}" size="20" /><br />
-        ${rememberuser}
-      </fieldset>
-    </div>
-    <div class="login_footer">
-      <div class="buttons">
-        <input id="authen_loginbutton" tabindex="${submit_tabindex}" type="submit" name="authen_loginbutton" value="$options{SUBMIT_LABEL}" class="button" />
-        ${register}
-        ${forgotpassword}
-      </div>
-    </div>
-  </div>
-  <input type="hidden" name="destination" value="${destination}" />
-  <input type="hidden" name="rm" value="${runmode}" />
-</form>
-$javascript
-END
-
-    return $html;
+    $class->require;
+    my $display = $class->new($self->_cgiapp, $opts);
+    return $display->login_box;
 }
 
 =head2 login_styles
@@ -1393,11 +1205,17 @@ options to LOGIN_FORM configuration parameter.
 
 Calling this function, will not itself generate cookies or session ids.
 
+Note, that this method is now heavily DEPRECATED and will display in due course.
+The functionality will still
+be available via the L<CGI::Application::Plugin::Authentication::Diaply::Classic>
+module.
+
 =cut
 
 sub login_styles {
     my $self = shift;
     my $login_form  = $self->_config->{LOGIN_FORM} || {};
+    carp "deprecated function";
     my %colour = ();
 
     $colour{base}    = $login_form->{BASE_COLOUR} || '#445588';
@@ -2009,6 +1827,7 @@ L<CGI::Application::Plugin::ActionDispatch> and for help with github.
 =head1 LICENCE AND COPYRIGHT
 
 Copyright (c) 2005, SiteSuite. All rights reserved.
+Copyright (c) 2010, Nicholas Bamber. All rights reserved.
 
 This module is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
 
