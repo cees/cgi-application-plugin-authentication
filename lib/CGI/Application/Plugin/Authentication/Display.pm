@@ -33,24 +33,24 @@ sub logout_form {
 
 sub enforce_protection {
     my $self = shift;
-	croak "Attempt to bypass authentication on protected template"
-	   if !$self->_cgiapp->authen->is_authenticated
+    croak "Attempt to bypass authentication on protected template"
+        if !$self->_cgiapp->authen->is_authenticated;
     return "<!-- AUTHENTICATED -->\n";
 }
 
 sub  is_authenticated {
     my $self = shift;
-	return $self->_cgiapp->authen->is_authenticated;
+    return $self->_cgiapp->authen->is_authenticated;
 }
 
 sub  username {
     my $self = shift;
-	return $self->_cgiapp->authen->usename;
+    return $self->_cgiapp->authen->usename;
 } 
 
 sub  last_login {
     my $self = shift;
-	return $self->_cgiapp->authen->last_login;
+    return $self->_cgiapp->authen->last_login;
 }
 
 sub  last_access {
@@ -65,7 +65,7 @@ sub  is_login_timeout  {
 
 sub  login_attempts {
     my $self = shift;
-	return $self->_cgiapp->authen->login_attempts;
+    return $self->_cgiapp->authen->login_attempts;
 }
 
 

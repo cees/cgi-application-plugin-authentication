@@ -1172,7 +1172,7 @@ This function will initiate a session or cookie if one has not been created alre
 
 sub login_box {
     my $self = shift;
-    my $config = $self->config;
+    my $config = $self->_config;
     my $class = undef;
     my $opts = undef;
     if (ref $config eq 'HASH') {

@@ -16,13 +16,13 @@ sub new {
 
 sub login_box {
     my $self        = shift;
-    my $credentials = $self->credentials;
+    my $credentials = $self->_cgiapp->authen->credentials;
     my $runmode     = $self->_cgiapp->get_current_runmode;
-    my $destination = $self->_detaint_destination || $self->_detaint_selfurl;
-    my $action      = $self->_detaint_url;
+    my $destination = $self->_cgiapp->authen->_detaint_destination || $self->_cgiapp->authen->_detaint_selfurl;
+    my $action      = $self->_cgiapp->authen->_detaint_url;
     my $username    = $credentials->[0];
     my $password    = $credentials->[1];
-    my $login_form  = $self->_config->{LOGIN_FORM} || {};
+    my $login_form  = $self->_cgiapp->authen->_config->{LOGIN_FORM} || {};
     my %options = (
         TITLE                   => 'Sign In',
         USERNAME_LABEL          => 'User Name',
@@ -43,7 +43,7 @@ sub login_box {
     );
 
     my $messages = '';
-    if ( my $attempts = $self->login_attempts ) {
+    if ( my $attempts = $self->_cgiapp->authen->login_attempts ) {
         $messages .= '<li class="warning">' . sprintf($options{INVALIDPASSWORD_MESSAGE}, $attempts) . '</li>';
     } elsif ($options{COMMENT}) {
         $messages .= "<li>$options{COMMENT}</li>";
@@ -57,7 +57,7 @@ sub login_box {
     if ($options{REMEMBERUSER_OPTION}) {
         $rememberuser = qq[<input id="authen_rememberuserfield" tabindex="$tabindex" type="checkbox" name="authen_rememberuser" value="1" />$options{REMEMBERUSER_LABEL}<br />];
         $tabindex++;
-        $username_value = $self->_detaint_username($username, $options{REMEMBERUSER_COOKIENAME});
+        $username_value = $self->_cgiapp->authen->_detaint_username($username, $options{REMEMBERUSER_COOKIENAME});
         $javascript .= "document.loginform.${username}.select();\n" if $username_value;
     }
     my $submit_tabindex = $tabindex++;
@@ -121,8 +121,7 @@ END
 
 sub login_styles {
     my $self = shift;
-    my $login_form  = $self->_config->{LOGIN_FORM} || {};
-    carp "deprecated function";
+    my $login_form  = $self->_cgiapp->authen->_config->{LOGIN_FORM} || {};
     my %colour = ();
 
     $colour{base}    = $login_form->{BASE_COLOUR} || '#445588';
@@ -298,39 +297,7 @@ ul.message li.warning {
 END
 }
 
-=head2 new
-
-This method creates a new CGI::Application::Plugin::Authentication object.  It requires
-as it's only parameter a CGI::Application object.  This method should never be called
-directly, since the 'authen' method that is imported into the CGI::Application module
-will take care of creating the CGI::Application::Plugin::Authentication object when it
-is required. Calling this function, will not itself generate cookies or session ids.
-
-=cut
-
-sub new {
-    my $class  = shift;
-    my $cgiapp = shift;
-    my $self   = {};
-
-    bless $self, $class;
-    $self->{cgiapp} = $cgiapp;
-    Scalar::Util::weaken($self->{cgiapp}); # weaken circular reference
-
-    return $self;
-}
-
-
-
-1; 
-
-=head1 NAME
-
-CGI::Application::Plugin::Authentication::Display::Classic - Generate bits of HTML needed for authentication
-
-=head1 SYNOPSIS
-
-=head1 DESCRIPTION
+=head1 DESCRIPTION 
 
 The purpose of this code is to keep display code away from the backend of authentication
 management. It can be used in an number of ways:
