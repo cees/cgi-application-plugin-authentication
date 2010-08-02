@@ -70,7 +70,7 @@ sub login_box {
         $tabindex++;
     }
     if ($options{INCLUDE_STYLESHEET}) {
-        my $login_styles = $self->login_styles;
+        my $login_styles = $self->_login_styles;
         $style = <<EOS;
 <style type="text/css">
 <!--/* <![CDATA[ */
@@ -119,7 +119,7 @@ END
     return $html;
 }
 
-sub login_styles {
+sub _login_styles {
     my $self = shift;
     my $login_form  = $self->_cgiapp->authen->_config->{LOGIN_FORM} || {};
     my %colour = ();
@@ -338,8 +338,6 @@ This method will return the HTML for a login box that can be
 embedded into another page.  This is the same login box that is used
 in the default authen_login runmode that the plugin provides.
 
-=item LOGIN_FORM
-
 You can set this option to customize the login form that is created when a user
 needs to be authenticated.  If you wish to replace the entire login form with a
 completely custom version, then just set LOGIN_RUNMODE to point to your custom
@@ -457,8 +455,6 @@ A grey colour that is calculated by desaturating the base colour.
     LIGHTER_COLOUR     => '#AAFFFF',
     DARK_COLOUR        => '50%',
   }
-
-=back
 
 =head1 BUGS
 

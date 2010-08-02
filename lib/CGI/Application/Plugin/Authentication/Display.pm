@@ -127,7 +127,7 @@ This returns the simple bit of HTML need to have a logout button. The form
 has '/?authen_logout=1' as the action but of course this can be canged in
 derived modules.
 
-=head2 enforce_potection
+=head2 enforce_protection
 
 This method is useful when the class is being used in templates to mark a
 certain template as for authenticated eyes only. So in

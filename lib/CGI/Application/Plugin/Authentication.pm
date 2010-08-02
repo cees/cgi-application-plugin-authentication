@@ -439,6 +439,8 @@ for further information.
 If this value is an array ref then the first value will be taken to be the display driver number
 and the other elements of the arrat configuratio parameters.
 
+=back
+
 =cut
 
 sub config {
