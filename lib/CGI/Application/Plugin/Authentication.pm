@@ -21,8 +21,6 @@ sub import {
     }
     if ( ! UNIVERSAL::isa($callpkg, 'CGI::Application') ) {
         warn "Calling package is not a CGI::Application module so not setting up the prerun hook.  If you are using \@ISA instead of 'use base', make sure it is in a BEGIN { } block, and make sure these statements appear before the plugin is loaded";
-    } elsif ( ! UNIVERSAL::can($callpkg, 'add_callback')) {
-        warn "You are using an older version of CGI::Application that does not support callbacks, so the prerun method can not be registered automatically (Lookup the prerun_callback method in the docs for more info)";
     } else {
         $callpkg->add_callback( prerun => \&prerun_callback );
     }
@@ -115,12 +113,12 @@ the best one for you.
 
 =head2 Login page
 
-The Authentication plugin comes with a default login page that can be used if you do not
-want to create a custom login page.  This login form will automatically be used if you
-do not provide either a LOGIN_URL or LOGIN_RUNMODE parameter in the configuration.
-If you plan to create your own login page, I would recommend that you start with the HTML
-code for the default login page, so that your login page will contain the correct form
-fields and hidden fields.
+The Authentication plugin comes with a default login page that can be used if
+you do not want to create a custom login page.  This login form will
+automatically be used if you do not provide either a LOGIN_URL or LOGIN_RUNMODE
+parameter in the configuration. A lot of control over the form is provided
+by the LOGIN_FORM configuration parameter and more free-form control via
+the RENDER_LOGIN configuration parameter.
 
 =head2 Ticket based authentication
 
@@ -428,16 +426,15 @@ and later in your code:
 =item LOGIN_FORM
 
 You can set this option to customize the login form that is created when a user
-needs to be authenticated.  If you wish to replace the entire login form with a
-completely custom version, then just set LOGIN_RUNMODE to point to your custom
-runmode.
+needs to be authenticated. If the parameter is a hash reference, the it is
+interpreted as the arguments to a
+L<CGI::Application::Plugin::Authentication::Display::Classic> object.
+Otherwise it should be an array reference with the first item the last
+part of the Display class name and the other items value name pairs form the 
+arguments to its constructor. So for example you can choose HTML that is
+guaranteed to be XHTML compliant by setting
 
-If this value is a hash ref then it will be interpeted as a Classic display box
-and one should see L<CGI::Application::Plugin::Authentication::Display::Classic>
-for further information. 
-
-If this value is an array ref then the first value will be taken to be the display driver number
-and the other elements of the arrat configuratio parameters.
+    LOGIN_FORM => ['Basic', REMEMBER_USER=>1],
 
 =back
 
@@ -587,7 +584,8 @@ sub config {
         # Check for LOGIN_FORM
         if ( defined $props->{LOGIN_FORM} ) {
             croak "authen config error:  parameter LOGIN_FORM is not a hashref"
-              unless( ref $props->{LOGIN_FORM} eq 'HASH' );
+              unless( ref $props->{LOGIN_FORM} eq 'HASH'
+                    or ref $props->{LOGIN_FORM} eq 'ARRAY');
             $config->{LOGIN_FORM} = delete $props->{LOGIN_FORM};
         }
 
@@ -1746,8 +1744,9 @@ module so that the two prerun callbacks will be called in the correct order.
 =item CSS
 
 The best practice nowadays is generally considered to be to not have CSS embedded in HTML.
-As one should set LOGIN_FORM/INCLUDE_STYLESHEET to 0 (or equivalent action)
-and put the necessary CSS in your separate CSS style-sheet.
+As such one should set LOGIN_FORM/INCLUDE_STYLESHEET to 0
+use the L<CGI::Application::Plugin::Authentication::Display::Basic>
+or equivalent action and put the necessary CSS in your separate CSS style-sheet.
 
 =item Post login destination
 
@@ -1773,6 +1772,8 @@ is what you want in which case that site should be the only possible external si
 The HTML currently generated does not seem to be standards compliant as per
 RT bug 58023. Also the default login form includes hidden forms which could
 conceivably be hijacked. 
+Use the L<CGI::Application::Plugin::Authentication::Display::Basic> class
+in LOGIN_FORM to fix this.
 
 =back
 
@@ -1783,6 +1784,10 @@ in helping out feel free to dig right in.  Many of these things don't need my in
 to avoid duplicated efforts, send me a note, and I'll let you know of anyone else is working in the same area.
 
 =over 4
+
+=item review the code for security bugs and report
+
+=item complete the separation of presentation and logic
 
 =item write a tutorial
 
