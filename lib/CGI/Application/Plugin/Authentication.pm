@@ -1172,26 +1172,24 @@ This function will initiate a session or cookie if one has not been created alre
 
 sub login_box {
     my $self = shift;
-    my $config = $self->_config;
+    my $config = $self->_config->{LOGIN_FORM} || {};
     my $class = undef;
-    my $opts = undef;
+    my @opts = ();
     if (ref $config eq 'HASH') {
         $class = 'CGI::Application::Plugin::Authentication::Display::Classic';
-        $opts = $config;
     }
     elsif (ref $config eq 'ARRAY') {
-        my @opts = @$config;
+        @opts = @$config;
         croak 'No display driver name' if scalar(@opts) == 0;
-        $class = "CGI::Application::Plugin::Authentication::Display::$opts[0]";
-        shift @opts;
+        my $display = shift @opts;
+        $class = "CGI::Application::Plugin::Authentication::Display::$display";
         croak 'No display arguments' if scalar(@opts) == 0;
-        $opts = $config;
     }
     else {
-        croak "unrecognized dsisplay config";
+        croak "unrecognized display config";
     }
     $class->require;
-    my $display = $class->new($self->_cgiapp, $opts);
+    my $display = $class->new($self->_cgiapp, @opts);
     return $display->login_box;
 }
 
