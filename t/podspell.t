@@ -60,6 +60,7 @@ Test::Spelling::add_stopwords(qw(   ActionDispatch
                                     customize
                                     customized
                                     desaturating
+                                    XHTML
                                     detaint
                                     URLs));
 Test::Spelling::all_pod_files_spelling_ok();

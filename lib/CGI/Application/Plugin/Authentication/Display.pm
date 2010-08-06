@@ -79,20 +79,23 @@ CGI::Application::Plugin::Authentication::Display - Generate bits of HTML needed
 
 =head1 DESCRIPTION
 
-The purpose of this code is to keep display code away from the backend of authentication
-management. It can be used in an number of ways:
+The purpose of this code is to keep display code away from the back-end of
+authentication management. It is an abstract base class and must be used 
+in conjunction with derived classes. Those derived classes can be used
+in an number of ways:
 
 =over
 
 =item
 
-The subclass L<CGI::Application::Plugin::Authentication::Display::Classic> is provided
-to ensure backwards compatibility with the old code.
+The subclass L<CGI::Application::Plugin::Authentication::Display::Classic>
+is provided to ensure backwards compatibility with the old code. It has 
+the advantage of working out of the box but still retaining fleibility.
 
 =item
 
-The subclass L<CGI::Application::Plugin::Authentication::Display::Basic> is provided
-to ensure XHTML compliance and to leave styling to CSS stylesheets.
+The subclass L<CGI::Application::Plugin::Authentication::Display::Basic>
+is provided to ensure XHTML compliance and to leave styling to CSS style-sheets.
 
 =item
 
@@ -100,8 +103,11 @@ You can handle all the HTML side yourself in which case this code is not even lo
 
 =item 
 
-You can use derived classes in templates that have dot support, which keeps the display code close 
-to the templates. This has other advantages that will be described below.
+You can use derived classes in templates that have dot support, which keeps
+the display code close to the templates. This has other advantages. For example
+one can use the C<enforce_protection> method to mark a template as being 
+only viewable after authentication. A number of other methods can be called 
+from the template that provide information about the authentication status.
 
 =back
 
@@ -109,8 +115,9 @@ to the templates. This has other advantages that will be described below.
 
 =head2 new 
 
-The constructor must be passed the L<CGI::Application> object as the first non-object argument.
-This allows derived modules to access the authentication information.
+The constructor must be passed the L<CGI::Application> object as the first
+non-object argument.  This allows derived modules to access the
+authentication information.
 
 =head2 login_box
 
@@ -119,12 +126,12 @@ embedded into another page.  This is the same login box that is used
 in the default authen_login runmode that the plugin provides.
 
 This function is not implemented in this module. One must use a derived class
-with an appropiate implementation of this function.
+with an appropriate implementation of this function.
 
 =head2 logout_form
 
 This returns the simple bit of HTML need to have a logout button. The form
-has '/?authen_logout=1' as the action but of course this can be canged in
+has '/?authen_logout=1' as the action but of course this can be changed in
 derived modules.
 
 =head2 enforce_protection

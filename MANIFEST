@@ -2,6 +2,8 @@ Build.PL
 Changes
 example/sample.cgi
 lib/CGI/Application/Plugin/Authentication.pm
+lib/CGI/Application/Plugin/Authentication/Display.pm
+lib/CGI/Application/Plugin/Authentication/Display/Classic.pm
 lib/CGI/Application/Plugin/Authentication/Driver.pm
 lib/CGI/Application/Plugin/Authentication/Driver/Authen/Simple.pm
 lib/CGI/Application/Plugin/Authentication/Driver/DBI.pm
@@ -77,6 +79,7 @@ t/out/green
 t/out/login
 t/out/login-dev
 t/out/loginurl
+t/out/logout
 t/out/missing_color
 t/out/other_permutations
 t/out/red
