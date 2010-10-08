@@ -1276,7 +1276,7 @@ sub login_box {
     my $self = shift;
     my $config = $self->_config->{LOGIN_FORM} || {};
     my $class = "CGI::Application::Plugin::Authentication::Display::".
-        ($config->{DISPLAY_CLASSIC} || 'Classic');
+        ($config->{DISPLAY_CLASS} || 'Classic');
     $class->require;
     my $display = $class->new($self->_cgiapp);
     return $display->login_box;

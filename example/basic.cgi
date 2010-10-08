@@ -1,4 +1,4 @@
-#!/usr/bin/perl -T
+#!/usr/bin/perl 
 
 #
 # Sample application
@@ -7,6 +7,7 @@
 # load it up in your browser.  The only valid username/password
 # combination is 'test' and '123'.
 #
+use lib qw(/home/nicholas/git/cgi-application-plugin-authentication/lib);
 
 use strict;
 use warnings;
@@ -26,6 +27,9 @@ use warnings;
         DRIVER         => [ 'Generic', { test => '123' } ],
         STORE          => 'Cookie',
         LOGOUT_RUNMODE => 'one',
+        LOGIN_FORM=>{
+            DISPLAY_CLASS=>'Basic',
+        },
     );
     SampleLogin->authen->config(%config);
     SampleLogin->authen->protected_runmodes('two');
@@ -38,7 +42,7 @@ use warnings;
     sub one : Runmode {
         my $self = shift;
 
-        return CGI::start_html( -style => { -code => $self->authen->login_styles } )
+        return CGI::start_html()
           . CGI::h2('This page is NOT protected')
           . CGI::a( { -href => '?rm=two' }, 'Protected Runmode' )
           . CGI::end_html();
@@ -47,7 +51,7 @@ use warnings;
     sub two : Runmode {
         my $self = shift;
 
-        return CGI::start_html( -style => { -code => $self->authen->login_styles } )
+        return CGI::start_html()
           . CGI::h2('This page is protected')
           . CGI::h2( 'username: ' . $self->authen->username )
           . CGI::a( { -href => '?rm=one' }, 'Un-Protected Runmode' )
