@@ -300,14 +300,14 @@ END
 =head1 DESCRIPTION 
 
 This module provides a login box that works out of the box but which can be 
-configured to modify those styling.
+configured to modify the styling.
 
 =head1 METHODS
 
 =head2 new 
 
 The constructor must be passed the L<CGI::Application> object as the first
-non-object argument. The other arguments 
+non-object argument.
 
 =head2 login_box
 

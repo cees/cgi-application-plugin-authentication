@@ -1,4 +1,4 @@
-#!/usr/bin/perl 
+#!/usr/bin/perl -T
 use Test::More;
 eval "use CGI::Application::Plugin::Session";
 plan skip_all => "CGI::Application::Plugin::Session required for this test" if $@;

@@ -90,7 +90,7 @@ in an number of ways:
 
 The subclass L<CGI::Application::Plugin::Authentication::Display::Classic>
 is provided to ensure backwards compatibility with the old code. It has 
-the advantage of working out of the box but still retaining fleibility.
+the advantage of working out of the box but still retaining flexibility.
 
 =item
 
@@ -179,8 +179,8 @@ Author: Cees Hek <ceeshek@gmail.com>; Co-maintainer: Nicholas Bamber <nicholas@p
 Thanks to SiteSuite (http://www.sitesuite.com.au) for funding the 
 development of this plugin and for releasing it to the world.
 
-Thanks to Christian Walde for suggesting changes to fix the incompatibility with 
-L<CGI::Application::Plugin::ActionDispatch> and for help with github.
+Thanks to Christian Walde for suggesting changes to fix the incompatibility
+with L<CGI::Application::Plugin::ActionDispatch> and for help with github.
 
 =head1 LICENCE AND COPYRIGHT
 

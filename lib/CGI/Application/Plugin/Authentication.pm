@@ -113,12 +113,12 @@ the best one for you.
 
 =head2 Login page
 
-The Authentication plugin comes with a default login page that can be used if
-you do not want to create a custom login page.  This login form will
-automatically be used if you do not provide either a LOGIN_URL or LOGIN_RUNMODE
-parameter in the configuration. A lot of control over the form is provided
-by the LOGIN_FORM configuration parameter and more free-form control via
-the RENDER_LOGIN configuration parameter.
+The Authentication plugin comes with a default login page that can be used if you do not
+want to create a custom login page.  This login form will automatically be used if you
+do not provide either a LOGIN_URL or LOGIN_RUNMODE parameter in the configuration.
+If you plan to create your own login page, I would recommend that you start with the HTML
+code for the default login page, so that your login page will contain the correct form
+fields and hidden fields.
 
 =head2 Ticket based authentication
 
@@ -426,15 +426,118 @@ and later in your code:
 =item LOGIN_FORM
 
 You can set this option to customize the login form that is created when a user
-needs to be authenticated. If the parameter is a hash reference, the it is
-interpreted as the arguments to a
-L<CGI::Application::Plugin::Authentication::Display::Classic> object.
-Otherwise it should be an array reference with the first item the last
-part of the Display class name and the other items value name pairs form the 
-arguments to its constructor. So for example you can choose HTML that is
-guaranteed to be XHTML compliant by setting
+needs to be authenticated.  If you wish to replace the entire login form with a
+completely custom version, then just set LOGIN_RUNMODE to point to your custom
+runmode.
 
-    LOGIN_FORM => ['Basic', REMEMBER_USER=>1],
+All of the parameters listed below are optional, and a reasonable default will
+be used if left blank:
+
+=over 4
+
+=item DISPLAY_CLASS (default: Classic)
+
+the class used to display the login form. The alternative is C<Basic>
+which aims for XHTML compliance and leaving style to CSS. See
+L<CGI::Application::Plugin::Authentication::Display> for more details.
+
+=item TITLE (default: Sign In)
+
+the heading at the top of the login box 
+
+=item USERNAME_LABEL (default: User Name)
+
+the label for the user name input
+
+=item PASSWORD_LABEL (default: Password)
+
+the label for the password input
+
+=item SUBMIT_LABEL (default: Sign In)
+
+the label for the submit button
+
+=item COMMENT (default: Please enter your username and password in the fields below.)
+
+a message provided on the first login attempt
+
+=item REMEMBERUSER_OPTION (default: 1)
+
+provide a checkbox to offer to remember the users name in a cookie so that
+their user name will be pre-filled the next time they log in
+
+=item REMEMBERUSER_LABEL (default: Remember User Name)
+
+the label for the remember user name checkbox
+
+=item REMEMBERUSER_COOKIENAME (default: CAPAUTHTOKEN)
+
+the name of the cookie where the user name will be saved
+
+=item REGISTER_URL (default: <none>)
+
+the URL for the register new account link
+
+=item REGISTER_LABEL (default: Register Now!)
+
+the label for the register new account link
+
+=item FORGOTPASSWORD_URL (default: <none>)
+
+the URL for the forgot password link
+
+=item FORGOTPASSWORD_LABEL (default: Forgot Password?)
+
+the label for the forgot password link
+
+=item INVALIDPASSWORD_MESSAGE (default: Invalid username or password<br />(login attempt %d)
+
+a message given when a login failed
+
+=item INCLUDE_STYLESHEET (default: 1)
+
+use this to disable the built in style-sheet for the login box so you can provide your own custom styles
+
+=item FORM_SUBMIT_METHOD (default: post)
+
+use this to get the form to submit using 'get' instead of 'post'
+
+=item FOCUS_FORM_ONLOAD (default: 1)
+
+use this to automatically focus the login form when the page loads so a user can start typing right away.
+
+=item BASE_COLOUR (default: #445588)
+
+This is the base colour that will be used in the included login box.  All other
+colours are automatically calculated based on this colour (unless you hardcode
+the colour values).  In order to calculate other colours, you will need the
+Color::Calc module.  If you do not have the Color::Calc module, then you will
+need to use fixed values for all of the colour options.  All colour values
+besides the BASE_COLOUR can be simple percentage values (including the % sign).
+For example if you set the LIGHTER_COLOUR option to 80%, then the calculated
+colour will be 80% lighter than the BASE_COLOUR.
+
+=item LIGHT_COLOUR (default: 50% or #a2aac4)
+
+A colour that is lighter than the base colour.
+
+=item LIGHTER_COLOUR (default: 75% or #d0d5e1)
+
+A colour that is another step lighter than the light colour.
+
+=item DARK_COLOUR (default: 30% or #303c5f)
+
+A colour that is darker than the base colour.
+
+=item DARKER_COLOUR (default: 60% or #1b2236)
+
+A colour that is another step darker than the dark colour.
+
+=item GREY_COLOUR (default: #565656)
+
+A grey colour that is calculated by desaturating the base colour.
+
+=back
 
 =back
 
@@ -584,8 +687,7 @@ sub config {
         # Check for LOGIN_FORM
         if ( defined $props->{LOGIN_FORM} ) {
             croak "authen config error:  parameter LOGIN_FORM is not a hashref"
-              unless( ref $props->{LOGIN_FORM} eq 'HASH'
-                    or ref $props->{LOGIN_FORM} eq 'ARRAY');
+              unless( ref $props->{LOGIN_FORM} eq 'HASH' );
             $config->{LOGIN_FORM} = delete $props->{LOGIN_FORM};
         }
 
@@ -1173,23 +1275,10 @@ This function will initiate a session or cookie if one has not been created alre
 sub login_box {
     my $self = shift;
     my $config = $self->_config->{LOGIN_FORM} || {};
-    my $class = undef;
-    my @opts = ();
-    if (ref $config eq 'HASH') {
-        $class = 'CGI::Application::Plugin::Authentication::Display::Classic';
-    }
-    elsif (ref $config eq 'ARRAY') {
-        @opts = @$config;
-        croak 'No display driver name' if scalar(@opts) == 0;
-        my $display = shift @opts;
-        $class = "CGI::Application::Plugin::Authentication::Display::$display";
-        croak 'No display arguments' if scalar(@opts) == 0;
-    }
-    else {
-        croak "unrecognized display config";
-    }
+    my $class = "CGI::Application::Plugin::Authentication::Display::".
+        ($config->{DISPLAY_CLASSIC} || 'Classic');
     $class->require;
-    my $display = $class->new($self->_cgiapp, @opts);
+    my $display = $class->new($self->_cgiapp);
     return $display->login_box;
 }
 
@@ -1203,18 +1292,13 @@ options to LOGIN_FORM configuration parameter.
 
 Calling this function, will not itself generate cookies or session ids.
 
-Note, that this method is now heavily DEPRECATED and will display in due course.
-The functionality will still
-be available via the L<CGI::Application::Plugin::Authentication::Diaply::Classic>
-module.
-
 =cut
 
 sub login_styles {
     my $self = shift;
     my $login_form  = $self->_config->{LOGIN_FORM} || {};
-    carp "deprecated function";
     my %colour = ();
+    warn "CGI::Application::Plugin::Application::login_styles is deprecated";
 
     $colour{base}    = $login_form->{BASE_COLOUR} || '#445588';
     $colour{lighter} = $login_form->{LIGHTER_COLOUR} if $login_form->{LIGHTER_COLOUR};
@@ -1742,9 +1826,8 @@ module so that the two prerun callbacks will be called in the correct order.
 =item CSS
 
 The best practice nowadays is generally considered to be to not have CSS embedded in HTML.
-As such one should set LOGIN_FORM/INCLUDE_STYLESHEET to 0
-use the L<CGI::Application::Plugin::Authentication::Display::Basic>
-or equivalent action and put the necessary CSS in your separate CSS style-sheet.
+As one should set LOGIN_FORM/INCLUDE_STYLESHEET to 0 (or equivalent action)
+and put the necessary CSS in your separate CSS style-sheet.
 
 =item Post login destination
 
