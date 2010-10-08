@@ -1,14 +1,22 @@
 #!/usr/bin/perl 
 
 #
-# Sample application [Using Basic display]
+# Sample application [Templates]
 #
-# Just place this file in a CGI enabled part of your website, and 
+# Just place this file in a CGI enabled part of your website, and the httpdocs
+# contents in the appropriate place, and 
 # load it up in your browser.  The only valid username/password
 # combination is 'test' and '123'.
 #
+use lib qw(/home/nicholas/git/cgi-application-plugin-authentication/lib);
+
 use strict;
 use warnings;
+use Readonly;
+
+# This bit needs to be modified for the local system.
+Readonly my $TEMPLATE_DIR =>
+'/home/nicholas/git/cgi-application-plugin-authentication/example/templates';
 
 {
 
@@ -25,9 +33,6 @@ use warnings;
         DRIVER         => [ 'Generic', { test => '123' } ],
         STORE          => 'Cookie',
         LOGOUT_RUNMODE => 'one',
-        LOGIN_FORM=>{
-            DISPLAY_CLASS=>'Basic',
-        },
     );
     SampleLogin->authen->config(%config);
     SampleLogin->authen->protected_runmodes('two');
@@ -39,11 +44,8 @@ use warnings;
 
     sub one : Runmode {
         my $self = shift;
-
-        return CGI::start_html()
-          . CGI::h2('This page is NOT protected')
-          . CGI::a( { -href => '?rm=two' }, 'Protected Runmode' )
-          . CGI::end_html();
+        my $tmpl_obj = $self->load_tmpl('one.tmpl');
+        return $tmpl_obj->output;
     }
 
     sub two : Runmode {
@@ -59,5 +61,5 @@ use warnings;
     }
 }
 
-SampleLogin->new->run;
+SampleLogin->new(TMPL_PATH=>$TEMPLATE_DIR)->run;
 
