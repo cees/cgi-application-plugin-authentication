@@ -26,7 +26,7 @@ sub login_box {
 
 sub logout_form {
     my $self = shift;
-    return '<form method="get" action="/?authen_logout=1"><fieldset><input type="submit" value="Logout"/></fieldset></form>'
+    return '<a id="authen_logout_link" href="?authen_logout=1">Logout</a>'
          if $self->_cgiapp->authen->is_authenticated;
     return '';
 }
@@ -66,6 +66,12 @@ sub  is_login_timeout  {
 sub  login_attempts {
     my $self = shift;
     return $self->_cgiapp->authen->login_attempts;
+}
+
+sub login_title {
+     my $self = shift;
+     my $login_options = $self->_cgiapp->authen->_config->{LOGIN_FORM} || {};
+     return $login_options->{TITLE} || 'Sign In';
 }
 
 
@@ -145,6 +151,10 @@ L<HTML::Template::Plugin::Dot> one might have
 and one must set C<authen> to one of these objects via the
 C<HTML::Template::param> method. If authenticated it will resolve to a 
 simple string, otherwise it will croak.
+
+=head2 login_title
+
+This returns the I<TITLE> parameter from the I<LOGIN_FORM> section of the config.  
 
 =head2 is_authenticated 
 

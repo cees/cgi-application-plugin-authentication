@@ -22,17 +22,19 @@ Readonly my $TEMPLATE_DIR =>
 
     package SampleLogin;
 
-    use base qw(CGI::Application);
+    use base ("CGI::Application::Plugin::HTDot", "CGI::Application");
 
     use CGI::Application::Plugin::Session;
     use CGI::Application::Plugin::Authentication;
     use CGI::Application::Plugin::AutoRunmode;
+    use CGI::Application::Plugin::Authentication::Display::Basic;
     use CGI::Carp qw(fatalsToBrowser);
 
     my %config = (
         DRIVER         => [ 'Generic', { test => '123' } ],
         STORE          => 'Cookie',
         LOGOUT_RUNMODE => 'one',
+        LOGIN_RUNMODE => 'login',
     );
     SampleLogin->authen->config(%config);
     SampleLogin->authen->protected_runmodes('two');
@@ -45,6 +47,15 @@ Readonly my $TEMPLATE_DIR =>
     sub one : Runmode {
         my $self = shift;
         my $tmpl_obj = $self->load_tmpl('one.tmpl');
+        return $tmpl_obj->output;
+    }
+
+    sub login : Runmode {
+        my $self = shift;
+        my $tmpl_obj = $self->load_tmpl('login.tmpl');
+        my $display =
+        CGI::Application::Plugin::Authentication::Display::Basic->new($self);
+        $tmpl_obj->param(login => $display);
         return $tmpl_obj->output;
     }
 

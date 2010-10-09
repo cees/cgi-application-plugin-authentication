@@ -182,60 +182,11 @@ the label for the forgot password link
 
 a message given when a login failed
 
-=item INCLUDE_STYLESHEET (default: 1)
-
-use this to disable the built in style-sheet for the login box so you can provide your own custom styles
-
 =item FORM_SUBMIT_METHOD (default: post)
 
 use this to get the form to submit using 'get' instead of 'post'
 
-=item FOCUS_FORM_ONLOAD (default: 1)
-
-use this to automatically focus the login form when the page loads so a user can start typing right away.
-
-=item BASE_COLOUR (default: #445588)
-
-This is the base colour that will be used in the included login box.  All other
-colours are automatically calculated based on this colour (unless you hardcode
-the colour values).  In order to calculate other colours, you will need the
-Color::Calc module.  If you do not have the Color::Calc module, then you will
-need to use fixed values for all of the colour options.  All colour values
-besides the BASE_COLOUR can be simple percentage values (including the % sign).
-For example if you set the LIGHTER_COLOUR option to 80%, then the calculated
-colour will be 80% lighter than the BASE_COLOUR.
-
-=item LIGHT_COLOUR (default: 50% or #a2aac4)
-
-A colour that is lighter than the base colour.
-
-=item LIGHTER_COLOUR (default: 75% or #d0d5e1)
-
-A colour that is another step lighter than the light colour.
-
-=item DARK_COLOUR (default: 30% or #303c5f)
-
-A colour that is darker than the base colour.
-
-=item DARKER_COLOUR (default: 60% or #1b2236)
-
-A colour that is another step darker than the dark colour.
-
-=item GREY_COLOUR (default: #565656)
-
-A grey colour that is calculated by desaturating the base colour.
-
-
 =back
-
-  LOGIN_FORM => {
-    TITLE              => 'Login',
-    SUBMIT_LABEL       => 'Login',
-    REMEMBERUSER_LABEL => 1,
-    BASE_COLOUR        => '#0099FF',
-    LIGHTER_COLOUR     => '#AAFFFF',
-    DARK_COLOUR        => '50%',
-  }
 
 =head1 BUGS
 
@@ -261,7 +212,7 @@ L<CGI::Application::Plugin::ActionDispatch> and for help with github.
 =head1 LICENCE AND COPYRIGHT
 
 Copyright (c) 2005, SiteSuite. All rights reserved.
-Copyright (c) 2010, Nicholas Bamber. All rights reserved.
+Copyright (c) 2010, Nicholas Bamber.
 
 This module is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
 
