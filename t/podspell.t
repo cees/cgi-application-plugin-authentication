@@ -60,6 +60,12 @@ Test::Spelling::add_stopwords(qw(   ActionDispatch
                                     customize
                                     customized
                                     desaturating
+                                    Alexandr
+                                    Ciornii
+                                    www
+                                    famfamfam
+                                    com
+                                    gmail
                                     XHTML
                                     detaint
                                     URLs));

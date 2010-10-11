@@ -1912,7 +1912,7 @@ development of this plugin and for releasing it to the world.
 Thanks to Christian Walde for suggesting changes to fix the incompatibility with 
 L<CGI::Application::Plugin::ActionDispatch> and for help with github.
 
-Thanks to Alexandr Ciornii for pinting out some typos.
+Thanks to Alexandr Ciornii for pointing out some typos.
 
 =head1 LICENCE AND COPYRIGHT
 
@@ -1922,7 +1922,7 @@ Copyright (c) 2010, Nicholas Bamber. (Portions of the code).
 This module is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
 
 The background images in the default login forms are used courtesy of 
-L<www.famfamfamcom|http://www.famfamfam.com/lab/icons/silk/>. Those icons
+L<www.famfamfam.com|http://www.famfamfam.com/lab/icons/silk/>. Those icons
 are issued under the
 L<Creative Commons Attribution 3.0 License|http://creativecommons.org/licenses/by/3.0/>.
 Those icons are copyrighted 2006 by Mark James <mjames at gmail dot com>
