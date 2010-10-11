@@ -3,12 +3,17 @@
 #
 # Sample application [Templates]
 #
-# Just place this file in a CGI enabled part of your website, and the httpdocs
-# contents in the appropriate place, and 
-# load it up in your browser.  The only valid username/password
+# This example is a bit more realistic than the sample.cgi and basic.cgi.
+# It is intended to show how you can control the style of the Basic login form.
+# You need to copy the templates and the contents of the httpdocs
+# to their appropriate places for you server. 
+# Unless you change the .cgi script to use a local copy,
+# you will also need access to the internet so the script can load
+# some javascript files from YUI.
+#
+# The only valid username/password
 # combination is 'test' and '123'.
 #
-use lib qw(/home/nicholas/git/cgi-application-plugin-authentication/lib);
 
 use strict;
 use warnings;
