@@ -51,7 +51,11 @@ sub login_box {
     my $tabindex = 3;
     my ($rememberuser, $username_value, $register, $forgotpassword) = ('','','');
     if ($options{REMEMBERUSER_OPTION}) {
-        $rememberuser = qq[<input id="authen_rememberuserfield" tabindex="$tabindex" type="checkbox" name="authen_rememberuser" value="1" />$options{REMEMBERUSER_LABEL}<br />];
+        $rememberuser = <<END;
+<label for="authen_rememberuserfield" id="authen_rememberuserfield_label" class="authen_label">$options{REMEMBERUSER_LABEL}
+    <input id="authen_rememberuserfield" class="authen_input" tabindex="$tabindex" type="checkbox" name="authen_rememberuser" value="1" />
+</label>
+END
         $tabindex++;
         $username_value = $self->_cgiapp->authen->_detaint_username($username, $options{REMEMBERUSER_COOKIENAME});
     }
@@ -76,11 +80,11 @@ sub login_box {
 ${messages}
       </ul>
       <fieldset>
-        <label for="authen_loginfield">$options{USERNAME_LABEL}
-            <input id="authen_loginfield" tabindex="1" type="text" name="${username}" size="20" value="$username_value" />
+        <label for="authen_loginfield" id="authen_loginfield_label" class="authen_label">$options{USERNAME_LABEL}
+            <input id="authen_loginfield" class="authen_input" tabindex="1" type="text" name="${username}" size="20" value="$username_value" />
         </label>    
-        <label for="authen_passwordfield">$options{PASSWORD_LABEL}
-            <input id="authen_passwordfield" tabindex="2" type="password" name="${password}" size="20" />
+        <label for="authen_passwordfield" id="authen_passwordfield_label" class="authen_label">$options{PASSWORD_LABEL}
+            <input id="authen_passwordfield" class="authen_input" tabindex="2" type="password" name="${password}" size="20" />
         </label>
         ${rememberuser}
       </fieldset>

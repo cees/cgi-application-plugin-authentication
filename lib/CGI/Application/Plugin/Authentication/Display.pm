@@ -154,7 +154,7 @@ simple string, otherwise it will croak.
 
 =head2 login_title
 
-This returns the I<TITLE> parameter from the I<LOGIN_FORM> section of the config.  
+This returns the I<TITLE> parameter from the I<LOGIN_FORM> section of the config.
 
 =head2 is_authenticated 
 
