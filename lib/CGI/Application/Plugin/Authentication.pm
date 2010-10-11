@@ -1906,7 +1906,7 @@ Author: Cees Hek <ceeshek@gmail.com>; Co-maintainer: Nicholas Bamber <nicholas@p
 
 =head1 CREDITS
 
-Thanks to SiteSuite (http://www.sitesuite.com.au) for funding the 
+Thanks to L<SiteSuite|http://www.sitesuite.com.au> for funding the 
 development of this plugin and for releasing it to the world.
 
 Thanks to Christian Walde for suggesting changes to fix the incompatibility with 
@@ -1920,6 +1920,12 @@ Copyright (c) 2005, SiteSuite. All rights reserved.
 Copyright (c) 2010, Nicholas Bamber. All rights reserved.
 
 This module is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
+
+The background images in the default login forms are used courtesy of 
+L<www.famfamfamcom|http://www.famfamfam.com/lab/icons/silk/>. Those icons
+are issued under the
+L<Creative Commons Attribution 3.0 License|http://creativecommons.org/licenses/by/3.0/>.
+Those icons are copyrighted 2006 by Mark James <mjames at gmail dot com>
 
 =head1 DISCLAIMER OF WARRANTY
 
