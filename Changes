@@ -1,6 +1,9 @@
 Revision history for Perl extension CGI::Application::Plugin::Authentication.
 
 0.18_2  Mon 20 Jul 2010
+    Separate out display code and provide Basic and Classic alternatives to
+    the login form. Added more examples. Implementd typo fix reported by
+    Alexandr Ciornii. Added copyright declaration for icons in the login form.
 
 0.18_1 Thu Jun 25 2010
     Put OS dependent guards in certain tests.
