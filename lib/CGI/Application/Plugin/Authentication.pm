@@ -1262,6 +1262,25 @@ sub initialize {
 
 }
 
+=head2 display 
+
+This method will return the
+L<CGI::Application::Plugin::Authentication::Display> object, creating
+and caching it if necessary.
+
+=cut
+
+sub display {
+    my $self = shift;
+    return $self->{display} if $self->{display};
+    my $config = $self->_config->{LOGIN_FORM} || {};
+    my $class = "CGI::Application::Plugin::Authentication::Display::".
+        ($config->{DISPLAY_CLASS} || 'Classic');
+    $class->require;
+    $self->{display} = $class->new($self->_cgiapp);
+    return $self->{display};
+}
+
 =head2 login_box
 
 This method will return the HTML for a login box that can be
@@ -1274,12 +1293,7 @@ This function will initiate a session or cookie if one has not been created alre
 
 sub login_box {
     my $self = shift;
-    my $config = $self->_config->{LOGIN_FORM} || {};
-    my $class = "CGI::Application::Plugin::Authentication::Display::".
-        ($config->{DISPLAY_CLASS} || 'Classic');
-    $class->require;
-    my $display = $class->new($self->_cgiapp);
-    return $display->login_box;
+    return $self->display->login_box;
 }
 
 =head2 login_styles
@@ -1603,10 +1617,9 @@ sub authen_login_runmode {
         $html = $sub->($self);
     }
     else {
-        my $login_options = $authen->_config->{LOGIN_FORM} || {};
         $html = join( "\n",
-            CGI::start_html( -title => $login_options->{TITLE} || 'Sign In' ),
-            $authen->login_box,
+            CGI::start_html( -title => $authen->display->login_title ),
+            $authen->display->login_box,
             CGI::end_html(),
         );
     }
