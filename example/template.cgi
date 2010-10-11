@@ -15,8 +15,7 @@ use warnings;
 use Readonly;
 
 # This bit needs to be modified for the local system.
-Readonly my $TEMPLATE_DIR =>
-'/home/nicholas/git/cgi-application-plugin-authentication/example/templates';
+Readonly my $TEMPLATE_DIR => 'example/templates';
 
 {
 
@@ -61,14 +60,11 @@ Readonly my $TEMPLATE_DIR =>
 
     sub two : Runmode {
         my $self = shift;
-
-        return CGI::start_html()
-          . CGI::h2('This page is protected')
-          . CGI::h2( 'username: ' . $self->authen->username )
-          . CGI::a( { -href => '?rm=one' }, 'Un-Protected Runmode' )
-          . CGI::br()
-          . CGI::a( { -href => '?authen_logout=1' }, 'Logout' )
-          . CGI::end_html();
+        my $tmpl_obj = $self->load_tmpl('two.tmpl');
+        my $display =
+        CGI::Application::Plugin::Authentication::Display::Basic->new($self);
+        $tmpl_obj->param(login => $display);
+        return $tmpl_obj->output;
     }
 }
 

@@ -1917,7 +1917,7 @@ Thanks to Alexandr Ciornii for pinting out some typos.
 =head1 LICENCE AND COPYRIGHT
 
 Copyright (c) 2005, SiteSuite. All rights reserved.
-Copyright (c) 2010, Nicholas Bamber. All rights reserved.
+Copyright (c) 2010, Nicholas Bamber. (Portions of the code).
 
 This module is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
 
