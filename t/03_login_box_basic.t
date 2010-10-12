@@ -2,13 +2,14 @@
 use Test::More;
 use Test::Taint;
 use Test::Regression;
+use Test::NoWarnings;
 use English qw(-no_match_vars);
 
 if ($OSNAME eq 'MSWin32') {
     my $msg = 'Not running these tests on windows yet';
     plan skip_all => $msg;
 }
-plan tests => 2;
+plan tests => 3;
 
 use strict;
 use warnings;
@@ -60,7 +61,7 @@ my $cap_options =
 }
 
 subtest 'empty' => sub {
-    plan tests => 4;
+    plan tests => 13;
     my $cgiapp = TestAppAuthenticate->new;
 
     my $results = $cgiapp->run;
@@ -70,4 +71,13 @@ subtest 'empty' => sub {
     my $display = $cgiapp->authen->display;
     isa_ok($display, 'CGI::Application::Plugin::Authentication::Display');
     isa_ok($display, 'CGI::Application::Plugin::Authentication::Display::Basic');
+    is($display->login_title, 'Sign In', 'title');
+    ok_regression(sub {return $display->login_box}, 't/out/basic_login_box', 'login box');
+    is($display->logout_form, '', 'logout_form');
+    is($display->is_authenticated, 0, 'is_authenticated');
+    is($display->username, undef, 'username');
+    is($display->last_login, undef, 'last_login');
+    is($display->last_access, undef, 'last_access');
+    is($display->is_login_timeout, 0, 'is_login_timeout');
+    is($display->login_attempts, undef, 'login_attempts');
 }

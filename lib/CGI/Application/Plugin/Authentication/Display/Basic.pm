@@ -49,7 +49,7 @@ sub login_box {
     }
 
     my $tabindex = 3;
-    my ($rememberuser, $username_value, $register, $forgotpassword) = ('','','');
+    my ($rememberuser, $username_value, $register, $forgotpassword) = ('','','','');
     if ($options{REMEMBERUSER_OPTION}) {
         $rememberuser = <<END;
 <label for="authen_rememberuserfield" id="authen_rememberuserfield_label" class="authen_label">$options{REMEMBERUSER_LABEL}

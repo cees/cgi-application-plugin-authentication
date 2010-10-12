@@ -44,7 +44,7 @@ sub  is_authenticated {
 
 sub  username {
     my $self = shift;
-    return $self->_cgiapp->authen->usename;
+    return $self->_cgiapp->authen->username;
 } 
 
 sub  last_login {
