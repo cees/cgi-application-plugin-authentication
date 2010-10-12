@@ -9,7 +9,6 @@ sub new {
     my $class = shift;
     my $self = {};
     $self->{cgiapp} = shift;
-    croak "cannot find authen method" if !$self->{cgiapp}->can('authen');
     bless $self, $class;
     return $self;
 }
