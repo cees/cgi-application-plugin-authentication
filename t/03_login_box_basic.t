@@ -1,4 +1,4 @@
-#!/usr/bin/perl -T
+#!/usr/bin/perl  -T
 use Test::More;
 use Test::Taint;
 use Test::Regression;
@@ -10,7 +10,7 @@ if ($OSNAME eq 'MSWin32') {
     my $msg = 'Not running these tests on windows yet';
     plan skip_all => $msg;
 }
-plan tests => 4;
+plan tests => 5;
 
 use strict;
 use warnings;
@@ -91,7 +91,7 @@ subtest 'authenticated' => sub {
     $cgiapp->query->param(authen_username=>'user1');
     $cgiapp->query->param(authen_password=>'123');
 
-    my $results = $cgiapp->run;
+    $cgiapp->run;
 
     ok($cgiapp->authen->is_authenticated,"login success");
     is( $cgiapp->authen->username, 'user1', "username set" );
@@ -109,3 +109,28 @@ subtest 'authenticated' => sub {
     is($display->login_attempts, 0, 'login_attempts');
     is($display->enforce_protection, "<!-- AUTHENTICATED -->\n", 'authenticated');
 };
+
+
+subtest 'failure_and_options' => sub {
+    plan tests => 8;
+    local $cap_options->{LOGIN_FORM}->{REMEMBERUSER_OPTION} = 0;
+    local $cap_options->{LOGIN_FORM}->{REGISTER_URL} = '/register';
+    local $cap_options->{LOGIN_FORM}->{FORGOTPASSWORD_URL} = '/forgotpassword';
+    my $cgiapp = TestAppAuthenticate->new;
+    $cgiapp->query->param(rm=>'two');
+    $cgiapp->query->param(authen_username=>'user1');
+    $cgiapp->query->param(authen_password=>'666');
+
+    $cgiapp->run;
+
+    ok(!$cgiapp->authen->is_authenticated,"login failure");
+    is( $cgiapp->authen->username, undef, "username not set" );
+    my $display = $cgiapp->authen->display;
+    isa_ok($display, 'CGI::Application::Plugin::Authentication::Display');
+    isa_ok($display, 'CGI::Application::Plugin::Authentication::Display::Basic');
+    is($display->login_title, 'Sign In', 'title');
+    ok_regression(sub {return $display->login_box}, 't/out/basic_login_box_options', 'login box');
+    is($display->logout_form, '', 'logout_form');
+    is($display->is_authenticated, 0, 'is_authenticated');
+};
+

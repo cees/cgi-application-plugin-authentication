@@ -23,7 +23,7 @@ sub login_box {
     my $action      = $self->_cgiapp->authen->_detaint_url;
     my $username    = $credentials->[0];
     my $password    = $credentials->[1];
-    my $login_form  = $self->_cgiapp->authen->_config->{LOGIN_FORM} || {};
+    my $login_form  = $self->_cgiapp->authen->_config->{LOGIN_FORM};
     my %options = (
         TITLE                   => 'Sign In',
         USERNAME_LABEL          => 'User Name',
@@ -45,7 +45,7 @@ sub login_box {
     my $messages = '';
     if ( my $attempts = $self->_cgiapp->authen->login_attempts ) {
         $messages .= '<li class="warning">' . sprintf($options{INVALIDPASSWORD_MESSAGE}, $attempts) . '</li>';
-    } elsif ($options{COMMENT}) {
+    } else {
         $messages .= "<li>$options{COMMENT}</li>";
     }
 
