@@ -103,8 +103,8 @@ subtest 'authenticated' => sub {
     is($display->logout_form, '<a id="authen_logout_link" href="?authen_logout=1">Logout</a>', 'logout_form');
     is($display->is_authenticated, 1, 'is_authenticated');
     is($display->username, 'user1', 'username');
-    is($display->last_login, time, 'last_login');
-    is($display->last_access, time, 'last_access');
+    ok(abs(time - $display->last_login) < 100, 'last_login');
+    ok(abs(time - $display->last_access) < 100, 'last_access');
     is($display->is_login_timeout, 0, 'is_login_timeout');
     is($display->login_attempts, 0, 'login_attempts');
     is($display->enforce_protection, "<!-- AUTHENTICATED -->\n", 'authenticated');
