@@ -16,6 +16,7 @@ sub new {
 
 sub login_box {
     my $self        = shift;
+    croak "already authenticated" if $self->_cgiapp->authen->is_authenticated;
     my $credentials = $self->_cgiapp->authen->credentials;
     my $runmode     = $self->_cgiapp->get_current_runmode;
     my $destination = $self->_cgiapp->authen->_detaint_destination || $self->_cgiapp->authen->_detaint_selfurl;
@@ -122,6 +123,8 @@ non-object argument.
 This method will return the HTML for a login box that can be
 embedded into another page.  This is the same login box that is used
 in the default authen_login runmode that the plugin provides.
+Note that if somehow this method is run, whilst the user is authenticated, 
+it will croak.
 
 You can set this option to customize the login form that is created when a user
 needs to be authenticated.  If you wish to replace the entire login form with a

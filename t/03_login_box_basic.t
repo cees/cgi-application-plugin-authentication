@@ -99,8 +99,8 @@ subtest 'authenticated' => sub {
     isa_ok($display, 'CGI::Application::Plugin::Authentication::Display');
     isa_ok($display, 'CGI::Application::Plugin::Authentication::Display::Basic');
     is($display->login_title, 'Sign In', 'title');
-    SKIP: { skip 'in progress', 9;
-#    ok_regression(sub {return $display->login_box}, 't/out/basic_login_box', 'login box');
+    throws_ok(sub {return $display->login_box}, qr{already authenticated}, 'login box');
+    SKIP: { skip 'in progress', 8;
 #    is($display->logout_form, '', 'logout_form');
 #    is($display->is_authenticated, 0, 'is_authenticated');
 #    is($display->username, undef, 'username');
