@@ -31,7 +31,6 @@ lib/CGI/Application/Plugin/Authentication/Store/Cookie.pm
 lib/CGI/Application/Plugin/Authentication/Store/Session.pm
 Makefile.PL
 MANIFEST			This list of files
-MANIFEST.bak
 MANIFEST.SKIP
 META.yml
 README
@@ -91,6 +90,7 @@ t/out/frontpage-dev
 t/out/generic_login
 t/out/green
 t/out/grey
+t/out/grey2
 t/out/login
 t/out/login-dev
 t/out/loginurl
