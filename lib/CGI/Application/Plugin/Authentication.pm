@@ -1838,9 +1838,9 @@ module so that the two prerun callbacks will be called in the correct order.
 
 =item CSS
 
-The best practice nowadays is generally considered to be to not have CSS embedded in HTML.
-As one should set LOGIN_FORM/INCLUDE_STYLESHEET to 0 (or equivalent action)
-and put the necessary CSS in your separate CSS style-sheet.
+The best practice nowadays is generally considered to be to not have CSS
+embedded in HTML. Thus it should be best to set LOGIN_FORM -> DISPLAY_CLASS to 
+'Basic'.
 
 =item Post login destination
 
@@ -1851,8 +1851,8 @@ be hijacked.
 
 =item Taint mode
 
-Do run your code under taint mode. It should help protect your application against
-a number of attacks.
+Do run your code under taint mode. It should help protect your application
+against a number of attacks.
 
 =item URL and username checking 
 
@@ -1866,8 +1866,7 @@ is what you want in which case that site should be the only possible external si
 The HTML currently generated does not seem to be standards compliant as per
 RT bug 58023. Also the default login form includes hidden forms which could
 conceivably be hijacked. 
-Use the L<CGI::Application::Plugin::Authentication::Display::Basic> class
-in LOGIN_FORM to fix this.
+Set LOGIN_FORM -> DISPLAY_CLASS to 'Basic' to fix this.
 
 =back
 
