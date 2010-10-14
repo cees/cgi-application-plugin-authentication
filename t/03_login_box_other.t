@@ -17,7 +17,7 @@ BEGIN {
         my $msg = 'Not running these tests on windows yet';
         plan skip_all => $msg;
     }
-    plan tests => 6;
+    plan tests => 7;
 
 }
 
@@ -158,6 +158,21 @@ subtest 'grey' => sub {
 
         my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
         ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/grey", "grey");
+
+};
+
+
+subtest 'grey II' => sub {
+        plan tests => 1;
+        local $cap_options->{LOGIN_FORM}->{LIGHT_COLOUR} = 'orange';
+        local $cap_options->{LOGIN_FORM}->{LIGHTER_COLOUR} = '15%';
+        local $cap_options->{LOGIN_FORM}->{DARK_COLOUR} = 'purple';
+        local $cap_options->{LOGIN_FORM}->{DARKER_COLOUR} = 'blue';
+        local $cap_options->{LOGIN_FORM}->{GREY_COLOUR} = '0';
+        my $query = CGI->new( { rm => 'two'} );
+
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+        ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/grey2", "grey");
 
 };
 
