@@ -17,7 +17,7 @@ BEGIN {
         my $msg = 'Not running these tests on windows yet';
         plan skip_all => $msg;
     }
-    plan tests => 1;
+    plan tests => 6;
 
 }
 
@@ -86,6 +86,78 @@ subtest 'Various other pemutations' => sub {
 
         my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
         ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/other_permutations", "Other permutations");
+
+};
+
+subtest 'Percentage' => sub {
+        plan tests => 1;
+        local $cap_options->{LOGIN_FORM}->{LIGHT_COLOUR} = '20%';
+        local $cap_options->{LOGIN_FORM}->{LIGHTER_COLOUR} = '10%';
+        local $cap_options->{LOGIN_FORM}->{DARK_COLOUR} = '80%';
+        local $cap_options->{LOGIN_FORM}->{DARKER_COLOUR} = '90%';
+        my $query = CGI->new( { rm => 'two'} );
+
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+        ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/percentage", "Percentage");
+
+};
+
+subtest 'Names of colours' => sub {
+        plan tests => 1;
+        local $cap_options->{LOGIN_FORM}->{LIGHT_COLOUR} = '110%';
+        local $cap_options->{LOGIN_FORM}->{LIGHTER_COLOUR} = 'red';
+        local $cap_options->{LOGIN_FORM}->{DARK_COLOUR} = 'green';
+        local $cap_options->{LOGIN_FORM}->{DARKER_COLOUR} = 'blue';
+        my $query = CGI->new( { rm => 'two'} );
+
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+        ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/names_of_colours", "Names of colours");
+
+};
+
+
+
+subtest 'Names of colours II' => sub {
+        plan tests => 1;
+        local $cap_options->{LOGIN_FORM}->{LIGHT_COLOUR} = 'orange';
+        local $cap_options->{LOGIN_FORM}->{LIGHTER_COLOUR} = 'red';
+        local $cap_options->{LOGIN_FORM}->{DARK_COLOUR} = '110%';
+        local $cap_options->{LOGIN_FORM}->{DARKER_COLOUR} = 'blue';
+        my $query = CGI->new( { rm => 'two'} );
+
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+        ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/names_of_colours_2", "Names of colours");
+
+};
+
+
+
+subtest 'Names of colours III' => sub {
+        plan tests => 1;
+        local $cap_options->{LOGIN_FORM}->{LIGHT_COLOUR} = 'orange';
+        local $cap_options->{LOGIN_FORM}->{LIGHTER_COLOUR} = 'red';
+        local $cap_options->{LOGIN_FORM}->{DARK_COLOUR} = 'purple';
+        local $cap_options->{LOGIN_FORM}->{DARKER_COLOUR} = 'blue';
+        my $query = CGI->new( { rm => 'two'} );
+
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+        ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/names_of_colours_3", "Names of colours");
+
+};
+
+
+
+subtest 'grey' => sub {
+        plan tests => 1;
+        local $cap_options->{LOGIN_FORM}->{LIGHT_COLOUR} = 'orange';
+        local $cap_options->{LOGIN_FORM}->{LIGHTER_COLOUR} = '15%';
+        local $cap_options->{LOGIN_FORM}->{DARK_COLOUR} = 'purple';
+        local $cap_options->{LOGIN_FORM}->{DARKER_COLOUR} = 'blue';
+        local $cap_options->{LOGIN_FORM}->{GREY_COLOUR} = 'blue';
+        my $query = CGI->new( { rm => 'two'} );
+
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+        ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/grey", "grey");
 
 };
 

@@ -2,6 +2,7 @@
 use Test::More;
 use Test::Taint;
 use Test::Regression;
+use Test::NoWarnings;
 use Test::Warn;
 use Test::Without::Module qw(Color::Calc);
 use English qw(-no_match_vars);
@@ -11,7 +12,7 @@ if ($OSNAME eq 'MSWin32') {
     plan skip_all => $msg;
 }
 
-plan tests => 2;
+plan tests => 4;
 
 use strict;
 use warnings;
@@ -79,6 +80,16 @@ subtest 'Base color' => sub {
             "Color::Calc is required when specifying a custom BASE_COLOUR, and leaving LIGHTER_COLOUR, LIGHT_COLOUR, DARK_COLOUR or DARKER_COLOUR blank or when providing percentage based colour",
             "checking generated warning";
         ok_regression(sub {make_output_timeless($output)}, "t/out/missing_color", "Missing color");
+
+};
+
+
+subtest 'No Base color' => sub {
+        plan tests => 1;
+        my $query = CGI->new( { rm => 'two'} );
+
+        my $cgiapp = TestAppAuthenticate->new( QUERY => $query );
+        ok_regression(sub {make_output_timeless($cgiapp->run)}, "t/out/missing_color", "Missing color");
 
 };
 

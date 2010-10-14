@@ -144,17 +144,25 @@ sub _login_styles {
             $colour{darker}  = '#1b2236';
             $colour{grey}    = '#565656';
         } else {
-            $colour{lighter} = !$colour{lighter}             ? Color::Calc::light_html($colour{base}, 0.75)
-                             : $colour{lighter} =~ m#(\d+)%# ? Color::Calc::light_html($colour{base}, $1 / 100)
+            $colour{lighter} = !$colour{lighter}
+                                    ? Color::Calc::light_html($colour{base}, 0.75)
+                             : $colour{lighter} =~ m#(\d{2})%#
+                                    ? Color::Calc::light_html($colour{base}, $1 / 100)
                              : $colour{lighter};
-            $colour{light}   = !$colour{light}               ? Color::Calc::light_html($colour{base}, 0.5)
-                             : $colour{light} =~ m#(\d+)%#   ? Color::Calc::light_html($colour{base}, $1 / 100)
+            $colour{light}   = !$colour{light}
+                                    ? Color::Calc::light_html($colour{base}, 0.5)
+                             : $colour{light} =~ m#(\d{2})%#
+                                    ? Color::Calc::light_html($colour{base}, $1 / 100)
                              : $colour{light};
-            $colour{dark}    = !$colour{dark}                ? Color::Calc::dark_html($colour{base}, 0.3)
-                             : $colour{dark} =~ m#(\d+)%#    ? Color::Calc::dark_html($colour{base}, $1 / 100)
+            $colour{dark}    = !$colour{dark}
+                                    ? Color::Calc::dark_html($colour{base}, 0.3)
+                             : $colour{dark} =~ m#(\d{2})%#
+                                    ? Color::Calc::dark_html($colour{base}, $1 / 100)
                              : $colour{dark};
-            $colour{darker}  = !$colour{darker}              ? Color::Calc::dark_html($colour{base}, 0.6)
-                             : $colour{darker} =~ m#(\d+)%#  ? Color::Calc::dark_html($colour{base}, $1 / 100)
+            $colour{darker}  = !$colour{darker}
+                                    ? Color::Calc::dark_html($colour{base}, 0.6)
+                             : $colour{darker} =~ m#(\d{2})%#
+                                    ? Color::Calc::dark_html($colour{base}, $1 / 100)
                              : $colour{darker};
             $colour{grey}    ||= Color::Calc::bw_html($colour{base});
         }
