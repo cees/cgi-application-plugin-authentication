@@ -1,5 +1,8 @@
 Revision history for Perl extension CGI::Application::Plugin::Authentication.
 
+0.19 Wed 24 Nov 2010
+    incoporated developer changes. Made pod tests only run when TEST_AUTHOR=1
+
 0.18_2  Mon 20 Jul 2010
     Separate out display code and provide Basic and Classic alternatives to
     the login form. Added more examples. Implementd typo fix reported by
