@@ -40,6 +40,7 @@ Module::Build->new(
         },
         keywords => [ 'cgiapp', 'Titanium', 'authentication' ],
     },
+    create_readme=>1,
     create_makefile_pl => 'traditional',
     dist_author        => 'Cees Hek <ceeshek@gmail.com>',
 )->create_build_script;
