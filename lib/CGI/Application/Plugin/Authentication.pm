@@ -386,7 +386,7 @@ Time values are specified in seconds. You can also specify the time by using a n
 following suffixes (m h d w), which represent minutes, hours, days and weeks.  The default
 is 0 which means the login will never timeout.
 
-Note that the login is also dependant on the type of STORE that is used.  If the Session store is used,
+Note that the login is also dependent on the type of STORE that is used.  If the Session store is used,
 and the session expires, then the login will also automatically expire.  The same goes for the Cookie
 store.
 
@@ -994,7 +994,7 @@ sub is_authenticated {
 
 This method will return the number of failed login attempts have been made by this
 user since the last successful login.  This is not a number that can be trusted,
-as it is dependant on the underlying store to be able to return the correct value for
+as it is dependent on the underlying store to be able to return the correct value for
 this user.  For example, if the store uses a cookie based session, the user trying
 to login could delete their cookies, and hence get a new session which will not have
 any login attempts listed.  The number will be cleared upon a successful login.
