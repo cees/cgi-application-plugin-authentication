@@ -2,6 +2,7 @@ package CGI::Application::Plugin::Authentication::Driver::Filter::sha1;
 
 use strict;
 use warnings;
+our $VERSION = '0.20';
 
 use UNIVERSAL::require;
 
@@ -46,6 +47,9 @@ __END__
 
 CGI::Application::Plugin::Authentication::Driver::Filter::sha1 - SHA1 Password filter
 
+=head1 VERSION
+
+This document describes CGI::Application::Plugin::Authentication::Driver::Filter::sha1 version 0.20
 
 =head1 METHODS
 

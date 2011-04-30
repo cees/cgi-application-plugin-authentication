@@ -2,7 +2,7 @@ package CGI::Application::Plugin::Authentication;
 
 use 5.006;
 use strict;
-our $VERSION = '0.19';
+our $VERSION = '0.20';
 
 our %__CONFIG;
 
@@ -43,6 +43,9 @@ sub CGI::Application::Authen : ATTR(CODE) {
 
 CGI::Application::Plugin::Authentication - Authentication framework for CGI::Application
 
+=head1 VERSION
+
+This document describes CGI::Application::Plugin::Authentication version 0.20
 
 =head1 SYNOPSIS
 

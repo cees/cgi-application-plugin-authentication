@@ -2,6 +2,7 @@ package CGI::Application::Plugin::Authentication::Driver::DBI;
 
 use strict;
 use warnings;
+our $VERSION = '0.20';
 
 use base qw(CGI::Application::Plugin::Authentication::Driver);
 
@@ -9,6 +10,9 @@ use base qw(CGI::Application::Plugin::Authentication::Driver);
 
 CGI::Application::Plugin::Authentication::Driver::DBI - DBI Authentication driver
 
+=head1 VERSION
+
+This document describes CGI::Application::Plugin::Authentication::Driver::DBI version 0.20
 
 =head1 SYNOPSIS
 

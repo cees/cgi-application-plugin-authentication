@@ -2,12 +2,16 @@ package CGI::Application::Plugin::Authentication::Store;
 
 use strict;
 use warnings;
+our $VERSION = '0.20';
 
 =head1 NAME
 
 CGI::Application::Plugin::Authentication::Store - Base module for building storage classes
 for the CGI::Application::Plugin::Authentication plugin
 
+=head1 VERSION
+
+This document describes CGI::Application::Plugin::Authentication::Store version 0.20
 
 =head1 SYNOPSIS
 

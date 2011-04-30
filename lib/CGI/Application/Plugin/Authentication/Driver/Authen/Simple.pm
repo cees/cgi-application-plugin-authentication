@@ -2,6 +2,7 @@ package CGI::Application::Plugin::Authentication::Driver::Authen::Simple;
 
 use strict;
 use warnings;
+our $VERSION = '0.20';
 
 use base qw(CGI::Application::Plugin::Authentication::Driver);
 
@@ -12,6 +13,9 @@ use UNIVERSAL::require;
 
 CGI::Application::Plugin::Authentication::Driver::Authen::Simple - Authen::Simple Authentication driver
 
+=head1 VERSION
+
+This document describes CGI::Application::Plugin::Authentication::Driver::Authen::Simple version 0.20
 
 =head1 SYNOPSIS
 

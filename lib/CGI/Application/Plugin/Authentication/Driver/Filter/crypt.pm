@@ -2,6 +2,7 @@ package CGI::Application::Plugin::Authentication::Driver::Filter::crypt;
 
 use strict;
 use warnings;
+our $VERSION = '0.20';
 
 sub check {
     my $class    = shift;
@@ -35,6 +36,9 @@ __END__
 
 CGI::Application::Plugin::Authentication::Driver::Filter::crypt - crypt Filter
 
+=head1 VERSION
+
+This document describes CGI::Application::Plugin::Authentication::Driver::Filter::crypt version 0.20
 
 =head1 METHODS
 

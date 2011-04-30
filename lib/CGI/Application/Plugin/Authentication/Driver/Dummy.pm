@@ -2,6 +2,7 @@ package CGI::Application::Plugin::Authentication::Driver::Dummy;
 
 use strict;
 use warnings;
+our $VERSION = '0.20';
 
 use base qw(CGI::Application::Plugin::Authentication::Driver);
 
@@ -10,6 +11,9 @@ use base qw(CGI::Application::Plugin::Authentication::Driver);
 CGI::Application::Plugin::Authentication::Driver::Dummy - Dummy Authentication driver which
 lets anyone authenticate regardless of the password they provide
 
+=head1 VERSION
+
+This document describes CGI::Application::Plugin::Authentication::Driver::Dummy version 0.20
 
 =head1 SYNOPSIS
 

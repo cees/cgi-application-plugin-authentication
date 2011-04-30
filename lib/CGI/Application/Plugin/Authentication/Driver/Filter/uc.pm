@@ -2,6 +2,7 @@ package CGI::Application::Plugin::Authentication::Driver::Filter::uc;
 
 use strict;
 use warnings;
+our $VERSION = '0.20';
 
 sub check {
     return ( uc $_[2] eq $_[3] ) ? 1 : 0;
@@ -19,6 +20,9 @@ __END__
 
 CGI::Application::Plugin::Authentication::Driver::Filter::uc - Uppercase Filter
 
+=head1 VERSION
+
+This document describes CGI::Application::Plugin::Authentication::Driver::Filter::uc version 0.20
 
 =head1 METHODS
 

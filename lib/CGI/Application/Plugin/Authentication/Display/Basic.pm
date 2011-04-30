@@ -5,6 +5,7 @@ use 5.006;
 use strict;
 use warnings;
 use Carp;
+our $VERSION = '0.20';
 
 sub new {
     my $class = shift;
@@ -105,6 +106,14 @@ END
 
     return $html;
 }
+
+=head1 NAME
+
+CGI::Application::Plugin::Authentication::Display::Basic - XHTML compliant no frills login display driver
+
+=head1 VERSION
+
+This document describes CGI::Application::Plugin::Authentication::Display::Basic version 0.20
 
 =head1 DESCRIPTION 
 

@@ -2,6 +2,7 @@ package CGI::Application::Plugin::Authentication::Driver::HTPasswd;
 
 use strict;
 use warnings;
+our $VERSION = '0.20';
 
 use base qw(CGI::Application::Plugin::Authentication::Driver);
 use Apache::Htpasswd;
@@ -11,6 +12,9 @@ use Apache::Htpasswd;
 CGI::Application::Plugin::Authentication::Driver::HTPasswd - HTPasswd
 Authentication driver
 
+=head1 VERSION
+
+This document describes CGI::Application::Plugin::Authentication::Driver::HTPasswd version 0.20
 
 =head1 SYNOPSIS
 

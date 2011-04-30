@@ -7,12 +7,12 @@ if ( not $ENV{TEST_AUTHOR} ) {
     plan( skip_all => $msg );
 }
 
-eval { require Test::CheckChanges; };
+eval { require Test::ConsistentVersion; };
 
 if ( $@ ) {
-   my $msg = 'Test::CheckChanges required to check Changes';
+   my $msg = 'Test::ConsistentVersion required to check Changes';
    plan( skip_all => $msg );
 }
-Test::CheckChanges::ok_changes();
+Test::ConsistentVersion::check_consistent_versions();
 
 

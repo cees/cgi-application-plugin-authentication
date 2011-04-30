@@ -117,3 +117,4 @@ t/Store/Dummy.pm
 t/TestAppDriver.pm
 t/TestAppParsimony.pm
 t/TestAppStore.pm
+META.json
