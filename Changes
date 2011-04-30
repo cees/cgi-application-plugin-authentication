@@ -3,6 +3,7 @@ Revision history for Perl extension CGI::Application::Plugin::Authentication.
 0.20 Fri 29 Apr 2011
     Use Test::ConsistentVersion rather than Test::CheckVersion
     Fixed spelling errors and added descriptions - Closes #rt63839
+    Removed now unused login_styles method from core module
 
 0.19 Wed 24 Nov 2010
     Incoporated developer changes. Made pod tests only run when TEST_AUTHOR=1.
