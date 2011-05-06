@@ -225,7 +225,8 @@ sub _postrun_callback {
 # Take a raw cookie value, and decode and verify the data
 sub _decode {
     my $self = shift;
-    my $rawdata = MIME::Base64::decode(shift) || return;
+    my $rawdata = MIME::Base64::decode(shift);
+    return if not $rawdata;
 
     my %hash = map { split /\=/, $_, 2 } split /\0/, $rawdata;
 

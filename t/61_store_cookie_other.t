@@ -10,7 +10,7 @@ use CGI::Util;
 
 use Test::More;
 
-plan tests => 21;
+plan tests => 25;
 
 {
 
@@ -93,6 +93,24 @@ plan tests => 21;
     ok($store_entries, "Store entry created when calling protected page with valid login" );
     is($store_entries->{username}, 'test', "Store entry contained the right username" );
     ok(!$store_entries->{login_attempts}, "Store entry cleared login_attempts" );
+
+    my $nothing = $cgiapp->authen->store->_decode('');
+    is($nothing, undef, 'decode nothing');
+    use MIME::Base64;
+    my %hash = (c=>'I am not a checksum',f=>'Bubble');
+    my $rawdata = join("\0", map {join ('=', $_, $hash{$_}) } keys %hash);
+    my $nonsense;
+    warning_like {
+        $nonsense = $cgiapp->authen->store->_decode(MIME::Base64::encode($rawdata));
+    } $SECRET_WARN, 'decode warning';    
+    is($nonsense, undef, 'decode nonsense');
+
+    {
+        use CGI::Application::Plugin::Authentication::Store::Cookie;
+        $CGI::Application::Plugin::Authentication::Store::Cookie::SECRET = 'you would never guess';
+    }
+    $nonsense = $cgiapp->authen->store->_decode(MIME::Base64::encode($rawdata));
+    is($nonsense, undef, 'decode nonsense with secret');
 
 }
 
