@@ -30,7 +30,7 @@ Module::Build->new(
         'Test::Regression' => 0, # login_box generates a lot of HTML to verify
         'Test::Taint'      => 0,
         'Test::Without::Module'      => 0,
-        
+        'Readonly' => 0,
     },
     meta_merge => {
         resources => {
