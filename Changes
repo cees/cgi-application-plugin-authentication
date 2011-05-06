@@ -5,6 +5,8 @@ Revision history for Perl extension CGI::Application::Plugin::Authentication.
     Fixed spelling errors and added descriptions - Closes #rt63839
     Removed now unused login_styles method from core module
     Added more tests completing test coverage for the Cookie module.
+    Changed from using the Digest::SHA1 module to usuing Digest::SHA
+    instead - Closes #rt67840
 
 0.19 Wed 24 Nov 2010
     Incoporated developer changes. Made pod tests only run when TEST_AUTHOR=1.

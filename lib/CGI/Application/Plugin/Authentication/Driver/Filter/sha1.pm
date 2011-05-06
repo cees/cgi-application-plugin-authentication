@@ -28,13 +28,13 @@ sub filter {
     my $param = lc shift || 'hex';
     my $plain = shift;
 
-    Digest::SHA1->require || die "Digest::SHA1 is required to check SHA1 passwords";
+    Digest::SHA->require || die "Digest::SHA is required to check SHA1 passwords";
     if ( $param eq 'hex' ) {
-        return Digest::SHA1::sha1_hex($plain);
+        return Digest::SHA::sha1_hex($plain);
     } elsif ( $param eq 'base64' ) {
-        return Digest::SHA1::sha1_base64($plain);
+        return Digest::SHA::sha1_base64($plain);
     } elsif ( $param eq 'binary' ) {
-        return Digest::SHA1::sha1($plain);
+        return Digest::SHA::sha1($plain);
     }
     die "Unknown SHA1 format $param";
 }
@@ -79,7 +79,7 @@ is in.
 
 =head1 SEE ALSO
 
-L<CGI::Application::Plugin::Authentication::Driver>, L<Digest::SHA1>, perl(1)
+L<CGI::Application::Plugin::Authentication::Driver>, L<Digest::SHA>, perl(1)
 
 
 =head1 AUTHOR

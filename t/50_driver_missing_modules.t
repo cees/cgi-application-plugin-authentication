@@ -4,7 +4,7 @@ use Test::Taint;
 use Test::Exception;
 use lib qw(t);
 use Test::Without::Module qw(Digest::MD5);
-use Test::Without::Module qw(Digest::SHA1);
+use Test::Without::Module qw(Digest::SHA);
 use English qw(-no_match_vars);
 
 if ($OSNAME eq 'MSWin32') {
@@ -99,6 +99,6 @@ $ENV{CGI_APP_RETURN_ONLY} = 1;
     throws_ok { $driver->filter('md5:crypt_blah:password', 'hello123', '') }
          qr/Digest::MD5 is required to check MD5 passwords/, "Digest::MD5 not present";
     throws_ok { $driver->filter('sha1:crypt_blah:password', 'hello123', '') }
-         qr/Digest::SHA1 is required to check SHA1 passwords/, "Digest::SHA1 not present";
+         qr/Digest::SHA is required to check SHA1 passwords/, "Digest::SHA not present";
 };
 

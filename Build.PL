@@ -11,7 +11,7 @@ Module::Build->new(
         'UNIVERSAL::require'  => 0,
         'CGI'                 => '3.16',
         'MIME::Base64'        => 0,
-        'Digest::SHA1'        => 0,
+        'Digest::SHA'         => 0,
         'perl'                => 5.006,
     },
     recommends => {

@@ -4,8 +4,7 @@ use Test::More;
 use strict;
 use warnings;
 
-eval "use Digest::SHA1";
-plan skip_all => "Digest::SHA1 required for this test" if $@;
+use Digest::SHA;
 
 plan tests => 17;
 
@@ -13,7 +12,7 @@ use_ok('CGI::Application::Plugin::Authentication::Driver::Filter::sha1');
 my $class = 'CGI::Application::Plugin::Authentication::Driver::Filter::sha1';
 
 # Test binary
-my $binary = Digest::SHA1::sha1('123');
+my $binary = Digest::SHA::sha1('123');
 is($class->filter('binary', '123'), $binary, "filter");
 ok($class->check('binary', '123', $binary), "check passes");
 ok(!$class->check('binary', 'xxx', $binary), "check fails");
