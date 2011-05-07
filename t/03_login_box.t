@@ -1,4 +1,4 @@
-#!/usr/bin/perl -T
+#!/usr/bin/perl  -T
 use Test::More;
 use Test::Taint;
 use Test::Regression;
@@ -9,7 +9,7 @@ if ($OSNAME eq 'MSWin32') {
     plan skip_all => $msg;
     exit(0);
 }
-plan tests => 5;
+plan tests => 7;
 
 use strict;
 use warnings;
@@ -77,6 +77,13 @@ test_auth('red', {
 }, 1);
 test_auth('green', {
         BASE_COLOUR=>'#2cf816'
+}, 1);
+test_auth('grey_extra', {
+        BASE_COLOUR=>'#445588',
+}, 1);
+test_auth('grey_extra2', {
+        GREY_COLOUR=>'#334488',
+        BASE_COLOUR=>'#445588',
 }, 1);
 
 

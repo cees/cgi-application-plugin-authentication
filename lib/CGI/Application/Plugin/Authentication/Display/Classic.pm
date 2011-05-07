@@ -132,7 +132,8 @@ sub _login_styles {
     $colour{darker}  = $login_form->{DARKER_COLOUR} if $login_form->{DARKER_COLOUR};
     $colour{grey}    = $login_form->{GREY_COLOUR} if $login_form->{GREY_COLOUR};
     
-    if ( grep { ! defined $colour{$_} || index($colour{$_}, '%') >= 0 } qw(lighter light dark darker) ) {
+    my @undefined_colours =  grep { ! defined $colour{$_} || index($colour{$_}, '%') >= 0 } qw(lighter light dark darker);
+    if (@undefined_colours) {
         eval { require Color::Calc };
         if ($@ && $login_form->{BASE_COLOUR}) {
             warn "Color::Calc is required when specifying a custom BASE_COLOUR, and leaving LIGHTER_COLOUR, LIGHT_COLOUR, DARK_COLOUR or DARKER_COLOUR blank or when providing percentage based colour";
@@ -165,7 +166,10 @@ sub _login_styles {
                              : $colour{darker} =~ m#(\d{2})%#
                                     ? Color::Calc::dark_html($colour{base}, $1 / 100)
                              : $colour{darker};
-            $colour{grey}    ||= Color::Calc::bw_html($colour{base});
+            #$colour{grey}    ||= Color::Calc::bw_html($colour{base});
+            if (!$colour{grey}) {
+                $colour{grey} = Color::Calc::bw_html($colour{base});
+            }
         }
     }
     $colour{grey} ||= '#565656';
