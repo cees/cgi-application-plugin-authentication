@@ -1206,7 +1206,7 @@ sub initialize {
     my $field_names = $config->{CREDENTIALS} || [qw(authen_username authen_password)];
 
     my $query = $self->_cgiapp->query;
-    my @credentials = map { $query->param($_) } @$field_names;
+    my @credentials = map { scalar $query->param($_) } @$field_names;
     if ($credentials[0]) {
         # The user is trying to login
         # make sure if they are already logged in, that we log them out first
@@ -1221,7 +1221,7 @@ sub initialize {
                 $self->{is_new_login} = 1;
                 # See if we are remembering the username for this user
                 my $login_config = $config->{LOGIN_FORM} || {};
-                if ($login_config->{REMEMBERUSER_OPTION} && $query->param('authen_rememberuser')) {
+                if ($login_config->{REMEMBERUSER_OPTION} && scalar $query->param('authen_rememberuser')) {
                     my $cookie = $query->cookie(
                         -name   => $login_config->{REMEMBERUSER_COOKIENAME} || 'CAPAUTHTOKEN',
                         -value  => $username,
@@ -1371,7 +1371,7 @@ sub prerun_callback {
     $authen->setup_runmodes;
 
     # The user is asking to be logged out
-    if ($self->query->param('authen_logout')) {
+    if (scalar $self->query->param('authen_logout')) {
         # The user wants to logout
         return $self->authen->redirect_to_logout;
     }
@@ -1458,7 +1458,7 @@ sub authen_dummy_redirect {
 sub _detaint_destination {
     my $self = shift;
     my $query       = $self->_cgiapp->query;
-    my $destination = $query->param('destination');
+    my $destination = scalar $query->param('destination');
     my $regexp = $self->_config->{DETAINT_URL_REGEXP};
     if ($destination && $destination =~ /$regexp/) {
 	$destination = $1;
@@ -1498,7 +1498,7 @@ sub _detaint_username {
     my $query       = $self->_cgiapp->query;
     my $regexp = $self->_config->{DETAINT_USERNAME_REGEXP};
     my $username_value = "";
-    if (($query->param($username) || $query->cookie($cookiename) || '') =~ /$regexp/) {
+    if ((scalar $query->param($username) || $query->cookie($cookiename) || '') =~ /$regexp/) {
         $username_value = $1;
     }
     return $username_value;
@@ -1543,7 +1543,7 @@ sub _devpopup_report {
     my $field_names = $config->{CREDENTIALS} || [qw(authen_username authen_password)];
     my $query = $cgiapp->query;
     foreach my $name (@$field_names) {
-        push @list, [ $name, $query->param($name) || ''];
+        push @list, [ $name, scalar $query->param($name) || ''];
     }
     my $r=0;
     my $text = join $/, map {
