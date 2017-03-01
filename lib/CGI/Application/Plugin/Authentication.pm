@@ -11,6 +11,7 @@ use Scalar::Util ();
 use UNIVERSAL::require;
 use Carp;
 use CGI ();
+use overload;
 
 sub import {
     my $pkg     = shift;
