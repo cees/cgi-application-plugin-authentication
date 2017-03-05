@@ -1,4 +1,8 @@
-Revision history for Perl extension CGI::Application::Plugin::Authentication.
+Revision history for {{$dist->name}}
+
+{{$NEXT}}
+    Fix list-context calls to CGI::param().
+    Fix failing tests with newer CGI versions.
 
 0.20 Fri 29 Apr 2011
     Use Test::ConsistentVersion rather than Test::CheckVersion
@@ -22,7 +26,7 @@ Revision history for Perl extension CGI::Application::Plugin::Authentication.
     Removed deprecated *_DESTINATION parameters.
     Added first test for devpopup and fixed undefined variable therein.
     Cannot use Test::More 0.92 as that has an issue with subtests.
- 
+
 0.18 Mon Jun 23 2010
     Completed test coverage for Driver and below
     TABLES parameter was not made mandatory in DBI driver.
@@ -40,19 +44,19 @@ Revision history for Perl extension CGI::Application::Plugin::Authentication.
 0.17  Thu Jan 21 19:16 GMT 2010
     Bug Fixes
     rt53533 - During initialization deferred checking the users credentials to the last possible moment.
-    This ensures that sessions are not created unless actually required. 
+    This ensures that sessions are not created unless actually required.
     Also attempted to document which functions add session/cookie state.
 
     Build Fixes
     rt35030 - Upped the requirement on Apache::Htpasswd to 1.8 as this simplifies our dependency management.
 
-0.16  Mon Jan 18 22:18 GMT 2010 
+0.16  Mon Jan 18 22:18 GMT 2010
     Release dedicated to improving CPAN readiness - see RT:50670.
     Fixed spelling mistakes and added a test script that uses Test::Spelling.
     Fixed dependency on Test::Exception and added a test script that uses Test::Prereq::Build.
     Added test scripts to validate the MANIFEST file and Changes file.
     Removed files that are generated during './Build dist' from repository.
-    
+
 0.15  Tue Jan 12 15:42 GMT 2010
     Redist to fix tar format issues RT:45155 & 23705
 
@@ -60,7 +64,7 @@ Revision history for Perl extension CGI::Application::Plugin::Authentication.
     Bug Fixes
     - Make sure the 'action' attribute of the login_box includes the
       path_info in the URL (resolves RT:38049 patch by Alex Becker)
-    
+
     New Features
     - Add options for LIMIT and ORDER_BY to DBI driver (requested by tbone)
     - Add FORM_SUBMIT_METHOD option to the login box which allows you to
@@ -125,7 +129,7 @@ Revision history for Perl extension CGI::Application::Plugin::Authentication.
     API Changes
     - Removed ability to configure the DBI driver with a DSN and
       username/password.  CGI::Application::Plugin::DBH should be used for
-      that instead (Mark Stosberg) 
+      that instead (Mark Stosberg)
     - DBI driver defaults to $self->dbh() if DBH not provided (Mark Stosberg)
 
     Bug Fixes
