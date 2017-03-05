@@ -18,11 +18,11 @@ use CGI ();
 taint_checking_ok('taint checking is on');
 $ENV{CGI_APP_RETURN_ONLY} = 1;
 
-my $cap_options = 
+my $cap_options =
 {
         DRIVER => [ 'Generic', { user1 => '123' } ],
-	STORE => ['Cookie', SECRET => "Shhh, don't tell anyone", NAME => 'CAPAUTH_DATA', EXPIRY => '+1y'],
-        POST_LOGIN_CALLBACK => \&TestAppAuthenticate::post_login, 
+        STORE => ['Cookie', SECRET => "Shhh, don't tell anyone", NAME => 'CAPAUTH_DATA', EXPIRY => '+1y'],
+        POST_LOGIN_CALLBACK => \&TestAppAuthenticate::post_login,
 };
 
 {
@@ -37,7 +37,7 @@ my $cap_options =
         $self->start_mode('one');
         $self->run_modes([qw(one two)]);
         $self->authen->protected_runmodes(qw(two));
-    	$self->authen->config($cap_options);
+        $self->authen->config($cap_options);
     }
 
     sub one {
@@ -59,21 +59,21 @@ my $cap_options =
 
 test_auth();
 test_auth('cosmetic', {
-	TITLE=>'Aanmelden',
-	USERNAME_LABEL=>'Gebruikersnaam',
-	PASSWORD_LABEL=>'Wachtwoord',
-	SUBMIT_LABEL=>'Aanmelden',
-	COMMENT=>'Vul uw gebruikersnaam en wachtwoord in de velden hieronder.',
-	REMEMBERUSER_LABEL=>'Onthouden Gebruikersnaam',
-	INVALIDPASSWORD_MESSAGE=>'Ongeldige gebruikersnaam of wachtwoord <br /> (login poging% d)',
-	INCLUDE_STYLESHEET=>0
+        TITLE=>'Aanmelden',
+        USERNAME_LABEL=>'Gebruikersnaam',
+        PASSWORD_LABEL=>'Wachtwoord',
+        SUBMIT_LABEL=>'Aanmelden',
+        COMMENT=>'Vul uw gebruikersnaam en wachtwoord in de velden hieronder.',
+        REMEMBERUSER_LABEL=>'Onthouden Gebruikersnaam',
+        INVALIDPASSWORD_MESSAGE=>'Ongeldige gebruikersnaam of wachtwoord <br /> (login poging% d)',
+        INCLUDE_STYLESHEET=>0
 });
 test_auth('red', {
-	BASE_COLOUR=>'#884454',
-	LIGHT_COLOUR=>'49%',
-	LIGHTER_COLOUR=>'74%',
-	DARK_COLOUR=>'29%',
-	DARKER_COLOUR=>'59%'
+        BASE_COLOUR=>'#884454',
+        LIGHT_COLOUR=>'49%',
+        LIGHTER_COLOUR=>'74%',
+        DARK_COLOUR=>'29%',
+        DARKER_COLOUR=>'59%'
 }, 1);
 test_auth('green', {
         BASE_COLOUR=>'#2cf816'
@@ -93,12 +93,12 @@ sub test_auth {
     my $login_form = shift;
     my $color_calc_required = shift;
     if (defined $color_calc_required) {
-	eval "use Color::Calc";
-	if ($@) {
-		diag "Color::Calc required for this sub test";
-		pass($test_name);
-		return;
-	}
+        eval "use Color::Calc";
+        if ($@) {
+                diag "Color::Calc required for this sub test";
+                pass($test_name);
+                return;
+        }
     }
     subtest $test_name => sub {
        plan tests => 11;
