@@ -3,7 +3,6 @@ _build/
 blib/
 *.tar.gz
 *.SKIP
-*.yml
 *.bak
 *.tmp
 Build
