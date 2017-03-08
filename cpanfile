@@ -1,4 +1,4 @@
-requires 'perl' => '5.006';
+requires 'perl' => '5.008';
 
 requires 'Attribute::Handlers';
 requires 'CGI' => '3.16';
