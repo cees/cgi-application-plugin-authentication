@@ -25,7 +25,7 @@ sub check {
 
 sub filter {
     my $class = shift;
-    my $param = lc shift || 'hex';
+    my $param = lc (shift || 'hex');
     my $plain = shift;
 
     Digest::MD5->require || die "Digest::MD5 is required to check MD5 passwords";

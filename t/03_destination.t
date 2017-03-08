@@ -175,7 +175,6 @@ subtest 'POST_LOGIN_RUNMODE usage' => sub {
 subtest 'LOGOUT usage' => sub {
         plan tests => 2;
         local $cap_options->{POST_LOGIN_RUNMODE} = 'three';
-        local $cap_options->{POST_LOGIN_URL} = 'http://www.perl.org';
         my $query = CGI->new( { authen_username => 'user1', rm => 'two', authen_password=>'123', authen_logout=>1, destination=>'http://news.bbc.co.uk' } );
 
         my $cgiapp = TestAppAuthenticate->new( QUERY => $query );

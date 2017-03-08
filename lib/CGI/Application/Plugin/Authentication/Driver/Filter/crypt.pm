@@ -14,10 +14,7 @@ sub check {
 }
 
 sub filter {
-    my $class = shift;
-    my $param = lc shift; # not used
-    my $plain = shift;
-    my $salt  = shift;
+    my ($class, undef, $plain, $salt) = @_;
     if (!$salt) {
         my @alphabet = ( '.', '/', 0 .. 9, 'A' .. 'Z', 'a' .. 'z' );
         $salt = join '', @alphabet[ rand 64, rand 64 ];

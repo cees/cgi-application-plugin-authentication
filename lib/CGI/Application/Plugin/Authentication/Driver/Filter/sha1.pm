@@ -25,7 +25,7 @@ sub check {
 
 sub filter {
     my $class = shift;
-    my $param = lc shift || 'hex';
+    my $param = lc (shift || 'hex');
     my $plain = shift;
 
     Digest::SHA->require || die "Digest::SHA is required to check SHA1 passwords";
