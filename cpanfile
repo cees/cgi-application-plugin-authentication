@@ -18,7 +18,7 @@ on 'test' => sub {
    requires 'Readonly';
    requires 'Test::Exception';
    requires 'Test::MockObject';
-   requires 'Test::More' => '0.93';
+   requires 'Test::More' => '1.302015';
    requires 'Test::NoWarnings';
    requires 'Test::Regression'; # login_box generates a lot of HTML to verify
    requires 'Test::Taint';
