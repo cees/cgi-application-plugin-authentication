@@ -8,3 +8,4 @@ blib/
 Build
 Makefile.PL
 README
+CGI-Application-Plugin-Authentication-*
