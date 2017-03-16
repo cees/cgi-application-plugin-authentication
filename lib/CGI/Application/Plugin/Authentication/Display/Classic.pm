@@ -1,11 +1,11 @@
 package CGI::Application::Plugin::Authentication::Display::Classic;
+
 use base qw(CGI::Application::Plugin::Authentication::Display);
 
 use 5.006;
 use strict;
 use warnings;
 use Carp;
-our $VERSION = '0.20';
 
 sub new {
     my $class = shift;
@@ -313,10 +313,6 @@ END
 =head1 NAME
 
 CGI::Application::Plugin::Authentication::Display::Classic - login box that works out of the box
-
-=head1 VERSION
-
-This document describes CGI::Application::Plugin::Authentication::Display::Classic version 0.20
 
 =head1 DESCRIPTION 
 

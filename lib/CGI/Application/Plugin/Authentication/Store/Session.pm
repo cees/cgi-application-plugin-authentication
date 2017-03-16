@@ -2,17 +2,12 @@ package CGI::Application::Plugin::Authentication::Store::Session;
 
 use strict;
 use warnings;
-our $VERSION = '0.20';
 
 use base qw(CGI::Application::Plugin::Authentication::Store);
 
 =head1 NAME
 
 CGI::Application::Plugin::Authentication::Store::Session - Session based Store
-
-=head1 VERSION
-
-This document describes CGI::Application::Plugin::Authenticatio::Store::Session version 0.20
 
 =head1 SYNOPSIS
 

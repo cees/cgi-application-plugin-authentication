@@ -2,7 +2,6 @@ package CGI::Application::Plugin::Authentication::Store::Cookie;
 
 use strict;
 use warnings;
-our $VERSION = '0.20';
 
 use base qw(CGI::Application::Plugin::Authentication::Store);
 use MIME::Base64 ();
@@ -26,10 +25,6 @@ our $SECRET = '';
 =head1 NAME
 
 CGI::Application::Plugin::Authentication::Store::Cookie - Cookie based Store
-
-=head1 VERSION
-
-This document describes CGI::Application::Plugin::Authentication version 0.20
 
 =head1 SYNOPSIS
 

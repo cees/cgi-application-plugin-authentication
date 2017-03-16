@@ -4,7 +4,6 @@ use 5.006;
 use strict;
 use warnings;
 use Carp;
-our $VERSION = '0.20';
 
 sub new {
     my $class = shift;
@@ -80,10 +79,6 @@ sub login_title {
 =head1 NAME
 
 CGI::Application::Plugin::Authentication::Display - Generate bits of HTML needed for authentication
-
-=head1 VERSION
-
-This document describes CGI::Application::Plugin::Authentication::Display version 0.20
 
 =head1 DESCRIPTION
 

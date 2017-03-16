@@ -2,7 +2,6 @@ package CGI::Application::Plugin::Authentication::Driver::Filter::md5;
 
 use strict;
 use warnings;
-our $VERSION = '0.20';
 
 use UNIVERSAL::require;
 
@@ -46,10 +45,6 @@ __END__
 =head1 NAME
 
 CGI::Application::Plugin::Authentication::Driver::Filter::md5 - MD5 filter
-
-=head1 VERSION
-
-This document describes CGI::Application::Plugin::Authentication::Driver::Filter::md5 version 0.20
 
 =head1 METHODS
 
